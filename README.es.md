@@ -6,9 +6,7 @@
 
 Este repositorio contiene la APK compilada, el asistente de instalación ADB y las guías. No distribuye el código de la aplicación Android, el proyecto para compilarla ni archivos de firma. Los scripts Python sí están incluidos porque el asistente de instalación los necesita para funcionar.
 
-[Descargar el instalador para PC](dist/HorizonX-PC-3.4.0.zip)
-
-[English](README.md) · [Televisores compatibles](docs/COMPATIBILIDAD.md) · [Descargar la APK](dist/HorizonX-3.4.0.apk)
+[English](README.md) · [Televisores compatibles](docs/COMPATIBILIDAD.md) · [Descargar la APK](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.4.0.apk)
 
 ![HorizonX en español](docs/media/home-es.jpg)
 
@@ -33,32 +31,47 @@ Este repositorio contiene la APK compilada, el asistente de instalación ADB y l
 
 ## Instalación
 
-### 1. Desde un USB (sin ordenador)
+Ambos métodos instalan **la misma APK**. No necesitas compilar, tener Android Studio ni una cuenta de GitHub.
 
-1. Copia `HorizonX-3.4.0.apk` a un pendrive e instálala con un gestor de archivos en la tele.
-2. Ajustes del televisor → Sistema → Información → pulsa 7 veces **Compilación**. Después, en **Opciones de desarrollador**, activa **Depuración USB**.
-3. Abre HorizonX y acepta **«¿Permitir depuración?»** con **Permitir siempre**.
+### 1. APK para USB
 
-Con ese único permiso, HorizonX hace el resto sola:
+1. [Descarga HorizonX-3.4.0.apk](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.4.0.apk) en el ordenador o teléfono. Guarda el archivo APK, no la página de GitHub.
+2. Copia la APK a un pendrive, conéctalo al televisor y ábrela con un gestor de archivos. Si Android lo pide, permite a ese gestor instalar aplicaciones desconocidas.
+3. Instala o actualiza HorizonX y ábrelo. Para actualizar, no desinstales la versión anterior.
+4. Para activar Inicio y el volumen propio, sigue **Ajustes → Configura HorizonX**. Cuando el firmware lo permita, activa **Depuración USB/ADB** en Opciones de desarrollador y acepta **«Permitir depuración» → «Permitir siempre»** para HorizonX.
 
-- se concede sus permisos;
-- aplica la limpieza segura;
-- **se pone como pantalla de inicio**, apartando Google TV sin borrarlo;
-- activa su barra de volumen en cada arranque.
+Instalar la APK por sí solo no fuerza la elección de Inicio. Tras autorizar su ADB local, esta versión intenta conceder sus permisos, aplicar la limpieza por modelo y seleccionar Home. Son cambios en el televisor: puede apartarse el launcher Google TV, sin eliminar Android. Depende del firmware; activar Depuración USB no garantiza que el ADB local esté disponible en todas las teles. El flujo desde una instalación inicial y su continuidad tras reiniciar no están verificados en todos los modelos. Si la configuración no se completa, utiliza el PC. Sin ese acceso, HorizonX puede abrirse como una app.
 
-Sin depuración, HorizonX funciona como una app normal. En *Ajustes → Configura HorizonX* ofrece el selector de inicio del propio televisor cuando el firmware lo permite. En los modelos Google TV, el inicio original sigue mandando hasta usar la depuración.
+### 2. ADB desde un PC
 
-### 2. Con un ordenador (ADB)
+1. [Descarga el paquete ADB para PC (ZIP)](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-PC-3.4.0.zip) y **descomprímelo**. Ya contiene la APK; este ZIP no se instala en el televisor.
+2. Instala **Python 3.10+** y [Android Platform Tools](https://developer.android.com/tools/releases/platform-tools). Añade Platform Tools al PATH o deja su carpeta `platform-tools` junto a `horizonx.py`.
+3. Abre la carpeta extraída **HorizonX-PC**. En Windows ejecuta `HorizonX.cmd`; en Linux/macOS abre una terminal allí y ejecuta `sh HorizonX.sh`. También sirve `python3 horizonx.py` (`py -3 horizonx.py` en Windows).
+4. Elige **1. Conectar televisor**, autoriza la depuración en la TV y después **2. Instalar HorizonX**. Acepta cambiar Inicio solo si quieres HorizonX como pantalla principal. La optimización separada muestra primero sus cambios. Al terminar, pulsa Home si seleccionaste HorizonX como Inicio, o ábrelo desde las aplicaciones de la TV.
 
-Instala Python 3.10+ y [Android Platform Tools](https://developer.android.com/tools/releases/platform-tools). Después haz doble clic en `companion/HorizonX.sh` (Linux/macOS) o `companion/HorizonX.cmd` (Windows) y sigue el menú numerado: conectar, instalar, optimizar, deshacer y compatibilidad.
+Si la depuración inalámbrica pide emparejamiento, utiliza las dos direcciones y puertos que muestra tu televisor antes de abrir el asistente. Consulta la [guía paso a paso](docs/GUIA.md#2-instalar-con-un-pc-por-adb).
+
+También puedes usar **Code → Download ZIP** o clonar esta distribución y abrir el asistente desde `companion/`:
+
+```sh
+git clone https://github.com/2207juan/HorizonX.git
+cd HorizonX/companion
+python3 horizonx.py
+```
+
+Clonar descarga los instaladores, no el código privado de Android. El asistente envía la APK por ADB; en este método no necesitas pendrive.
 
 ### 3. App Downloader
 
-En televisores con la app *Downloader*, escribe el enlace directo a `dist/HorizonX-3.4.0.apk` de este repositorio y sigue desde el paso 2 del método 1.
+Introduce este enlace directo en Downloader. Tras instalar, sigue la configuración del método USB:
+
+```text
+https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.4.0.apk
+```
 
 ### Deshacer
 
-En *Ajustes → Sistema*: **Deshacer la optimización**, **Volver al inicio original** y desactivar **Volumen de HorizonX**. El asistente de PC ofrece lo mismo.
+En **Ajustes → Sistema** están **Deshacer la optimización**, **Volver al inicio original** y el interruptor **Volumen de HorizonX**. Conserva las copias que creen la app y el asistente. Consulta la [guía](docs/GUIA.md).
 
 ## Créditos
 

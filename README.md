@@ -6,9 +6,7 @@
 
 This repository provides the compiled APK, the ADB installation assistant and user guides. The Android application source, build project and signing files are not distributed here. Python scripts are included because the installation assistant needs them to run.
 
-[Download the PC installer](dist/HorizonX-PC-3.4.0.zip)
-
-[Español](README.es.md) · [Compatible TVs](docs/COMPATIBLE_TVS.md) · [Download the APK](dist/HorizonX-3.4.0.apk)
+[Español](README.es.md) · [Compatible TVs](docs/COMPATIBLE_TVS.md) · [Download the APK](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.4.0.apk)
 
 ![HorizonX in English](docs/media/home-en.jpg)
 
@@ -33,27 +31,47 @@ This repository provides the compiled APK, the ADB installation assistant and us
 
 ## Install
 
-### 1. From a USB drive (no computer)
+Both methods install the **same APK**. No Android project, compilation or GitHub account is needed.
 
-1. Copy `HorizonX-3.4.0.apk` to a USB drive and install it with a file manager on the TV.
-2. TV settings → System → About → press **Build** 7 times. Then in **Developer options**, turn on **USB debugging**.
-3. Open HorizonX and accept **"Allow debugging?"** with **Always allow**.
+### 1. APK for a USB drive
 
-With that single permission HorizonX does the rest by itself: it grants its own permissions, applies the safe clean-up, **becomes the home screen** (setting Google TV aside without deleting it) and turns on its volume bar at every boot.
+1. [Download HorizonX-3.4.0.apk](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.4.0.apk) to your computer or phone. Save the file itself, not the GitHub web page.
+2. Copy the APK to a USB drive, plug it into the TV and open it with a file manager. Allow that file manager to install unknown apps if Android asks.
+3. Install or update HorizonX, then open it. Do not uninstall an existing installation to update it.
+4. To activate the additional Home/volume features, follow **Settings → Set up HorizonX**. Where supported, enable **USB/ADB debugging** in the TV's developer options and accept HorizonX's **Allow debugging → Always allow** prompt.
 
-Without debugging, HorizonX works as a normal app. *Settings → Set up* offers the TV's own home picker where the firmware allows it. Google TV models keep their stock home until debugging is used.
+Installing the APK alone does not force the Home selection. After ADB authorization, this version attempts to grant its permissions, apply its model-based clean-up and select Home. These changes affect the TV; Google TV's launcher can be disabled without deleting Android. Support depends on the firmware. The local ADB connection is not available on every TV merely by enabling USB debugging. Initial setup from a freshly installed TV and restart recovery have not been verified on every model; use the PC route if setup cannot complete. Without that access, HorizonX can still open as an app.
 
-### 2. With a computer (ADB)
+### 2. ADB from a PC
 
-Install Python 3.10+ and [Android Platform Tools](https://developer.android.com/tools/releases/platform-tools). Then double-click `companion/HorizonX.sh` (Linux/macOS) or `companion/HorizonX.cmd` (Windows) and follow the numbered menu: connect, install, optimise, undo, compatibility.
+1. [Download the ADB package for PC (ZIP)](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-PC-3.4.0.zip) and **extract it**. It already includes the APK; do not copy this ZIP onto the TV.
+2. Install **Python 3.10+** and [Android Platform Tools](https://developer.android.com/tools/releases/platform-tools). Put Platform Tools in your PATH, or extract its `platform-tools` folder beside `horizonx.py`.
+3. Open the extracted **HorizonX-PC** folder. Windows: run `HorizonX.cmd`. Linux/macOS: run `sh HorizonX.sh` in a terminal. Alternatively run `python3 horizonx.py` (`py -3 horizonx.py` on Windows).
+4. Choose **1. Connect TV**, authorize debugging on the TV, then **2. Install HorizonX**. Accept the Home selection only if you want HorizonX as your home screen. The separate optimisation option displays its proposed changes first. When finished, press Home if you selected HorizonX as your home screen, or open HorizonX from the TV app list.
+
+Wireless debugging with pairing uses two ports. Pair and connect using the exact addresses shown by your TV, then start the assistant; see the [step-by-step guide](docs/GUIA.md#2-instalar-con-un-pc-por-adb).
+
+You can also download **Code → Download ZIP** or clone this public distribution, then run the assistant from `companion/`:
+
+```sh
+git clone https://github.com/2207juan/HorizonX.git
+cd HorizonX/companion
+python3 horizonx.py
+```
+
+Cloning downloads the installation files, not the private Android source. The assistant transfers the APK over ADB; you do not need a USB drive for this route.
 
 ### 3. Downloader app
 
-On TVs with the *Downloader* app, enter the raw link to `dist/HorizonX-3.4.0.apk` from this repository, then continue from step 2 of method 1.
+Enter this direct APK URL in Downloader, then follow the USB method's setup steps after installation:
+
+```text
+https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.4.0.apk
+```
 
 ### Undo
 
-*Settings → System*: **Undo the optimisation**, **Back to the original home**, and turn off **HorizonX volume**. The PC assistant offers the same options.
+**Settings → System** offers **Undo the optimisation**, **Back to the original home**, and the **HorizonX volume** switch. Keep any backups created by the app or PC assistant. See the [guide](docs/GUIA.md).
 
 ## Credits
 
