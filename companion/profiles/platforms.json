@@ -1,0 +1,93 @@
+{
+ "schema": 1,
+ "revision": "2026-10-23",
+ "description": "Qué permite cada sistema de TV. La APK de HorizonX solo se ejecuta en Android TV / Google TV / Fire OS. Fuentes: CleanYourTV (252 modelos), documentación Android y pruebas propias en Philips TA7.",
+ "capabilities": {
+  "apk": "Se puede instalar la APK (USB, Downloader o ADB)",
+  "adb": "Depuración ADB disponible en el firmware de venta",
+  "debloat": "Deshabilitar apps del sistema de forma reversible con pm disable-user",
+  "home": "HorizonX puede quedar como pantalla de inicio (botón Home)",
+  "volume": "La barra de volumen propia puede sustituir a la del sistema",
+  "settings_key": "El botón de ajustes del mando puede abrir los ajustes de HorizonX"
+ },
+ "platforms": [
+  {
+   "id": "google-tv",
+   "name": "Google TV (Android 10–14)",
+   "detect": {"feature": "com.google.android.feature.GOOGLE_EXPERIENCE", "packages": ["com.google.android.apps.tv.launcherx"]},
+   "apk": true, "adb": true, "debloat": true,
+   "home": "adb",
+   "volume": "accessibility",
+   "settings_key": "accessibility",
+   "notes": "Mientras launcherx esté activo, Home vuelve siempre a Google TV: hay que apartarlo (reversible) desde el asistente de PC. Sin PC, el servicio de accesibilidad de HorizonX puede redirigir el botón Home.",
+   "brands": ["Philips (TA7, R8G, 2023+)", "Sony Bravia (2021+)", "TCL (C/P/Q, 2021+)", "Hisense (Google TV)", "Xiaomi TV A/A Pro", "Chromecast con Google TV", "Google TV Streamer", "onn 4K", "Motorola", "Kalley", "Panasonic", "Sharp", "Toshiba (Google TV)", "Skyworth", "Thomson", "Hitachi", "JVC", "RCA", "Aiwa", "CHiQ", "Kogan", "Nokia Streaming Box", "Tivo Stream 4K", "Xgimi"]
+  },
+  {
+   "id": "android-tv",
+   "name": "Android TV (8–12, launcher clásico)",
+   "detect": {"feature": "android.software.leanback", "packages": ["com.google.android.tvlauncher", "com.google.android.leanbacklauncher"]},
+   "apk": true, "adb": true, "debloat": true,
+   "home": "selector",
+   "volume": "accessibility",
+   "settings_key": "accessibility",
+   "notes": "Muchos modelos muestran el selector de inicio al pulsar Home tras instalar. Xiaomi con PatchWall y algunos TCL envían KEYCODE_ALL_APPS en lugar de Home: lo corrige el servicio de accesibilidad.",
+   "brands": ["Philips (2017–2022, org.droidtv)", "Sony Bravia (2015–2020)", "TCL (Android TV 9–11)", "Xiaomi Mi TV / Mi Box", "NVIDIA Shield", "Hisense (Android TV)", "Sharp Aquos", "Toshiba", "OnePlus TV", "Realme", "Haier", "Vu", "Nokia"]
+  },
+  {
+   "id": "fire-os",
+   "name": "Amazon Fire OS (Fire TV Stick, televisores Fire TV)",
+   "detect": {"packages": ["com.amazon.tv.launcher"]},
+   "apk": true, "adb": true, "debloat": "partial",
+   "home": "accessibility",
+   "volume": "accessibility",
+   "settings_key": "no",
+   "notes": "Amazon impide sustituir su inicio. HorizonX se abre como app y el servicio de accesibilidad puede devolver Home a HorizonX. El debloat funciona salvo com.amazon.tv.launcher, firehomestarter y ajustes (pantalla negra si se tocan).",
+   "brands": ["Fire TV Stick (2018+)", "Fire TV Cube", "Toshiba Fire TV", "Hisense Fire TV", "TCL Fire TV", "Insignia Fire TV"]
+  },
+  {
+   "id": "tizen",
+   "name": "Samsung Tizen",
+   "apk": false, "adb": false, "debloat": false, "home": "no", "volume": "no", "settings_key": "no",
+   "notes": "No ejecuta APK ni tiene ADB. Solo existe una API de mando por red (puertos 8001/8002) para pulsar teclas y lanzar apps. Mejora posible: desactivar anuncios y 'Información de visualización' en los menús y bloquear dominios de publicidad con DNS. Alternativa real: conectar un Chromecast/Google TV o Fire TV y usar HorizonX allí.",
+   "brands": ["Samsung (todos los Smart TV desde 2015)"]
+  },
+  {
+   "id": "webos",
+   "name": "LG webOS",
+   "apk": false, "adb": false, "debloat": false, "home": "no", "volume": "no", "settings_key": "no",
+   "notes": "No ejecuta APK. Existen launchers web propios con Developer Mode (webos-vibehack) y limpieza solo con root (Homebrew Channel). Alternativa: un dispositivo Google TV por HDMI.",
+   "brands": ["LG (todos los Smart TV)"]
+  },
+  {
+   "id": "vidaa",
+   "name": "Hisense / Toshiba VIDAA (Linux)",
+   "apk": false, "adb": false, "debloat": false, "home": "no", "volume": "no", "settings_key": "no",
+   "notes": "VIDAA OS no es Android. Ojo: algunos Hisense chinos llaman 'VIDAA' a una capa sobre Android 11 (MT9653); esos sí aparecen en la base de datos y aceptan ADB.",
+   "brands": ["Hisense VIDAA U", "Toshiba VIDAA"]
+  },
+  {
+   "id": "roku",
+   "name": "Roku OS",
+   "apk": false, "adb": false, "debloat": false, "home": "no", "volume": "no", "settings_key": "no",
+   "notes": "Solo control remoto por ECP (puerto 8060). Sin instalación de apps externas fuera del modo desarrollador de canales.",
+   "brands": ["Roku TV (TCL, Hisense, Sharp, onn con Roku)", "Roku Express/Stick"]
+  },
+  {
+   "id": "other-closed",
+   "name": "Otros sistemas cerrados",
+   "apk": false, "adb": false, "debloat": false, "home": "no", "volume": "no", "settings_key": "no",
+   "notes": "Apple tvOS, Huawei HarmonyOS TV, Panasonic My Home Screen (Firefox OS), Titan OS (Philips/JVC económicos 2024+), Whale OS y Saphi no admiten APK. Philips con Titan OS o Saphi no son Android aunque sean de la misma marca.",
+   "brands": ["Apple TV", "Huawei Vision", "Panasonic MHS", "Philips Titan OS / Saphi", "Whale OS (Zeasn)"]
+  }
+ ],
+ "brand_notes": {
+  "Philips": "Android/Google TV de TP Vision (org.droidtv.*) o fabricados por Skyworth/MOKA según región. Nunca deshabilitar org.droidtv, org.droidtv.icp, ambisvc (Ambilight) ni eum. En TA7 el botón de ajustes (scancode 357) depende de launcherx o del servicio de HorizonX.",
+  "Sony": "Conservar com.sony.dtv.tvinput.*, braviasync* (HDMI-CEC), remotepairing, tvx y todo com.mediatek.*. Samba TV (tv.samba.ssm) es seguimiento.",
+  "TCL": "Conservar com.tcl.tv, tvinput, suspension (menú de entradas), dashboard y autopair. com.tcl.bi y logkit son telemetría.",
+  "Xiaomi": "PatchWall: el botón Home envía KEYCODE_ALL_APPS. com.miui.analytics y csi son telemetría.",
+  "Hisense": "En Android, no tocar Smartsense/AIoT (hubo casos de Recovery). Los anuncios son com.hisense.service.ad y business.ad.",
+  "Amazon": "Fire OS: no tocar com.amazon.tv.launcher, firehomestarter ni ajustes.",
+  "Samsung": "Tizen: no compatible con la APK. Ver plataforma tizen.",
+  "LG": "webOS: no compatible con la APK. Ver plataforma webos."
+ }
+}
