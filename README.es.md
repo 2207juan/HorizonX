@@ -1,6 +1,6 @@
 # HorizonX
 
-**Pantalla de inicio ligera y bonita para Android TV y Google TV.** Reemplaza el inicio original, quita publicidad y telemetría, y cambia la barra de volumen del sistema por una animación propia.
+**Mejora del rendimiento y de la interfaz para televisores Android TV y Google TV.**
 
 [English](README.md) · [Televisores compatibles](docs/COMPATIBILIDAD.md) · [Descargar la APK](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.4.0.apk)
 

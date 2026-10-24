@@ -1,6 +1,6 @@
 # HorizonX
 
-**A light, good-looking home screen for Android TV and Google TV.** It replaces the stock home screen, removes ads and telemetry, and swaps the system volume bar for its own animated one.
+**Performance and interface improvements for Android TV and Google TV televisions.**
 
 [Español](README.es.md) · [Compatible TVs](docs/COMPATIBLE_TVS.md) · [Download the APK](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.4.0.apk)
 
