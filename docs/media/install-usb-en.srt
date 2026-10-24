@@ -1,0 +1,79 @@
+1
+00:00:00,000 --> 00:00:07,000
+Download the APK
+
+2
+00:00:07,000 --> 00:00:14,000
+Copy the file to USB
+
+3
+00:00:14,000 --> 00:00:28,000
+3 · Connect the USB drive to your TV and open your file manager.
+
+4
+00:00:28,000 --> 00:00:42,000
+4 · Select your USB drive and find the folder where you saved the APK.
+
+5
+00:00:42,000 --> 00:00:56,000
+5 · Open HorizonX-3.5.1.apk.
+
+6
+00:00:56,000 --> 00:01:01,700
+6 · Select Install. If HorizonX is already installed, you will see Update instead.
+
+7
+00:01:01,700 --> 00:01:09,700
+If Android blocks installation
+
+8
+00:01:09,700 --> 00:01:23,700
+7 · Confirm Install or Update in the Android window.
+
+9
+00:01:23,700 --> 00:01:29,400
+8 · When Android confirms the installation, select Open.
+
+10
+00:01:29,400 --> 00:01:43,400
+9 · In HorizonX, open the Settings gear.
+
+11
+00:01:43,400 --> 00:01:57,400
+10 · In System, select Set up HorizonX.
+
+12
+00:01:57,400 --> 00:02:03,100
+11 · Select TV information.
+
+13
+00:02:03,100 --> 00:02:12,100
+12 · Select Build and press OK seven times to enable Developer options.
+
+14
+00:02:12,100 --> 00:02:26,100
+13 · Return to Set up HorizonX and open Developer options.
+
+15
+00:02:26,100 --> 00:02:37,267
+14 · Enable USB debugging (or ADB debugging, depending on your TV).
+
+16
+00:02:37,267 --> 00:02:51,267
+15 · Return to HorizonX and select Authorize ADB connection.
+
+17
+00:02:51,267 --> 00:03:05,267
+16 · If Allow debugging? appears, select Always allow and confirm.
+
+18
+00:03:05,267 --> 00:03:19,267
+17 · Under Use HorizonX as home, select Activate Home.
+
+19
+00:03:19,267 --> 00:03:33,267
+18 · Press Home on your remote: HorizonX should open as your home screen.
+
+20
+00:03:33,267 --> 00:03:42,354
+Done. Pressing Home will return you to HorizonX.

@@ -21,12 +21,13 @@
 !/companion/horizonx/optimize.py
 !/companion/profiles/platforms.json
 !/companion/profiles/tv-database.json
-!/dist/HorizonX-3.4.0-SHA256SUMS
-!/dist/HorizonX-3.4.0.apk
-!/dist/HorizonX-PC-3.4.0.zip
+!/dist/HorizonX-3.5.1-SHA256SUMS
+!/dist/HorizonX-3.5.1.apk
+!/dist/HorizonX-PC-3.5.1.zip
 !/docs/COMPATIBILIDAD.md
 !/docs/COMPATIBLE_TVS.md
 !/docs/GUIA.md
+!/docs/INSTALLATION.md
 !/docs/media/apps-en.jpg
 !/docs/media/continue-es.jpg
 !/docs/media/demo-es.gif
@@ -36,6 +37,10 @@
 !/docs/media/home-es.jpg
 !/docs/media/horizonx-after-en.png
 !/docs/media/horizonx-after-es.png
+!/docs/media/install-usb-en.mp4
+!/docs/media/install-usb-en.srt
+!/docs/media/install-usb-es.mp4
+!/docs/media/install-usb-es.srt
 !/docs/media/settings-en.jpg
 !/docs/media/settings-es.jpg
 !/licenses/CleanYourTV-MIT.txt

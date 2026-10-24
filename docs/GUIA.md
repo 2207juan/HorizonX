@@ -1,20 +1,29 @@
-# Guía de instalación de HorizonX 3.4.0
+# Guía de instalación de HorizonX 3.5.1
 
 La APK es la aplicación para el televisor. El ZIP para PC es un asistente Python que envía esa misma APK mediante ADB; no es otra versión de HorizonX. No necesitas el código Android, compilar ni iniciar sesión en GitHub para descargar.
 
-## 1. Instalar desde un USB (sin PC)
+## 1. Instalar desde un USB
 
-1. [Descarga el archivo HorizonX-3.4.0.apk](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.4.0.apk). Guarda el archivo, no la página web. Cópialo a un pendrive y conéctalo al televisor.
-2. Abre un gestor de archivos (por ejemplo «Cx Explorador» o «File Commander») e instala la APK. Si pide permiso para instalar apps desconocidas, concédelo a ese gestor.
-3. En el televisor: **Ajustes → Sistema → Información** y pulsa 7 veces **Compilación**. Después, en **Opciones de desarrollador**, activa **Depuración USB / Depuración ADB**.
-4. Abre HorizonX. Cuando aparezca **«¿Permitir depuración?»**, marca **Permitir siempre** y acepta.
-5. En **Ajustes → Configura HorizonX**, sigue la configuración. Si el firmware permite su ADB local y lo has autorizado, esta versión intenta activar permisos, volumen, limpieza por modelo y Home. Puede apartar el launcher Google TV, sin borrar Android.
+1. [Descarga HorizonX-3.5.1.apk](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.5.1.apk) en un PC o teléfono y copia el archivo a un USB.
+2. Conecta el USB al televisor y abre tu gestor de archivos. Selecciona tu unidad USB, busca la carpeta donde guardaste la APK y abre el archivo.
+3. Pulsa **Instalar**. Si HorizonX ya estaba instalado, verás **Actualizar**. Si Android bloquea la instalación, abre los ajustes de ese aviso, permite instalar desde ese gestor y vuelve al archivo.
+4. Confirma la instalación en la ventana de Android y pulsa **Abrir** al terminar.
+5. En HorizonX, abre el **engranaje de Ajustes → Sistema → Configurar HorizonX**.
+6. Pulsa **Información del televisor**. Selecciona **Compilación** y pulsa OK siete veces. Si las opciones de desarrollador ya estaban habilitadas, continúa.
+7. Vuelve a **Configurar HorizonX → Opciones de desarrollador** y deja activada **Depuración USB** o **Depuración ADB**, según tu modelo. No desactives la depuración si estás conectado desde un PC.
+8. Vuelve a HorizonX y pulsa **Autorizar conexión ADB**. Si aparece **¿Permitir depuración?**, marca **Permitir siempre** y acepta.
+9. En la misma pantalla, entra en **Usar HorizonX como inicio → Activar inicio**.
+10. Pulsa **Home** en el mando, incluso desde otra aplicación, para comprobar que abre HorizonX.
 
-Instalar por USB solo instala la app: la selección de Inicio y los permisos son pasos adicionales. Depuración USB no garantiza que un modelo exponga el ADB local que necesita HorizonX. Si no aparece el permiso o no se completa la configuración, prueba el método PC. La instalación inicial en todos los modelos y el arranque posterior no están certificados. Sin acceso ADB puedes abrir HorizonX como aplicación normal.
+[Vídeo completo en español](https://raw.githubusercontent.com/2207juan/HorizonX/main/docs/media/install-usb-es.mp4) · [Video in English](https://raw.githubusercontent.com/2207juan/HorizonX/main/docs/media/install-usb-en.mp4)
+
+Instalar la APK y elegir Inicio son operaciones diferentes. La activación local requiere que el firmware exponga un ADB local y que el usuario lo autorice. Si HorizonX indica que no pudo activar el inicio, utiliza el asistente de PC del apartado siguiente. No hace falta borrar los datos ni desinstalar una versión anterior para actualizar.
+
+Los botones **Información del televisor** y **Opciones de desarrollador** abren los paneles públicos de Android; evitan depender de la posición de esos ajustes en el menú de cada fabricante. El nombre exacto de Compilación y de la depuración puede variar.
 
 ## 2. Instalar con un PC por ADB
 
-1. [Descarga el paquete ADB para PC](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-PC-3.4.0.zip) y descomprímelo. La carpeta **HorizonX-PC** ya incluye la APK; no copies el ZIP al televisor.
+1. [Descarga el paquete ADB para PC](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-PC-3.5.1.zip) y descomprímelo. La carpeta **HorizonX-PC** ya incluye la APK; no copies el ZIP al televisor.
 2. Instala **Python 3.10+** y [Platform Tools oficiales de Android](https://developer.android.com/tools/releases/platform-tools). Añade ADB al PATH o deja `platform-tools/` junto a `horizonx.py`.
 3. Activa la depuración del televisor. Autoriza este PC cuando Android lo solicite. PC y TV deben estar en la misma red si conectas por Wi-Fi.
 4. En Windows ejecuta `HorizonX.cmd`. En Linux/macOS abre una terminal dentro de **HorizonX-PC** y ejecuta `sh HorizonX.sh`. También puedes usar `python3 horizonx.py` (`py -3 horizonx.py` en Windows).
@@ -59,7 +68,7 @@ El repositorio público contiene instaladores, no el proyecto privado del launch
 Si ya tienes un dispositivo autorizado, puedes instalar manualmente:
 
 ```sh
-adb -s IP_TV:PUERTO install -r HorizonX-3.4.0.apk
+adb -s IP_TV:PUERTO install -r HorizonX-3.5.1.apk
 ```
 
 Ejecuta desde donde guardaste la APK y reemplaza `IP_TV:PUERTO` por el serial exacto de `adb devices`. Esta orden instala o actualiza la app; no concede por sí sola todos los permisos del asistente ni cambia automáticamente Home.
@@ -89,3 +98,7 @@ Ejecuta desde donde guardaste la APK y reemplaza `IP_TV:PUERTO` por el serial ex
 ## 6. Qué hace el comando de publicación del creador
 
 El script privado `publish_public_distribution.sh` sube los instaladores a GitHub. **No instala nada en una TV.** Los usuarios descargan la APK o el paquete ADB con los enlaces anteriores; no necesitan ese script de publicación.
+
+## Identificador de actualización
+
+El nombre público y de instalación es **HorizonX**. Algunos gestores de archivos muestran también `tv.lightos`, el identificador interno conservado para actualizar las instalaciones existentes sin crear una segunda app ni perder datos. Cambiar ese identificador exige una migración; no equivale a cambiar el nombre visible.

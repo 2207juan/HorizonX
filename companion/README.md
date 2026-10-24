@@ -1,6 +1,6 @@
-# HorizonX 3.4.0 · asistente ADB para PC
+# HorizonX 3.5.1 · asistente ADB para PC
 
-1. Descomprime todo el ZIP antes de ejecutar. Incluye `HorizonX-3.4.0.apk`.
+1. Descomprime todo el ZIP antes de ejecutar. Incluye `HorizonX-3.5.1.apk`.
 2. Instala Python 3.10+ y Android Platform Tools. Añade ADB al PATH o deja
    `platform-tools/` junto a `horizonx.py`.
 3. Windows: abre `HorizonX.cmd`. Linux/macOS: ejecuta `sh HorizonX.sh` desde esta
@@ -13,7 +13,7 @@ y `adb connect IP:PUERTO` con los dos puertos diferentes que muestra la TV.
 Después vuelve al asistente. La guía explica ambos pasos.
 
 Si descargaste o clonaste el repositorio completo, el asistente está en `companion/`
-y la APK en `../dist/HorizonX-3.4.0.apk`. En el ZIP de PC, la APK está junto al asistente.
+y la APK en `../dist/HorizonX-3.5.1.apk`. En el ZIP de PC, la APK está junto al asistente.
 Los scripts son el asistente ADB; no incluyen el proyecto Android. No necesitas
 Gradle, Android Studio, JDK ni compilar HorizonX. Este ZIP se ejecuta en el PC,
 no en el televisor. Para USB solo necesitas descargar y copiar la APK.

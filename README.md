@@ -2,11 +2,13 @@
 
 **Performance and interface improvements for Android TV and Google TV televisions.**
 
-[Español](README.es.md) · [Compatible TVs](docs/COMPATIBLE_TVS.md) · [Download the APK](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.4.0.apk)
+[Español](README.es.md) · [Compatible TVs](docs/COMPATIBLE_TVS.md) · [Download the APK](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.5.1.apk)
 
 | Before · Google TV | After · HorizonX |
 |---|---|
 | ![Google TV before, in English](docs/media/google-tv-before-en.png) | ![HorizonX after, in English](docs/media/horizonx-after-en.png) |
+
+[USB installation, step by step (video)](docs/media/install-usb-en.mp4) · [Installation guide](docs/INSTALLATION.md)
 
 | Continue watching (Spanish) | Settings (English) |
 |---|---|
@@ -33,16 +35,16 @@ Both methods install the **same APK**. No Android project, compilation or GitHub
 
 ### 1. APK for a USB drive
 
-1. [Download HorizonX-3.4.0.apk](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.4.0.apk) to your computer or phone. Save the file itself, not the GitHub web page.
+1. [Download HorizonX-3.5.1.apk](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.5.1.apk) to your computer or phone. Save the file itself, not the GitHub web page.
 2. Copy the APK to a USB drive, plug it into the TV and open it with a file manager. Allow that file manager to install unknown apps if Android asks.
 3. Install or update HorizonX, then open it. Do not uninstall an existing installation to update it.
-4. To activate the additional Home/volume features, follow **Settings → Set up HorizonX**. Where supported, enable **USB/ADB debugging** in the TV's developer options and accept HorizonX's **Allow debugging → Always allow** prompt.
+4. To activate the additional Home/volume features, open **Settings → System → Set up HorizonX**. Where supported, enable **USB/ADB debugging** in the TV's developer options and accept HorizonX's **Allow debugging → Always allow** prompt. Return to **Set up HorizonX**, select **Authorize ADB connection**, then **Use HorizonX as Home → Activate Home**. Press Home to check that HorizonX opens.
 
 Installing the APK alone does not force the Home selection. After ADB authorization, this version attempts to grant its permissions, apply its model-based clean-up and select Home. These changes affect the TV; Google TV's launcher can be disabled without deleting Android. Support depends on the firmware. The local ADB connection is not available on every TV merely by enabling USB debugging. Initial setup from a freshly installed TV and restart recovery have not been verified on every model; use the PC route if setup cannot complete. Without that access, HorizonX can still open as an app.
 
 ### 2. ADB from a PC
 
-1. [Download the ADB package for PC (ZIP)](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-PC-3.4.0.zip) and **extract it**. It already includes the APK; do not copy this ZIP onto the TV.
+1. [Download the ADB package for PC (ZIP)](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-PC-3.5.1.zip) and **extract it**. It already includes the APK; do not copy this ZIP onto the TV.
 2. Install **Python 3.10+** and [Android Platform Tools](https://developer.android.com/tools/releases/platform-tools). Put Platform Tools in your PATH, or extract its `platform-tools` folder beside `horizonx.py`.
 3. Open the extracted **HorizonX-PC** folder. Windows: run `HorizonX.cmd`. Linux/macOS: run `sh HorizonX.sh` in a terminal. Alternatively run `python3 horizonx.py` (`py -3 horizonx.py` on Windows).
 4. Choose **1. Connect TV**, authorize debugging on the TV, then **2. Install HorizonX**. Accept the Home selection only if you want HorizonX as your home screen. The separate optimisation option displays its proposed changes first. When finished, press Home if you selected HorizonX as your home screen, or open HorizonX from the TV app list.
@@ -64,7 +66,7 @@ Cloning downloads the installation files, not the private Android source. The as
 Enter this direct APK URL in Downloader, then follow the USB method's setup steps after installation:
 
 ```text
-https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.4.0.apk
+https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.5.1.apk
 ```
 
 ### Undo
