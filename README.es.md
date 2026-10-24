@@ -2,17 +2,11 @@
 
 **Pantalla de inicio ligera y bonita para Android TV y Google TV.** Reemplaza el inicio original, quita publicidad y telemetría, y cambia la barra de volumen del sistema por una animación propia.
 
-## Distribución
-
-Este repositorio contiene la APK compilada, el asistente de instalación ADB y las guías. No distribuye el código de la aplicación Android, el proyecto para compilarla ni archivos de firma. Los scripts Python sí están incluidos porque el asistente de instalación los necesita para funcionar.
-
 [English](README.md) · [Televisores compatibles](docs/COMPATIBILIDAD.md) · [Descargar la APK](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.4.0.apk)
 
 | Antes · Google TV | Después · HorizonX |
 |---|---|
 | ![Google TV antes, en español](docs/media/google-tv-before-es.png) | ![HorizonX después, en español](docs/media/horizonx-after-es.png) |
-
-*Capturas reales del mismo Philips Google TV TA7. Google TV se muestra en su fila de aplicaciones para que el perfil de la cuenta quede fuera de la captura. HorizonX usa el perfil ilustrado de demostración «Sofia»; no se cambió la cuenta del propietario.*
 
 | Continuar viendo | Todas las apps |
 |---|---|

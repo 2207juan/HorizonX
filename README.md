@@ -2,17 +2,11 @@
 
 **A light, good-looking home screen for Android TV and Google TV.** It replaces the stock home screen, removes ads and telemetry, and swaps the system volume bar for its own animated one.
 
-## Distribution
-
-This repository provides the compiled APK, the ADB installation assistant and user guides. The Android application source, build project and signing files are not distributed here. Python scripts are included because the installation assistant needs them to run.
-
 [Español](README.es.md) · [Compatible TVs](docs/COMPATIBLE_TVS.md) · [Download the APK](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.4.0.apk)
 
 | Before · Google TV | After · HorizonX |
 |---|---|
 | ![Google TV before, in English](docs/media/google-tv-before-en.png) | ![HorizonX after, in English](docs/media/horizonx-after-en.png) |
-
-*Actual screenshots from the same Philips Google TV TA7. Google TV is shown at its apps row to keep the account profile out of the capture. HorizonX uses the illustrated demo profile “Sofia”; the TV owner’s account was not changed.*
 
 | Continue watching (Spanish) | Settings (English) |
 |---|---|
