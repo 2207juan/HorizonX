@@ -72,7 +72,3 @@ https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.4.0.apk
 ### Deshacer
 
 En **Ajustes → Sistema** están **Deshacer la optimización**, **Volver al inicio original** y el interruptor **Volumen de HorizonX**. Conserva las copias que creen la app y el asistente. Consulta la [guía](docs/GUIA.md).
-
-## Créditos
-
-Listas de modelos derivadas de [CleanYourTV](https://github.com/Gathin23/cleanyourtv) (MIT). Fuente Outfit (OFL). Ver [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

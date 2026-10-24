@@ -72,7 +72,3 @@ https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.4.0.apk
 ### Undo
 
 **Settings → System** offers **Undo the optimisation**, **Back to the original home**, and the **HorizonX volume** switch. Keep any backups created by the app or PC assistant. See the [guide](docs/GUIA.md).
-
-## Credits
-
-TV model lists derived from [CleanYourTV](https://github.com/Gathin23/cleanyourtv) (MIT). Outfit font (OFL). See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
