@@ -8,7 +8,11 @@ Este repositorio contiene la APK compilada, el asistente de instalación ADB y l
 
 [English](README.md) · [Televisores compatibles](docs/COMPATIBILIDAD.md) · [Descargar la APK](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.4.0.apk)
 
-![HorizonX en español](docs/media/home-es.jpg)
+| Antes · Google TV | Después · HorizonX |
+|---|---|
+| ![Google TV antes, en español](docs/media/google-tv-before-es.png) | ![HorizonX después, en español](docs/media/horizonx-after-es.png) |
+
+*Capturas reales del mismo Philips Google TV TA7. Google TV se muestra en su fila de aplicaciones para que el perfil de la cuenta quede fuera de la captura. HorizonX usa el perfil ilustrado de demostración «Sofia»; no se cambió la cuenta del propietario.*
 
 | Continuar viendo | Todas las apps |
 |---|---|
@@ -16,7 +20,7 @@ Este repositorio contiene la APK compilada, el asistente de instalación ADB y l
 
 ![Navegación por HorizonX](docs/media/demo-es.gif)
 
-*Los perfiles de las capturas ("Alex", "Sofia") son avatares ilustrados de demostración. En tu televisor, HorizonX muestra tu foto y tu nombre de Google.*
+*Los perfiles ilustrados de la galería son de demostración.*
 
 ## Funciones
 
