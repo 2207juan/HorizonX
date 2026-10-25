@@ -10,6 +10,8 @@
 
 [Ver el vídeo completo (MP4)](https://raw.githubusercontent.com/2207juan/HorizonX/main/docs/media/horizonx-demo.mp4)
 
+![Todas las apps al pulsar arriba](docs/media/apps-es.jpg)
+
 ![Apps y ajustes](docs/media/apps-settings-es.jpg)
 
 *Los perfiles de las capturas son de demostración.*
