@@ -1,10 +1,10 @@
-# Guía de instalación de HorizonX 3.5.1
+# Guía de instalación de HorizonX 3.8.0
 
 La APK es la aplicación para el televisor. El ZIP para PC es un asistente Python que envía esa misma APK mediante ADB; no es otra versión de HorizonX. No necesitas el código Android, compilar ni iniciar sesión en GitHub para descargar.
 
 ## 1. Instalar desde un USB
 
-1. [Descarga HorizonX-3.5.1.apk](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.5.1.apk) en un PC o teléfono y copia el archivo a un USB.
+1. [Descarga HorizonX-3.8.0.apk](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.8.0.apk) en un PC o teléfono y copia el archivo a un USB.
 2. Conecta el USB al televisor y abre tu gestor de archivos. Selecciona tu unidad USB, busca la carpeta donde guardaste la APK y abre el archivo.
 3. Pulsa **Instalar**. Si HorizonX ya estaba instalado, verás **Actualizar**. Si Android bloquea la instalación, abre los ajustes de ese aviso, permite instalar desde ese gestor y vuelve al archivo.
 4. Confirma la instalación en la ventana de Android y pulsa **Abrir** al terminar.
@@ -15,7 +15,6 @@ La APK es la aplicación para el televisor. El ZIP para PC es un asistente Pytho
 9. En la misma pantalla, entra en **Usar HorizonX como inicio → Activar inicio**.
 10. Pulsa **Home** en el mando, incluso desde otra aplicación, para comprobar que abre HorizonX.
 
-[Vídeo completo en español](https://raw.githubusercontent.com/2207juan/HorizonX/main/docs/media/install-usb-es.mp4) · [Video in English](https://raw.githubusercontent.com/2207juan/HorizonX/main/docs/media/install-usb-en.mp4)
 
 Instalar la APK y elegir Inicio son operaciones diferentes. La activación local requiere que el firmware exponga un ADB local y que el usuario lo autorice. Si HorizonX indica que no pudo activar el inicio, utiliza el asistente de PC del apartado siguiente. No hace falta borrar los datos ni desinstalar una versión anterior para actualizar.
 
@@ -23,7 +22,7 @@ Los botones **Información del televisor** y **Opciones de desarrollador** abren
 
 ## 2. Instalar con un PC por ADB
 
-1. [Descarga el paquete ADB para PC](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-PC-3.5.1.zip) y descomprímelo. La carpeta **HorizonX-PC** ya incluye la APK; no copies el ZIP al televisor.
+1. [Descarga el paquete ADB para PC](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-PC-3.8.0.zip) y descomprímelo. La carpeta **HorizonX-PC** ya incluye la APK; no copies el ZIP al televisor.
 2. Instala **Python 3.10+** y [Platform Tools oficiales de Android](https://developer.android.com/tools/releases/platform-tools). Añade ADB al PATH o deja `platform-tools/` junto a `horizonx.py`.
 3. Activa la depuración del televisor. Autoriza este PC cuando Android lo solicite. PC y TV deben estar en la misma red si conectas por Wi-Fi.
 4. En Windows ejecuta `HorizonX.cmd`. En Linux/macOS abre una terminal dentro de **HorizonX-PC** y ejecuta `sh HorizonX.sh`. También puedes usar `python3 horizonx.py` (`py -3 horizonx.py` en Windows).
@@ -68,7 +67,7 @@ El repositorio público contiene instaladores, no el proyecto privado del launch
 Si ya tienes un dispositivo autorizado, puedes instalar manualmente:
 
 ```sh
-adb -s IP_TV:PUERTO install -r HorizonX-3.5.1.apk
+adb -s IP_TV:PUERTO install -r HorizonX-3.8.0.apk
 ```
 
 Ejecuta desde donde guardaste la APK y reemplaza `IP_TV:PUERTO` por el serial exacto de `adb devices`. Esta orden instala o actualiza la app; no concede por sí sola todos los permisos del asistente ni cambia automáticamente Home.
@@ -78,15 +77,16 @@ Ejecuta desde donde guardaste la APK y reemplaza `IP_TV:PUERTO` por el serial ex
 - **Flechas**: moverse. **OK**: abrir. **Atrás**: volver a la fila de contenido.
 - **Abajo** desde el contenido: tus apps. Si sigues bajando, se despliega la cuadrícula completa.
 - **Mantener OK** sobre una app: moverla con las flechas. Pulsa OK para soltarla.
-- **Engranaje, tecla Menú o botón de ajustes del mando**: ajustes rápidos.
+- **Engranaje, tecla Menú o botón de ajustes del mando**: ajustes a pantalla completa. Arriba/abajo cambian de categoría, derecha u OK entran en las opciones, izquierda o Atrás vuelven.
 - Ocultar, ver información o desinstalar una app: **Ajustes → Aplicaciones**.
-- Fondo, nombre del saludo, clima, sonidos y TizenTube: **Ajustes → Apariencia**.
+- Fondo, fondo según lo que eliges, nombre, foto de Google, clima, idioma, animación al abrir apps y sonidos: **Ajustes → Inicio**.
+- Imagen, sonido y **Volumen de HorizonX**: **Ajustes → Imagen y sonido**. Wi-Fi, Bluetooth y entradas HDMI: **Ajustes → Conexiones**.
 
 ## 4. Deshacer todo
 
 - **Optimización**: Ajustes → Sistema → **Deshacer la optimización**, o la opción 4 del asistente de PC.
 - **Inicio original**: Ajustes → Sistema → **Volver al inicio original**, o la opción 5 del asistente.
-- **Barra de volumen del sistema**: Ajustes → Sistema → desactiva **Volumen de HorizonX**.
+- **Barra de volumen del sistema**: Ajustes → Imagen y sonido → desactiva **Volumen de HorizonX**.
 - A mano por ADB: `adb shell pm enable --user 0 NOMBRE.DEL.PAQUETE`.
 
 ## 5. Límites conocidos

@@ -103,20 +103,61 @@ def install(a: Adb) -> None:
         make_home(a)
 
 
+NOT_LAUNCHERS = {"com.android.tv.settings", "com.android.settings", "com.android.provision",
+                 "com.google.android.tungsten.setupwraith", "com.android.managedprovisioning"}
+KNOWN_LAUNCHERS = ["com.google.android.apps.tv.launcherx", "com.google.android.tvlauncher", "com.google.android.leanbacklauncher"]
+HOME_RECORD = STATE / "inicio.json"
+
+
+def current_home(a: Adb) -> str:
+    out = a.optional("cmd", "package", "resolve-activity", "--brief", "-c", "android.intent.category.HOME",
+                     "-a", "android.intent.action.MAIN").get("value", "").strip().splitlines()
+    return out[-1].strip() if out else ""
+
+
+def home_packages(a: Adb) -> list[str]:
+    """Packages Android lists as Home, any brand; HorizonX and settings fall-backs left out."""
+    raw = a.optional("cmd", "package", "query-activities", "--brief", "--user", "0",
+                     "-a", "android.intent.action.MAIN", "-c", "android.intent.category.HOME").get("value", "")
+    found = [l.strip().split("/")[0] for l in raw.splitlines() if "/" in l and " " not in l.strip()]
+    found = [p for p in dict.fromkeys(found) if p != "tv.lightos" and p not in NOT_LAUNCHERS]
+    return [p for p in KNOWN_LAUNCHERS if p in found] + [p for p in found if p not in KNOWN_LAUNCHERS]
+
+
 def make_home(a: Adb) -> None:
-    states = optimize.package_states(a)
-    for stock in ("com.google.android.apps.tv.launcherx", "com.google.android.tvlauncher"):
-        if states.get(stock, {}).get("enabled"):
-            a.shell("pm", "disable-user", "--user", "0", stock)
-            print(f"  Inicio original apartado (reversible): {stock}")
-    setup = "com.google.android.tungsten.setupwraith"
-    if states.get(setup, {}).get("enabled"):
-        owns_wifi = "setupwraith" in a.optional("dumpsys", "wifi").get("value", "")
-        if owns_wifi:
-            print("  El asistente de configuración aún gestiona una red Wi-Fi guardada; se conserva.")
-        else:
-            a.shell("pm", "disable-user", "--user", "0", setup)
-    print(a.shell("cmd", "package", "set-home-activity", "tv.lightos/.MainActivity"))
+    """Select HorizonX; only if the TV keeps its own launcher in front, set launchers aside one by one."""
+    before = current_home(a)
+    print(a.shell("cmd", "package", "set-home-activity", "--user", "0", "tv.lightos/.MainActivity"))
+    aside: list[str] = []
+    if not current_home(a).startswith("tv.lightos/"):
+        for pkg in home_packages(a):
+            a.shell("pm", "disable-user", "--user", "0", pkg)
+            aside.append(pkg)
+            print(f"  Inicio original apartado (reversible): {pkg}")
+            if current_home(a).startswith("tv.lightos/"):
+                break
+    STATE.mkdir(parents=True, exist_ok=True)
+    HOME_RECORD.write_text(json.dumps({"before": before, "aside": aside}), encoding="utf-8")
+    print("HorizonX es la pantalla de inicio." if current_home(a).startswith("tv.lightos/")
+          else "El televisor no aceptó otro inicio. HorizonX se abrirá encima del inicio del televisor.")
+
+
+def restore_home(a: Adb) -> None:
+    """Put back exactly what make_home set aside (older installs: Google TV)."""
+    try:
+        record = json.loads(HOME_RECORD.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        record = {"before": "com.google.android.apps.tv.launcherx",
+                  "aside": ["com.google.android.apps.tv.launcherx", "com.google.android.tungsten.setupwraith"]}
+    for pkg in record.get("aside", []):
+        a.optional("pm", "enable", "--user", "0", pkg)
+    target = record.get("before", "")
+    if not target or target.startswith("tv.lightos/"):
+        target = next(iter(home_packages(a)), "")
+    if target:
+        a.optional("cmd", "package", "set-home-activity", "--user", "0", target)
+    HOME_RECORD.unlink(missing_ok=True)
+    print("Inicio original reactivado.")
 
 
 def optimise(a: Adb) -> None:
@@ -185,9 +226,6 @@ def main() -> int:
                     continue
             {"2": install, "3": optimise, "4": restore}.get(choice, lambda t: None)(tv)
             if choice == "5":
-                for p in ("com.google.android.apps.tv.launcherx", "com.google.android.tungsten.setupwraith"):
-                    tv.optional("pm", "enable", "--user", "0", p)
-                tv.optional("cmd", "package", "set-home-activity", "com.google.android.apps.tv.launcherx")
-                print("Inicio original reactivado.")
+                restore_home(tv)
         except Error as e:
             print(f"Error: {e}")

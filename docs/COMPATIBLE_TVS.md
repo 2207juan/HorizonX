@@ -1,6 +1,6 @@
 # Compatible TVs
 
-HorizonX runs on **Android TV, Google TV and Fire OS**. Samsung, LG, VIDAA and Roku use their own systems and cannot install APKs.
+HorizonX runs on **any Android TV, Google TV and Fire OS** device (Android 8+). Samsung, LG, VIDAA and Roku use their own systems and cannot install APKs; Samsung, Roku and VIDAA have separate builds.
 
 ## Tested by us
 
@@ -12,17 +12,27 @@ HorizonX runs on **Android TV, Google TV and Fire OS**. Samsung, LG, VIDAA and R
 
 | System | APK | Clean-up | Replace home | Volume animation |
 |---|---|---|---|---|
-| **Google TV (Android 10–14)**<br>Philips (TA7, R8G, 2023+), Sony Bravia (2021+), TCL (C/P/Q, 2021+), Hisense (Google TV), Xiaomi TV A/A Pro, Chromecast con Google TV, Google TV Streamer, onn 4K, Motorola, Kalley, Panasonic, Sharp, Toshiba (Google TV), Skyworth, Thomson, Hitachi, JVC, RCA, Aiwa, CHiQ, Kogan, Nokia Streaming Box, Tivo Stream 4K, Xgimi | Yes | Yes | With ADB | Yes (ADB on some brands) |
-| **Android TV (8–12, launcher clásico)**<br>Philips (2017–2022, org.droidtv), Sony Bravia (2015–2020), TCL (Android TV 9–11), Xiaomi Mi TV / Mi Box, NVIDIA Shield, Hisense (Android TV), Sharp Aquos, Toshiba, OnePlus TV, Realme, Haier, Vu, Nokia | Yes | Yes | Home picker | Yes (ADB on some brands) |
+| **Google TV (Android 10–14)**<br>Philips (TA7, R8G, 2023+), Sony Bravia (2021+), TCL (C/P/Q, 2021+), Hisense (Google TV), Xiaomi TV A/A Pro, Chromecast con Google TV, Google TV Streamer, onn 4K, Motorola, Kalley, Panasonic, Sharp, Toshiba (Google TV), Skyworth, Thomson, Hitachi, JVC, RCA, Aiwa, CHiQ, Kogan, Nokia Streaming Box, Tivo Stream 4K, Xgimi | Yes | Yes | With ADB, or opens over the TV's home | Yes (ADB on some brands) |
+| **Android TV (8–12, launcher clásico)**<br>Philips (2017–2022, org.droidtv), Sony Bravia (2015–2020), TCL (Android TV 9–11), Xiaomi Mi TV / Mi Box, NVIDIA Shield, Hisense (Android TV), Sharp Aquos, Toshiba, OnePlus TV, Realme, Haier, Vu, Nokia | Yes | Yes | Home picker, ADB, or opens over the TV's home | Yes (ADB on some brands) |
 | **Amazon Fire OS (Fire TV Stick, televisores Fire TV)**<br>Fire TV Stick (2018+), Fire TV Cube, Toshiba Fire TV, Hisense Fire TV, TCL Fire TV, Insignia Fire TV | Yes | Partial | Yes (ADB on some brands) | Yes (ADB on some brands) |
 
 ## Not compatible for now
 
 - **Samsung Tizen** (Samsung (todos los Smart TV desde 2015))
 - **LG webOS** (LG (todos los Smart TV))
-- **Hisense / Toshiba VIDAA (Linux)** (Hisense VIDAA U, Toshiba VIDAA)
 - **Roku OS** (Roku TV (TCL, Hisense, Sharp, onn con Roku), Roku Express/Stick)
 - **Otros sistemas cerrados** (Apple TV, Huawei Vision, Panasonic MHS, Philips Titan OS / Saphi, Whale OS (Zeasn))
+
+## Other platforms (separate builds, not tested on hardware)
+
+| System | HorizonX build | Status |
+|---|---|---|
+| Samsung Tizen 2017+ | Web app + service that reopens it on Home (`samsung-tizen/`) | Built and tested in a browser |
+| Fire TV on Fire OS 7/8 | The same APK, opened over Amazon's home (`amazon-fireos/`) | Built; not tested on a Fire TV |
+| Fire TV on Vega OS | React Native project (`amazon-vega/`) | Not built (needs Amazon's SDK) |
+| Roku | Channel + screensaver, does not replace Home (`roku-os/`) | Built and tested in an emulator |
+| Hisense / Toshiba VIDAA | Web app (`hisense-vidaa/`) installed with the community "vidaahub" method; does not replace Home | Experimental: not allowed by Hisense, may be blocked on 2025 firmware |
+| LG webOS | — | Not compatible yet |
 
 ## TVs with a clean-up profile (252)
 

@@ -8,21 +8,36 @@ HorizonX funciona en **Android TV, Google TV y Fire OS**. Samsung, LG, VIDAA y R
 |---|---|---|---|
 | Philips Google TV TA7 (50PUD7908/43, PH3M_AL_T32) | Google TV 14 | Inicio, limpieza (22 componentes), animación de volumen, Continuar viendo | Funciona |
 
+## Cualquier Android TV
+
+HorizonX no depende de la marca: funciona en cualquier televisor o aparato con Android TV o Google TV desde Android 8. Al activar el inicio, primero solo se elige HorizonX (suficiente en la mayoría de marcas); si el launcher del fabricante sigue delante, HorizonX aparta únicamente los paquetes que Android declara como «inicio», uno a uno y con copia para deshacerlo. Si el fabricante no deja cambiar el inicio o no hay ADB, HorizonX se abre encima del inicio del televisor cada vez que este aparece (como en Fire TV). Ajustes → Sistema → «Volver al inicio original» lo deshace todo.
+
 ## Por sistema
 
 | Sistema | APK | Limpieza | Reemplazar inicio | Animación de volumen |
 |---|---|---|---|---|
-| **Google TV (Android 10–14)**<br>Philips (TA7, R8G, 2023+), Sony Bravia (2021+), TCL (C/P/Q, 2021+), Hisense (Google TV), Xiaomi TV A/A Pro, Chromecast con Google TV, Google TV Streamer, onn 4K, Motorola, Kalley, Panasonic, Sharp, Toshiba (Google TV), Skyworth, Thomson, Hitachi, JVC, RCA, Aiwa, CHiQ, Kogan, Nokia Streaming Box, Tivo Stream 4K, Xgimi | Sí | Sí | Con ADB | Sí (con ADB en algunas marcas) |
-| **Android TV (8–12, launcher clásico)**<br>Philips (2017–2022, org.droidtv), Sony Bravia (2015–2020), TCL (Android TV 9–11), Xiaomi Mi TV / Mi Box, NVIDIA Shield, Hisense (Android TV), Sharp Aquos, Toshiba, OnePlus TV, Realme, Haier, Vu, Nokia | Sí | Sí | Selector de inicio | Sí (con ADB en algunas marcas) |
+| **Google TV (Android 10–14)**<br>Philips (TA7, R8G, 2023+), Sony Bravia (2021+), TCL (C/P/Q, 2021+), Hisense (Google TV), Xiaomi TV A/A Pro, Chromecast con Google TV, Google TV Streamer, onn 4K, Motorola, Kalley, Panasonic, Sharp, Toshiba (Google TV), Skyworth, Thomson, Hitachi, JVC, RCA, Aiwa, CHiQ, Kogan, Nokia Streaming Box, Tivo Stream 4K, Xgimi | Sí | Sí | Con ADB, o se abre sobre el inicio del televisor | Sí (con ADB en algunas marcas) |
+| **Android TV (8–12, launcher clásico)**<br>Philips (2017–2022, org.droidtv), Sony Bravia (2015–2020), TCL (Android TV 9–11), Xiaomi Mi TV / Mi Box, NVIDIA Shield, Hisense (Android TV), Sharp Aquos, Toshiba, OnePlus TV, Realme, Haier, Vu, Nokia | Sí | Sí | Selector de inicio, ADB, o se abre sobre el inicio | Sí (con ADB en algunas marcas) |
 | **Amazon Fire OS (Fire TV Stick, televisores Fire TV)**<br>Fire TV Stick (2018+), Fire TV Cube, Toshiba Fire TV, Hisense Fire TV, TCL Fire TV, Insignia Fire TV | Sí | Parcial | Sí (con ADB en algunas marcas) | Sí (con ADB en algunas marcas) |
 
 ## No compatibles por ahora
 
 - **Samsung Tizen** (Samsung (todos los Smart TV desde 2015)): No ejecuta APK ni tiene ADB. Solo existe una API de mando por red (puertos 8001/8002) para pulsar teclas y lanzar apps. Mejora posible: desactivar anuncios y 'Información de visualización' en los menús y bloquear dominios de publicidad con DNS. Alternativa real: conectar un Chromecast/Google TV o Fire TV y usar HorizonX allí.
 - **LG webOS** (LG (todos los Smart TV)): No ejecuta APK. Existen launchers web propios con Developer Mode (webos-vibehack) y limpieza solo con root (Homebrew Channel). Alternativa: un dispositivo Google TV por HDMI.
-- **Hisense / Toshiba VIDAA (Linux)** (Hisense VIDAA U, Toshiba VIDAA): VIDAA OS no es Android. Ojo: algunos Hisense chinos llaman 'VIDAA' a una capa sobre Android 11 (MT9653); esos sí aparecen en la base de datos y aceptan ADB.
+- **Hisense / Toshiba VIDAA (Linux)** (Hisense VIDAA U, Toshiba VIDAA) — ahora con versión experimental aparte (ver abajo): VIDAA OS no es Android. Ojo: algunos Hisense chinos llaman 'VIDAA' a una capa sobre Android 11 (MT9653); esos sí aparecen en la base de datos y aceptan ADB.
 - **Roku OS** (Roku TV (TCL, Hisense, Sharp, onn con Roku), Roku Express/Stick): Solo control remoto por ECP (puerto 8060). Sin instalación de apps externas fuera del modo desarrollador de canales.
 - **Otros sistemas cerrados** (Apple TV, Huawei Vision, Panasonic MHS, Philips Titan OS / Saphi, Whale OS (Zeasn)): Apple tvOS, Huawei HarmonyOS TV, Panasonic My Home Screen (Firefox OS), Titan OS (Philips/JVC económicos 2024+), Whale OS y Saphi no admiten APK. Philips con Titan OS o Saphi no son Android aunque sean de la misma marca.
+
+## Otras plataformas (versiones aparte, sin probar en hardware)
+
+| Sistema | Versión de HorizonX | Estado |
+|---|---|---|
+| Samsung Tizen 2017+ | App web + servicio que la reabre con Home (`samsung-tizen/`) | Compilada y probada en navegador |
+| Fire TV con Fire OS 7/8 | La misma APK; se abre sobre el inicio de Amazon (`amazon-fireos/`) | Compilada; sin probar en Fire TV |
+| Fire TV con Vega OS | Proyecto React Native (`amazon-vega/`) | Sin compilar (requiere el SDK de Amazon) |
+| Roku | Canal + salvapantallas, no reemplaza el inicio (`roku-os/`) | Compilado y probado en emulador |
+| Hisense / Toshiba VIDAA | App web (`hisense-vidaa/`) instalada con el método comunitario «vidaahub»; no reemplaza el inicio | Experimental: Hisense no lo permite oficialmente y en firmwares de 2025 puede estar bloqueado |
+| LG webOS | — | No compatible por ahora |
 
 ## Televisores con perfil de limpieza (252)
 
