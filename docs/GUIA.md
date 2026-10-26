@@ -1,10 +1,10 @@
-# Guía de instalación de HorizonX 3.8.0
+# Guía de instalación de HorizonX 3.8.1
 
 La APK es la aplicación para el televisor. El ZIP para PC es un asistente Python que envía esa misma APK mediante ADB; no es otra versión de HorizonX. No necesitas el código Android, compilar ni iniciar sesión en GitHub para descargar.
 
 ## 1. Instalar desde un USB
 
-1. [Descarga HorizonX-3.8.0.apk](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.8.0.apk) en un PC o teléfono y copia el archivo a un USB.
+1. [Descarga HorizonX-3.8.1.apk](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.8.1.apk) en un PC o teléfono y copia el archivo a un USB.
 2. Conecta el USB al televisor y abre tu gestor de archivos. Selecciona tu unidad USB, busca la carpeta donde guardaste la APK y abre el archivo.
 3. Pulsa **Instalar**. Si HorizonX ya estaba instalado, verás **Actualizar**. Si Android bloquea la instalación, abre los ajustes de ese aviso, permite instalar desde ese gestor y vuelve al archivo.
 4. Confirma la instalación en la ventana de Android y pulsa **Abrir** al terminar.
@@ -22,7 +22,7 @@ Los botones **Información del televisor** y **Opciones de desarrollador** abren
 
 ## 2. Instalar con un PC por ADB
 
-1. [Descarga el paquete ADB para PC](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-PC-3.8.0.zip) y descomprímelo. La carpeta **HorizonX-PC** ya incluye la APK; no copies el ZIP al televisor.
+1. [Descarga el paquete ADB para PC](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-PC-3.8.1.zip) y descomprímelo. La carpeta **HorizonX-PC** ya incluye la APK; no copies el ZIP al televisor.
 2. Instala **Python 3.10+** y [Platform Tools oficiales de Android](https://developer.android.com/tools/releases/platform-tools). Añade ADB al PATH o deja `platform-tools/` junto a `horizonx.py`.
 3. Activa la depuración del televisor. Autoriza este PC cuando Android lo solicite. PC y TV deben estar en la misma red si conectas por Wi-Fi.
 4. En Windows ejecuta `HorizonX.cmd`. En Linux/macOS abre una terminal dentro de **HorizonX-PC** y ejecuta `sh HorizonX.sh`. También puedes usar `python3 horizonx.py` (`py -3 horizonx.py` en Windows).
@@ -67,7 +67,7 @@ El repositorio público contiene instaladores, no el proyecto privado del launch
 Si ya tienes un dispositivo autorizado, puedes instalar manualmente:
 
 ```sh
-adb -s IP_TV:PUERTO install -r HorizonX-3.8.0.apk
+adb -s IP_TV:PUERTO install -r HorizonX-3.8.1.apk
 ```
 
 Ejecuta desde donde guardaste la APK y reemplaza `IP_TV:PUERTO` por el serial exacto de `adb devices`. Esta orden instala o actualiza la app; no concede por sí sola todos los permisos del asistente ni cambia automáticamente Home.

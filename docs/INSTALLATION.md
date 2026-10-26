@@ -1,8 +1,8 @@
-# Install HorizonX 3.8.0
+# Install HorizonX 3.8.1
 
 ## APK from a USB drive
 
-1. [Download HorizonX-3.8.0.apk](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.8.0.apk) on your PC or phone. Copy the APK file to a USB drive and remember its folder.
+1. [Download HorizonX-3.8.1.apk](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.8.1.apk) on your PC or phone. Copy the APK file to a USB drive and remember its folder.
 2. Connect the USB drive to your TV. Open a file manager, select your USB drive and find the APK.
 3. Select **Install**. If HorizonX is already installed, the button says **Update**. If Android blocks installation, open Settings from that prompt, allow your file manager to install apps, then return to the APK.
 4. Confirm **Install** or **Update** in Android's installer. Select **Open** when it finishes.
@@ -18,7 +18,7 @@ The TV information and Developer options buttons open Android's public settings 
 
 ## ADB from a PC
 
-1. [Download the PC ZIP](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-PC-3.8.0.zip) and extract it. It contains the APK.
+1. [Download the PC ZIP](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-PC-3.8.1.zip) and extract it. It contains the APK.
 2. Install Python 3.10+ and [Android Platform Tools](https://developer.android.com/tools/releases/platform-tools). Add Platform Tools to PATH, or place its `platform-tools` folder next to `horizonx.py`.
 3. Enable the TV's debugging options. If wireless debugging requires pairing, pair and connect using the separate ports shown by the TV:
 
