@@ -1,0 +1,65 @@
+{
+ "schema": 1,
+ "platform": "samsung-tizen",
+ "updated": "2026-10-24",
+ "status_legend": {
+  "documented": "Basado en documentación oficial o de terceros; HorizonX no lo ha probado en un televisor",
+  "third-party-tested": "Probado físicamente por otro proyecto (se cita la fuente); HorizonX no lo ha probado",
+  "experimental": "Método conocido pero no oficial o con resultados variables; puede fallar tras una actualización",
+  "physically-tested": "Probado por HorizonX en un televisor real"
+ },
+ "sources": {
+  "samsung-web-engine": "https://developer.samsung.com/smarttv/develop/specifications/web-engine-specifications.html",
+  "samsung-general-specs": "https://developer.samsung.com/smarttv/develop/specifications/general-specifications.html",
+  "aerotizen": "https://github.com/helalaou/AeroTizen",
+  "cleanframe": "https://github.com/nthnclrk/CleanFrame",
+  "samsung-tv-launcher": "https://github.com/chaosmanage/samsung-tv-launcher",
+  "cleanyourtv-tizen": "https://github.com/Gathin23/cleanyourtv/blob/main/docs/devices/samsung-tizen.md",
+  "model-letters": "https://www.samsung.com/levant/support/tv-audio-video/what-do-samsung-tv-model-number-means-and-why-they-are-long"
+ },
+ "years": [
+  {"year": 2015, "letter": "J", "tizen": "2.3", "web_engine": "WebKit", "horizonx": "documented", "notes": "Primer año con Tizen. Modo desarrollador y SDB existen, pero el servicio en segundo plano (on-boot) no está garantizado: HorizonX se abriría como app normal."},
+  {"year": 2016, "letter": "K", "tizen": "2.4", "web_engine": "WebKit r152340", "horizonx": "documented", "notes": "Igual que 2015. ES6 limitado: HorizonX usa ES5, compatible."},
+  {"year": 2017, "letter": "M", "tizen": "3.0", "web_engine": "Chromium M47", "horizonx": "documented", "notes": "Mínimo recomendado. Servicio web y API local (puerto 8001) disponibles según la documentación."},
+  {"year": 2018, "letter": "N", "tizen": "4.0", "web_engine": "Chromium M56", "horizonx": "documented"},
+  {"year": 2019, "letter": "R", "tizen": "5.0", "web_engine": "Chromium M63", "horizonx": "documented"},
+  {"year": 2020, "letter": "T", "tizen": "5.5", "web_engine": "Chromium M69", "horizonx": "documented", "notes": "Último año en que sdb puede desinstalar apps de la tienda según AeroTizen; desde Tizen 6 solo desde el menú del TV."},
+  {"year": 2021, "letter": "A", "tizen": "6.0", "web_engine": "Chromium M76", "horizonx": "documented"},
+  {"year": 2022, "letter": "B", "tizen": "6.5", "web_engine": "Chromium M85", "horizonx": "documented", "third_party": ["aerotizen: QE75Q60BAUXXC"]},
+  {"year": 2023, "letter": "C", "tizen": "7.0", "upgradable_to": ["8.0", "9.0 (despliegue desigual por región)"], "web_engine": "Chromium M94", "horizonx": "documented", "third_party": ["aerotizen: QE65S90CATXZT (Tizen 7.0)"]},
+  {"year": 2024, "letter": "D", "tizen": "8.0", "upgradable_to": ["9.0"], "web_engine": "Chromium M108", "horizonx": "documented", "third_party": ["aerotizen: UN65DU7200FXZA (Tizen 9.0)", "aerotizen: QE65LS03DAUXXU The Frame (Tizen 9.0)", "cleanframe: QA55LS03DAWXXY The Frame (Tizen 9.0, firmware 2130.0)", "samsung-tv-launcher: UA43DU7660KLXL (Tizen 9.0, ARMv7)", "cleanyourtv: UA43DU7000UXEG (modo desarrollador y app propia; Home sigue abriendo Samsung Home)"]},
+  {"year": 2025, "letter": "F", "letter_source": "secundaria (TechJunctions); Samsung no la confirma en sus páginas de soporte", "tizen": "9.0", "web_engine": "Chromium M120", "horizonx": "documented"},
+  {"year": 2026, "letter": null, "tizen": "10.0", "web_engine": "Chromium M130", "horizonx": "documented", "notes": "Letra de año sin confirmar."}
+ ],
+ "model_code": {
+  "explanation": "Ejemplo QE65Q60BAUXXU: QE = tipo/región (QE/QN/QA QLED, UE/UN/UA LED, GQ Alemania), 65 = pulgadas, Q60 = serie, B = año (2022), AU = sintonizador, XXU = país. En los nombres internos que devuelve la API local (campo «model», p. ej. 21_KANTSU2E_UHD_VOICE) los dos primeros dígitos son el año.",
+  "prefixes": {"UN": "LED, América", "UE": "LED, Europa", "UA": "LED, Asia/Oceanía/LatAm", "QN": "QLED/Neo QLED, América", "QE": "QLED, Europa", "QA": "QLED, Asia/Oceanía", "GQ": "QLED, Alemania", "GU": "LED, Alemania", "HG": "Hotelero (firmware distinto, no recomendado)", "LH": "Señalización (no es Smart TV de consumo)"}
+ },
+ "installation": [
+  {"method": "developer-mode-sdb", "status": "third-party-tested", "years": "2017+",
+   "steps": ["Apps → escribir 12345 con el mando → activar Developer mode → IP del PC", "Desenchufar el TV 1 minuto (apagar con el mando no basta)", "El instalador de HorizonX crea los certificados con tu cuenta Samsung (navegador), firma el .wgt e instala por SDB (puerto 26101)"],
+   "limits": ["Los certificados se atan al DUID del televisor", "El modo desarrollador puede caducar o desactivarse tras actualizar el firmware", "La app se instala para siempre, pero reinstalar o actualizar necesita de nuevo el modo desarrollador"]},
+  {"method": "tizen-studio", "status": "documented", "years": "2015+", "steps": ["Tizen Studio + extensión TV + Certificate Manager (perfil Samsung)", "Device Manager → conectar por IP → Run As → Tizen Web Application"], "limits": ["SDK grande; no nativo en Apple Silicon según AeroTizen"]},
+  {"method": "usb", "status": "documented", "years": "-", "limits": ["Los TV Samsung de consumo no instalan .wgt desde USB sin modo desarrollador; no hay instalación por USB equivalente a una APK"]}
+ ],
+ "home_methods": [
+  {"method": "boot-service-watcher", "status": "third-party-tested", "summary": "Servicio web on-boot que consulta 127.0.0.1:8001/api/v2/applications/<id> y relanza HorizonX cuando el inicio de Samsung lo tapa (usado por AeroTizen).",
+   "limits": ["1–2 s de retraso al pulsar Home", "Dentro de apps que no informan de su visibilidad (YouTube, Prime Video, Spotify según AeroTizen) Home no vuelve a HorizonX hasta salir", "En The Frame hay que respetar el modo Arte"]},
+  {"method": "start-screen-settings", "status": "documented", "summary": "Ajustes → General → Opciones de pantalla de inicio: desactivar «Iniciar con Smart Hub» y activar «Ejecutar última app». Solo reanuda la última app; no fija un launcher."},
+  {"method": "native-home-assignment", "status": "experimental", "summary": "CleanFrame asignó el Home nativo con app_operation_set_current_app y vconf (db/appfw/startup_appid) mediante una utilidad no documentada.",
+   "horizonx_decision": "No implementado: escribe ajustes internos no documentados, puede dejar el Home inservible y requiere recuperación técnica. Solo se documenta."}
+ ],
+ "optimization": {
+  "summary": "Tizen no tiene shell ni root para el usuario: no se pueden desactivar procesos del sistema como en Android. Lo que sí funciona es reversible y se hace desde los menús del TV, la red o el modo desarrollador.",
+  "actions": [
+   {"id": "start-screen", "benefit": "No carga Smart Hub ni TV Plus al encender (arranque más rápido, menos memoria)", "where": "Ajustes → General y privacidad → Opciones de pantalla de inicio", "reversible": true, "status": "documented"},
+   {"id": "acr-off", "benefit": "Desactiva el reconocimiento de contenido (ACR) que analiza lo que ves y consume CPU/red", "where": "Términos y privacidad → Servicios de información de visualización", "reversible": true, "status": "documented"},
+   {"id": "ads-off", "benefit": "Menos publicidad personalizada", "where": "Términos y privacidad → Publicidad basada en intereses", "reversible": true, "status": "documented"},
+   {"id": "tvplus-hide", "benefit": "Quita Samsung TV Plus del inicio (no se puede desinstalar)", "where": "Inicio → Samsung TV Plus → Desactivar", "reversible": true, "status": "documented"},
+   {"id": "delete-unused-apps", "benefit": "Libera almacenamiento y procesos de apps preinstaladas", "where": "Apps → Ajustes → app → Eliminar (Tizen 6+); sdb solo en Tizen ≤5.5", "reversible": "reinstalar desde la tienda", "status": "third-party-tested"},
+   {"id": "dns-adblock", "benefit": "Bloquea servidores de anuncios y telemetría (samsungads.com, samsungacr.com)", "where": "Red → Ajustes de IP → DNS 94.140.14.14", "reversible": true, "status": "third-party-tested", "risk": "Algunas apps gratuitas con anuncios pueden fallar"}
+  ],
+  "never": ["Desinstalar paquetes org.tizen.* o com.samsung.* (solo se recupera con restablecimiento de fábrica según AeroTizen)", "Modificar firmware, root, o escribir vconf sin copia de seguridad"]
+ },
+ "physically_tested_by_horizonx": []
+}

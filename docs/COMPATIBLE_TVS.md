@@ -1,38 +1,28 @@
 # Compatible TVs
 
-HorizonX runs on **any Android TV, Google TV and Fire OS** device (Android 8+). Samsung, LG, VIDAA and Roku use their own systems and cannot install APKs; Samsung, Roku and VIDAA have separate builds.
+HorizonX has separate editions for Android TV/Google TV, Fire OS, LG webOS, Samsung Tizen, VIDAA and Roku. **LG has an IPK edition**; it does not use the Android APK. The operating system and firmware, not the brand alone, determine available features.
 
 ## Tested by us
 
-| Model | System | Checked | Status |
+| Model | System | Previously checked | Status |
 |---|---|---|---|
-| Philips Google TV TA7 (50PUD7908/43, PH3M_AL_T32) | Google TV 14 | Home, clean-up (22 components), volume animation, Continue watching | Working |
+| Philips Google TV TA7 (50PUD7908/43, PH3M_AL_T32) | Google TV 14 | Home, cleanup, volume and Continue watching | Earlier physical testing; no TV was connected during this review |
 
 ## By system
 
-| System | APK | Clean-up | Replace home | Volume animation |
-|---|---|---|---|---|
-| **Google TV (Android 10–14)**<br>Philips (TA7, R8G, 2023+), Sony Bravia (2021+), TCL (C/P/Q, 2021+), Hisense (Google TV), Xiaomi TV A/A Pro, Chromecast con Google TV, Google TV Streamer, onn 4K, Motorola, Kalley, Panasonic, Sharp, Toshiba (Google TV), Skyworth, Thomson, Hitachi, JVC, RCA, Aiwa, CHiQ, Kogan, Nokia Streaming Box, Tivo Stream 4K, Xgimi | Yes | Yes | With ADB, or opens over the TV's home | Yes (ADB on some brands) |
-| **Android TV (8–12, launcher clásico)**<br>Philips (2017–2022, org.droidtv), Sony Bravia (2015–2020), TCL (Android TV 9–11), Xiaomi Mi TV / Mi Box, NVIDIA Shield, Hisense (Android TV), Sharp Aquos, Toshiba, OnePlus TV, Realme, Haier, Vu, Nokia | Yes | Yes | Home picker, ADB, or opens over the TV's home | Yes (ADB on some brands) |
-| **Amazon Fire OS (Fire TV Stick, televisores Fire TV)**<br>Fire TV Stick (2018+), Fire TV Cube, Toshiba Fire TV, Hisense Fire TV, TCL Fire TV, Insignia Fire TV | Yes | Partial | Yes (ADB on some brands) | Yes (ADB on some brands) |
+| System | Available installation | Main Home | HorizonX evidence |
+|---|---|---|---|
+| Android TV / Google TV, Android 8+ | Android APK + USB/ADB | Home picker, ADB or redirection, firmware-dependent | Philips TA7 tested; other brands are candidates, not certified |
+| Fire TV running Android-based Fire OS 7/8 | Fire-specific APK + ADB assistant | Explicit boot and accessibility Home handling implemented; Amazon Home retained | Build and simulations; no physical Fire TV test |
+| LG webOS | IPK + LG assistant | Persistent activities and optional native Home with existing root and compatible APIs | UI tested in official LG simulator; physical boot/Home/restore pending |
+| Samsung Tizen | WGT + own Samsung signing certificates | Limited watcher, not certified native Home replacement | Browser and simulated tests |
+| Roku OS | Development channel and screensaver | Does not replace Home | Built and tested in brs-engine |
+| VIDAA Linux | Web app and community installer | Does not replace Home | Browser/installer tests; installation may be blocked by firmware |
+| Amazon Vega | No published installable package | No verified integration | Does not run the Fire OS APK |
 
-## Not compatible for now
+[Downloads, requirements and platform-specific steps](OTRAS_PLATAFORMAS.md).
 
-- **Samsung Tizen** (Samsung (todos los Smart TV desde 2015))
-- **LG webOS** (LG (todos los Smart TV))
-- **Roku OS** (Roku TV (TCL, Hisense, Sharp, onn con Roku), Roku Express/Stick)
-- **Otros sistemas cerrados** (Apple TV, Huawei Vision, Panasonic MHS, Philips Titan OS / Saphi, Whale OS (Zeasn))
-
-## Other platforms (separate builds, not tested on hardware)
-
-| System | HorizonX build | Status |
-|---|---|---|
-| Samsung Tizen 2017+ | Web app + service that reopens it on Home (`samsung-tizen/`) | Built and tested in a browser |
-| Fire TV on Fire OS 7/8 | The same APK, opened over Amazon's home (`amazon-fireos/`) | Built; not tested on a Fire TV |
-| Fire TV on Vega OS | React Native project (`amazon-vega/`) | Not built (needs Amazon's SDK) |
-| Roku | Channel + screensaver, does not replace Home (`roku-os/`) | Built and tested in an emulator |
-| Hisense / Toshiba VIDAA | Web app (`hisense-vidaa/`) installed with the community "vidaahub" method; does not replace Home | Experimental: not allowed by Hisense, may be blocked on 2025 firmware |
-| LG webOS | — | Not compatible yet |
+Philips Titan OS/Saphi, Samsung Tizen, LG webOS and Roku cannot run Android APKs. A Hisense TV may use Google TV, Fire OS, VIDAA or Roku: check the OS before downloading. No new firmware is installed and other systems are not converted into Android. Root/administration methods are considered only for specific versions, with restoration.
 
 ## TVs with a clean-up profile (252)
 

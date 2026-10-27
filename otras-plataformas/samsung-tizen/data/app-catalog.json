@@ -1,0 +1,246 @@
+{
+ "source": "Derived from AeroTizen launcher/js/app-catalog.js (MIT, Copyright (c) 2026 Hamza El Alaoui)",
+ "apps": [
+  {
+   "key": "youtube",
+   "name": "YouTube",
+   "ids": [
+    "9Ur5IzDKqV.TizenYouTube"
+   ],
+   "stores": [
+    "111299001912"
+   ],
+   "preloaded": false,
+   "bg": "#ffffff",
+   "fg": "#0f0f0f"
+  },
+  {
+   "key": "netflix",
+   "name": "Netflix",
+   "ids": [
+    "org.tizen.netflix-app"
+   ],
+   "stores": [
+    "3201907018807"
+   ],
+   "preloaded": true,
+   "bg": "linear-gradient(135deg,#e50914,#8a0610)",
+   "fg": "#ffffff"
+  },
+  {
+   "key": "prime-video",
+   "name": "Prime Video",
+   "ids": [
+    "org.tizen.primevideo"
+   ],
+   "stores": [
+    "3201910019365"
+   ],
+   "preloaded": true,
+   "bg": "linear-gradient(135deg,#1a98ff,#0f4c81)",
+   "fg": "#ffffff"
+  },
+  {
+   "key": "spotify",
+   "name": "Spotify",
+   "ids": [],
+   "stores": [
+    "3202007021175"
+   ],
+   "preloaded": false,
+   "bg": "linear-gradient(135deg,#1ed760,#0f8a3c)",
+   "fg": "#000000"
+  },
+  {
+   "key": "stremio",
+   "name": "Stremio",
+   "ids": [
+    "IkWsFHtOY9.Stremio"
+   ],
+   "stores": [
+    "3202306031311"
+   ],
+   "preloaded": false,
+   "bg": "linear-gradient(135deg,#7b5bf5,#2b1d68)",
+   "fg": "#ffffff"
+  },
+  {
+   "key": "max",
+   "name": "Max",
+   "ids": [],
+   "stores": [],
+   "preloaded": false,
+   "bg": "#002be7",
+   "fg": "#ffffff"
+  },
+  {
+   "key": "hulu",
+   "name": "Hulu",
+   "ids": [],
+   "stores": [],
+   "preloaded": false,
+   "bg": "#1ce783",
+   "fg": "#0b0c0f"
+  },
+  {
+   "key": "apple-tv",
+   "name": "Apple TV",
+   "ids": [],
+   "stores": [],
+   "preloaded": false,
+   "bg": "linear-gradient(135deg,#4a4a4f,#1c1c1e)",
+   "fg": "#ffffff"
+  },
+  {
+   "key": "plex",
+   "name": "Plex",
+   "ids": [],
+   "stores": [],
+   "preloaded": false,
+   "bg": "#1f1f1f",
+   "fg": "#ebaf00"
+  },
+  {
+   "key": "twitch",
+   "name": "Twitch",
+   "ids": [],
+   "stores": [],
+   "preloaded": false,
+   "bg": "#9146ff",
+   "fg": "#ffffff"
+  },
+  {
+   "key": "crunchyroll",
+   "name": "Crunchyroll",
+   "ids": [],
+   "stores": [],
+   "preloaded": false,
+   "bg": "#f47521",
+   "fg": "#ffffff"
+  },
+  {
+   "key": "paramount",
+   "name": "Paramount+",
+   "ids": [],
+   "stores": [],
+   "preloaded": false,
+   "bg": "#0064ff",
+   "fg": "#ffffff"
+  },
+  {
+   "key": "tubi",
+   "name": "Tubi",
+   "ids": [],
+   "stores": [],
+   "preloaded": false,
+   "bg": "#7408ff",
+   "fg": "#ffffff"
+  },
+  {
+   "key": "jellyfin",
+   "name": "Jellyfin",
+   "ids": [],
+   "stores": [],
+   "preloaded": false,
+   "bg": "linear-gradient(135deg,#aa5cc3,#00a4dc)",
+   "fg": "#ffffff"
+  },
+  {
+   "key": "disney",
+   "name": "Disney+",
+   "ids": [
+    "MCmYXNxgcu.DisneyPlus"
+   ],
+   "stores": [
+    "3201901017640"
+   ],
+   "preloaded": false,
+   "bg": "linear-gradient(135deg,#1a3fa3,#06102e)",
+   "fg": "#ffffff"
+  },
+  {
+   "key": "tizenbrew",
+   "name": "TizenBrew",
+   "ids": [],
+   "stores": [],
+   "preloaded": false,
+   "bg": "linear-gradient(135deg,#ff9e1b,#7a2c00)",
+   "fg": "#ffffff"
+  },
+  {
+   "key": "bbc-iplayer",
+   "name": "BBC iPlayer",
+   "ids": [
+    "DqEoaplKlw.bbchybrid"
+   ],
+   "stores": [
+    "3201601007670"
+   ],
+   "preloaded": false
+  },
+  {
+   "key": "bbc-sounds",
+   "name": "BBC Sounds",
+   "ids": [
+    "GR7TWEBh5d.BBCSounds"
+   ],
+   "stores": [
+    "3202003020365"
+   ],
+   "preloaded": false
+  },
+  {
+   "key": "itvx",
+   "name": "ITVX",
+   "ids": [
+    "OEvCiupaFR.ITVHub"
+   ],
+   "stores": [
+    "121299000089"
+   ],
+   "preloaded": false
+  },
+  {
+   "key": "channel-4",
+   "name": "Channel 4",
+   "ids": [
+    "OCaxbgg9v6.chfourctv"
+   ],
+   "stores": [
+    "111299002148"
+   ],
+   "preloaded": false
+  },
+  {
+   "key": "u",
+   "name": "U",
+   "ids": [
+    "VQr0RGkyS9.UKTVPlay"
+   ],
+   "stores": [
+    "3201806016432"
+   ],
+   "preloaded": false
+  },
+  {
+   "key": "5",
+   "name": "5",
+   "ids": [
+    "EkzyZtmneG.My5"
+   ],
+   "stores": [
+    "121299000612"
+   ],
+   "preloaded": false
+  },
+  {
+   "key": "samsung-tv-plus",
+   "name": "Samsung TV Plus",
+   "ids": [],
+   "stores": [
+    "3202405035480"
+   ],
+   "preloaded": false
+  }
+ ]
+}

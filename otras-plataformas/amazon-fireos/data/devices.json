@@ -1,0 +1,356 @@
+{
+ "schema": 1,
+ "platform": "amazon",
+ "updated": "2026-10-24",
+ "sources": {
+  "streaming-media-players": "https://developer.amazon.com/docs/device-specs/device-specifications-fire-tv-streaming-media-player.html",
+  "cube": "https://developer.amazon.com/docs/device-specs/device-specifications-fire-tv-cube.html",
+  "smart-tvs": "https://developer.amazon.com/docs/device-specs/device-specifications-fire-tv-edition-smart-tv-na.html",
+  "home-on-fire": "https://github.com/toolicious/home-on-fire",
+  "vega-run-apps": "https://developer.amazon.com/docs/vega/0.21/run-apps",
+  "vega-sideloading-news": "https://www.aftvnews.com/sideloading-is-truly-dead-on-the-fire-tv-stick-4k-select-with-vega-os/"
+ },
+ "os_versions": {
+  "Fire OS 5": "Android 5.1 (API 22)",
+  "Fire OS 6": "Android 7.1 (API 25)",
+  "Fire OS 7": "Android 9 (API 28)",
+  "Fire OS 8": "Android 11 (API 30)",
+  "Vega OS": "Linux + React Native, no Android. 1.1 en Fire TV Stick 4K Select/HD 2026, 2.0 en Fire TV Stick 4K 3rd Gen"
+ },
+ "detection": {
+  "fire_os": "adb shell getprop ro.product.model (AFT…) y pm has-feature amazon.hardware.fire_tv",
+  "vega": "no responde a ADB; se gestiona con la CLI de Vega (vega device list)"
+ },
+ "smart_tvs": {
+  "note": "Televisores Fire TV (Amazon Omni, Toshiba, Insignia, Hisense, TCL, Panasonic, Xiaomi…) usan Fire OS 7 u 8 según el año: misma compatibilidad que el stick con esa versión. Comprobar en Ajustes → Mi Fire TV → Acerca de.",
+  "status": "documented",
+  "third_party_profiles": [
+   "insignia-ns55f301na25 (Fire OS 7)",
+   "toshiba-fire-tv-aftha004 (Fire OS 7)",
+   "hisense-fire-tv-aftcibfbd1 (Fire OS 8)",
+   "tcl-43s450f-ca (Fire OS 8)",
+   "tcl-58s571f-fire-tv (Fire OS 8)"
+  ]
+ },
+ "installation": [
+  {
+   "method": "downloader-app",
+   "status": "documented",
+   "os": "Fire OS 7/8",
+   "steps": [
+    "Mi Fire TV → Acerca de → pulsar 7 veces el nombre del dispositivo (activa Opciones de desarrollador)",
+    "Opciones de desarrollador → Instalar apps desconocidas → permitir a Downloader",
+    "Downloader → URL de la APK de HorizonX → Instalar"
+   ]
+  },
+  {
+   "method": "adb",
+   "status": "documented",
+   "os": "Fire OS 7/8",
+   "steps": [
+    "Opciones de desarrollador → Depuración ADB",
+    "PC: asistente HorizonX-Fire (instala, concede WRITE_SECURE_SETTINGS y activa el servicio de accesibilidad)"
+   ]
+  },
+  {
+   "method": "vega-developer-mode",
+   "status": "documented",
+   "os": "Vega OS",
+   "steps": [
+    "Requiere cuenta de desarrollador Amazon, SDK de Vega y registrar el dispositivo",
+    "vega devmode enable-device --code <código>",
+    "No hay instalación para usuarios finales fuera de la Appstore"
+   ]
+  }
+ ],
+ "restrictions": [
+  "El inicio de Amazon no se puede reemplazar: HorizonX se abre encima (puede verse el inicio de Amazon ~0,25 s)",
+  "Con Home ya en el inicio de Amazon no hay evento: pulsar OK/Atrás para volver a HorizonX",
+  "Desactivar com.amazon.tv.launcher o firehomestarter deja la pantalla negra",
+  "Fire OS 7 retiene hasta 5 s las apps abiertas por Home (bloqueo del sistema, no evitable sin root)",
+  "El parche de septiembre de 2025 cerró los métodos antiguos de cambiar el inicio por el usuario del sistema (según Home on Fire)"
+ ],
+ "devices": [
+  {
+   "name": "Fire TV Stick 4K - 3rd Gen",
+   "year": 2026,
+   "model_code": "AFTCR001",
+   "os": "Vega OS 2.0",
+   "android_api": null,
+   "chipset": "MediaTek MT8698E, 4x A55 1.7 GHz",
+   "ram": "1 GB",
+   "max_video": "4K60",
+   "horizonx_apk": "no",
+   "home_redirect": "no",
+   "status": "documented",
+   "why": "Vega OS no ejecuta APK Android; requiere la versión React Native para Vega (platforms/amazon-vega) y solo se instala en modo desarrollador o desde la Appstore."
+  },
+  {
+   "name": "Fire TV Stick HD (2026)",
+   "year": 2026,
+   "model_code": "AFTCL001",
+   "os": "Vega OS 1.1",
+   "android_api": null,
+   "chipset": "MediaTek MT8698D, 4x A55 1.7 GHz",
+   "ram": "1 GB",
+   "max_video": "1080p (4K decode)",
+   "horizonx_apk": "no",
+   "home_redirect": "no",
+   "status": "documented",
+   "why": "Vega OS no ejecuta APK Android; requiere la versión React Native para Vega (platforms/amazon-vega) y solo se instala en modo desarrollador o desde la Appstore."
+  },
+  {
+   "name": "Fire TV Stick 4K Plus",
+   "year": 2025,
+   "model_code": "AFTMA08C15",
+   "os": "Fire OS 8",
+   "android_api": 30,
+   "chipset": "MediaTek MT8696D, 4x A55 1.7 GHz",
+   "ram": "2 GB",
+   "max_video": "4K60",
+   "horizonx_apk": "sí",
+   "home_redirect": "sí (Fire OS 8 inmediato; Fire OS 7 con hasta ~5 s de retraso del sistema)",
+   "status": "documented",
+   "why": "APK de Android TV compartida. Redirección de Home por accesibilidad, técnica probada por Home on Fire en Fire OS 7.7 y 8.1."
+  },
+  {
+   "name": "Fire TV Stick 4K Select",
+   "year": 2025,
+   "model_code": "AFTCA002",
+   "os": "Vega OS 1.1",
+   "android_api": null,
+   "chipset": "MediaTek MT8698, 4x A55 1.7 GHz",
+   "ram": "1 GB",
+   "max_video": "4K60",
+   "horizonx_apk": "no",
+   "home_redirect": "no",
+   "status": "documented",
+   "why": "Vega OS no ejecuta APK Android; requiere la versión React Native para Vega (platforms/amazon-vega) y solo se instala en modo desarrollador o desde la Appstore."
+  },
+  {
+   "name": "Fire TV Stick HD (Alexa Voice Remote)",
+   "year": 2024,
+   "model_code": "AFTSS",
+   "os": "Fire OS 7",
+   "android_api": 28,
+   "chipset": "MediaTek MT8695D 1.7 GHz",
+   "ram": "1 GB",
+   "max_video": "1080p60",
+   "horizonx_apk": "sí",
+   "home_redirect": "sí (Fire OS 8 inmediato; Fire OS 7 con hasta ~5 s de retraso del sistema)",
+   "status": "documented",
+   "why": "APK de Android TV compartida. Redirección de Home por accesibilidad, técnica probada por Home on Fire en Fire OS 7.7 y 8.1."
+  },
+  {
+   "name": "Fire TV Stick 4K Max - 2nd Gen",
+   "year": 2023,
+   "model_code": "AFTKRT",
+   "os": "Fire OS 8",
+   "android_api": 30,
+   "chipset": "MediaTek MT8696T, 4x A55 2.0 GHz",
+   "ram": "2 GB",
+   "max_video": "4K60",
+   "horizonx_apk": "sí",
+   "home_redirect": "sí (Fire OS 8 inmediato; Fire OS 7 con hasta ~5 s de retraso del sistema)",
+   "status": "documented",
+   "why": "APK de Android TV compartida. Redirección de Home por accesibilidad, técnica probada por Home on Fire en Fire OS 7.7 y 8.1."
+  },
+  {
+   "name": "Fire TV Stick 4K - 2nd Gen",
+   "year": 2023,
+   "model_code": "AFTKM",
+   "os": "Fire OS 8",
+   "android_api": 30,
+   "chipset": "MediaTek MT8696D, 4x A55 1.7 GHz",
+   "ram": "2 GB",
+   "max_video": "4K60",
+   "horizonx_apk": "sí",
+   "home_redirect": "sí (Fire OS 8 inmediato; Fire OS 7 con hasta ~5 s de retraso del sistema)",
+   "status": "documented",
+   "why": "APK de Android TV compartida. Redirección de Home por accesibilidad, técnica probada por Home on Fire en Fire OS 7.7 y 8.1."
+  },
+  {
+   "name": "Fire TV Cube - 3rd Gen",
+   "year": 2022,
+   "model_code": "AFTGAZL",
+   "os": "Fire OS 7",
+   "android_api": 28,
+   "chipset": "Amlogic POP1-G, 4x A73 2.2 GHz + 4x A53",
+   "ram": "2 GB",
+   "max_video": "4K60",
+   "horizonx_apk": "sí",
+   "home_redirect": "sí (Fire OS 8 inmediato; Fire OS 7 con hasta ~5 s de retraso del sistema)",
+   "status": "documented",
+   "why": "APK de Android TV compartida. Redirección de Home por accesibilidad, técnica probada por Home on Fire en Fire OS 7.7 y 8.1."
+  },
+  {
+   "name": "Fire TV Stick 4K Max - 1st Gen",
+   "year": 2021,
+   "model_code": "AFTKA",
+   "os": "Fire OS 7",
+   "android_api": 28,
+   "chipset": "MediaTek MT8696 1.8 GHz",
+   "ram": "2 GB",
+   "max_video": "4K60",
+   "horizonx_apk": "sí",
+   "home_redirect": "sí (Fire OS 8 inmediato; Fire OS 7 con hasta ~5 s de retraso del sistema)",
+   "status": "documented",
+   "why": "APK de Android TV compartida. Redirección de Home por accesibilidad, técnica probada por Home on Fire en Fire OS 7.7 y 8.1."
+  },
+  {
+   "name": "Fire TV Stick - 3rd Gen",
+   "year": 2020,
+   "model_code": "AFTSSS",
+   "os": "Fire OS 7",
+   "android_api": 28,
+   "chipset": "MediaTek MT8695D 1.7 GHz",
+   "ram": "1 GB",
+   "max_video": "1080p60",
+   "horizonx_apk": "sí",
+   "home_redirect": "sí (Fire OS 8 inmediato; Fire OS 7 con hasta ~5 s de retraso del sistema)",
+   "status": "documented",
+   "why": "APK de Android TV compartida. Redirección de Home por accesibilidad, técnica probada por Home on Fire en Fire OS 7.7 y 8.1."
+  },
+  {
+   "name": "Fire TV Stick Lite",
+   "year": 2020,
+   "model_code": "AFTSS",
+   "os": "Fire OS 7",
+   "android_api": 28,
+   "chipset": "MediaTek MT8695D 1.7 GHz",
+   "ram": "1 GB",
+   "max_video": "1080p60",
+   "horizonx_apk": "sí",
+   "home_redirect": "sí (Fire OS 8 inmediato; Fire OS 7 con hasta ~5 s de retraso del sistema)",
+   "status": "documented",
+   "why": "APK de Android TV compartida. Redirección de Home por accesibilidad, técnica probada por Home on Fire en Fire OS 7.7 y 8.1."
+  },
+  {
+   "name": "Fire TV Cube - 2nd Gen",
+   "year": 2019,
+   "model_code": "AFTR",
+   "os": "Fire OS 7",
+   "android_api": 28,
+   "chipset": "Amlogic S922X hexa-core 2.2 GHz",
+   "ram": "2 GB",
+   "max_video": "4K60",
+   "horizonx_apk": "sí",
+   "home_redirect": "sí (Fire OS 8 inmediato; Fire OS 7 con hasta ~5 s de retraso del sistema)",
+   "status": "documented",
+   "why": "APK de Android TV compartida. Redirección de Home por accesibilidad, técnica probada por Home on Fire en Fire OS 7.7 y 8.1."
+  },
+  {
+   "name": "Fire TV Cube - 1st Gen",
+   "year": 2018,
+   "model_code": "AFTA",
+   "os": "Fire OS 6",
+   "android_api": 25,
+   "chipset": "Amlogic S905Z 1.5 GHz",
+   "ram": "2 GB",
+   "max_video": "4K60",
+   "horizonx_apk": "no",
+   "home_redirect": "no",
+   "status": "documented",
+   "why": "Android API 25: HorizonX necesita API 26 (Android 8) o superior. Home on Fire tampoco funciona en Fire OS 6."
+  },
+  {
+   "name": "Fire TV Stick 4K - 1st Gen",
+   "year": 2018,
+   "model_code": "AFTMM",
+   "os": "Fire OS 6",
+   "android_api": 25,
+   "chipset": "MediaTek MT8695 1.7 GHz",
+   "ram": "1.5 GB",
+   "max_video": "4K60",
+   "horizonx_apk": "no",
+   "home_redirect": "no",
+   "status": "documented",
+   "why": "Android API 25: HorizonX necesita API 26 (Android 8) o superior. Home on Fire tampoco funciona en Fire OS 6."
+  },
+  {
+   "name": "Fire TV - 3rd Gen (colgante)",
+   "year": 2017,
+   "model_code": "AFTN",
+   "os": "Fire OS 6",
+   "android_api": 25,
+   "chipset": "Amlogic S905Z 1.5 GHz",
+   "ram": "2 GB",
+   "max_video": "4K60",
+   "horizonx_apk": "no",
+   "home_redirect": "no",
+   "status": "documented",
+   "why": "Android API 25: HorizonX necesita API 26 (Android 8) o superior. Home on Fire tampoco funciona en Fire OS 6."
+  },
+  {
+   "name": "Fire TV Stick - Basic Edition",
+   "year": 2017,
+   "model_code": "AFTT",
+   "os": "Fire OS 5",
+   "android_api": 22,
+   "chipset": "MediaTek 8127D 1.3 GHz",
+   "ram": "1 GB",
+   "max_video": "1080p30",
+   "horizonx_apk": "no",
+   "home_redirect": "no",
+   "status": "documented",
+   "why": "Android API 22: HorizonX necesita API 26 (Android 8) o superior. Home on Fire tampoco funciona en Fire OS 6."
+  },
+  {
+   "name": "Fire TV Stick - 2nd Gen",
+   "year": 2016,
+   "model_code": "AFTT",
+   "os": "Fire OS 5",
+   "android_api": 22,
+   "chipset": "MediaTek 8127D 1.3 GHz",
+   "ram": "1 GB",
+   "max_video": "1080p30",
+   "horizonx_apk": "no",
+   "home_redirect": "no",
+   "status": "documented",
+   "why": "Android API 22: HorizonX necesita API 26 (Android 8) o superior. Home on Fire tampoco funciona en Fire OS 6."
+  },
+  {
+   "name": "Fire TV - 2nd Gen (caja)",
+   "year": 2015,
+   "model_code": "AFTS",
+   "os": "Fire OS 5",
+   "android_api": 22,
+   "chipset": "MediaTek 8173C",
+   "ram": "2 GB",
+   "max_video": "4K30",
+   "horizonx_apk": "no",
+   "home_redirect": "no",
+   "status": "documented",
+   "why": "Android API 22: HorizonX necesita API 26 (Android 8) o superior. Home on Fire tampoco funciona en Fire OS 6."
+  },
+  {
+   "name": "Fire TV Stick - 1st Gen",
+   "year": 2014,
+   "model_code": "AFTM",
+   "os": "Fire OS 5",
+   "android_api": 22,
+   "chipset": "Broadcom Capri 28155",
+   "ram": "1 GB",
+   "max_video": "1080p30",
+   "horizonx_apk": "no",
+   "home_redirect": "no",
+   "status": "documented",
+   "why": "Android API 22: HorizonX necesita API 26 (Android 8) o superior. Home on Fire tampoco funciona en Fire OS 6."
+  },
+  {
+   "name": "Fire TV - 1st Gen (caja)",
+   "year": 2014,
+   "model_code": "AFTB",
+   "os": "Fire OS 5",
+   "android_api": 22,
+   "chipset": "Snapdragon 8064",
+   "ram": "2 GB",
+   "max_video": "1080p30",
+   "horizonx_apk": "no",
+   "home_redirect": "no",
+   "status": "documented",
+   "why": "Android API 22: HorizonX necesita API 26 (Android 8) o superior. Home on Fire tampoco funciona en Fire OS 6."
+  }
+ ],
+ "physically_tested_by_horizonx": []
+}

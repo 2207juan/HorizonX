@@ -38,3 +38,7 @@ Paso a paso: [guía de instalación](docs/GUIA.md). Para deshacer: **Ajustes →
 ## Otras plataformas (experimental)
 
 Samsung Tizen, Roku, Fire TV y Hisense VIDAA tienen instaladores en [otras-plataformas](otras-plataformas/README.md). Aún no se han probado en esos televisores.
+
+## Otras plataformas de TV
+
+[LG webOS · Fire OS · Samsung Tizen · Roku · VIDAA: descargas, instalación y estado real de Home](docs/OTRAS_PLATAFORMAS.md). Ediciones separadas; las pruebas físicas pendientes se indican expresamente.

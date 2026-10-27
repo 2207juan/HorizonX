@@ -1,0 +1,236 @@
+{
+  "schema": 1,
+  "updated": "2026-10-25",
+  "tests": {
+    "A": "Installation on target OS",
+    "B": "Cold boot AND standby wake",
+    "C": "Physical Home from external apps",
+    "D": "Installed native apps and essential TV functions",
+    "E": "Restore original Home"
+  },
+  "platforms": {
+    "lg-webos": {
+      "method": "LG IPK + read-only discovery service; opt-in persistent activities; optional native home category with exact probes",
+      "limits": [
+        "Requires already established root for full discovery and Home integration",
+        "Overlay Home (e.g. webOS 5) is rejected by the current planner",
+        "Standby/Quick Start+, cold boot, input focus and streaming are unverified",
+        "Stock LG Home is retained; no bind mounts/system partition patches"
+      ],
+      "checks": {
+        "A": {
+          "status": "implementada pero sin probar",
+          "evidence": null
+        },
+        "B": {
+          "status": "experimental",
+          "evidence": null
+        },
+        "C": {
+          "status": "experimental",
+          "evidence": null
+        },
+        "D": {
+          "status": "implementada pero sin probar",
+          "evidence": null
+        },
+        "E": {
+          "status": "implementada pero sin probar",
+          "evidence": null
+        }
+      },
+      "physical_evidence": [],
+      "objective_complete": false,
+      "development_evidence": {
+        "official_simulator": "webOS TV 26 Simulator 1.5.0: 9 UI/RCU checks; unmocked LG bridge",
+        "browser_mock_checks": 17,
+        "installation_and_home": "Not verified: simulator runs a source directory, not target-TV IPK installation",
+        "cross_app_launch": "Simulator returned returnValue=true but created no target app page; not verified",
+        "report": "docs/VALIDACION-MULTIPLATAFORMA-2026-10-25.md"
+      }
+    },
+    "samsung-tizen": {
+      "method": "Opt-in foreground watcher with persistent app-private configuration, positive known-Home detection, bounded requests and cancellation; native Home route not automated",
+      "limits": [
+        "Watcher cannot reliably infer Home for apps hiding visibility",
+        "CleanFrame native technique is firmware-specific and uses an undocumented execution workaround",
+        "No native writes/exploit execution or new model compatibility has been enabled"
+      ],
+      "checks": {
+        "A": {
+          "status": "implementada pero sin probar",
+          "evidence": null
+        },
+        "B": {
+          "status": "experimental",
+          "evidence": null
+        },
+        "C": {
+          "status": "experimental",
+          "evidence": null
+        },
+        "D": {
+          "status": "implementada pero sin probar",
+          "evidence": null
+        },
+        "E": {
+          "status": "experimental",
+          "evidence": null
+        }
+      },
+      "physical_evidence": [],
+      "objective_complete": false,
+      "development_evidence": {
+        "service_checks": 14,
+        "private_storage_checks": 9,
+        "data_checks": 6,
+        "physical_home": "Not verified; watcher is limited and does not change native Home routing"
+      }
+    },
+    "amazon-fireos": {
+      "method": "Separate Fire OS APK; explicit opted-in boot receiver and accessibility Home redirect; identity-bound activation and restoration",
+      "limits": [
+        "Android-based Fire OS only, min SDK 26",
+        "Fire-specific boot receiver implemented and compiled; Android/Fire OS background-start policy and service binding require hardware validation",
+        "Fire OS 7 may delay launches; no instant behavior is guaranteed",
+        "No physical Fire TV tested; service binding/key delivery must be checked"
+      ],
+      "checks": {
+        "A": {
+          "status": "implementada pero sin probar",
+          "evidence": null
+        },
+        "B": {
+          "status": "implementada pero sin probar",
+          "evidence": null
+        },
+        "C": {
+          "status": "implementada pero sin probar",
+          "evidence": null
+        },
+        "D": {
+          "status": "implementada pero sin probar",
+          "evidence": null
+        },
+        "E": {
+          "status": "implementada pero sin probar",
+          "evidence": null
+        }
+      },
+      "physical_evidence": [],
+      "objective_complete": false,
+      "development_evidence": {
+        "apk": "HorizonX-FireOS-3.8.0-fire.1.apk: release compiled, signature and shared assets verified",
+        "simulations": "13 host-JVM startup rules; 15 Python activation/restore/cleanup tests",
+        "android_tv": "58 original source/resource files retain their initial SHA256; Android release builds successfully"
+      }
+    },
+    "amazon-vega": {
+      "method": "Existing separate React Native prototype only; no verified Home-assignment API",
+      "limits": [
+        "No VPKG built here",
+        "Vega developer commands (vda) exist; they are not Android ADB or proof of root access",
+        "Current main-Home objective unsupported by our implementation, not a universal impossibility claim"
+      ],
+      "checks": {
+        "A": {
+          "status": "experimental",
+          "evidence": null
+        },
+        "B": {
+          "status": "no compatible",
+          "evidence": null
+        },
+        "C": {
+          "status": "no compatible",
+          "evidence": null
+        },
+        "D": {
+          "status": "experimental",
+          "evidence": null
+        },
+        "E": {
+          "status": "no compatible",
+          "evidence": null
+        }
+      },
+      "physical_evidence": [],
+      "objective_complete": false
+    },
+    "roku-os": {
+      "method": "Existing limited channel/screensaver; no current verified Home replacement",
+      "limits": [
+        "RootMyRoku is historical: RokuOS 9.4.0 build 4200/Realtek, broken in OS 10",
+        "Historical exploit blocks Roku services and does not implement HorizonX Home",
+        "In-app ECP is unsupported; an external launch request does not replace Home"
+      ],
+      "checks": {
+        "A": {
+          "status": "implementada pero sin probar",
+          "evidence": null
+        },
+        "B": {
+          "status": "no compatible",
+          "evidence": null
+        },
+        "C": {
+          "status": "no compatible",
+          "evidence": null
+        },
+        "D": {
+          "status": "no compatible",
+          "evidence": null
+        },
+        "E": {
+          "status": "implementada pero sin probar",
+          "evidence": null
+        }
+      },
+      "physical_evidence": [],
+      "objective_complete": false,
+      "development_evidence": {
+        "compiler": "BrighterScript successful",
+        "ui_emulation": "brs-engine SceneGraph beta, Spanish/English navigation and no runtime errors; see validation report",
+        "native_home": "No replacement implemented"
+      }
+    },
+    "hisense-vidaa": {
+      "method": "Existing limited hosted web app; native application control/Home watcher via external MQTT server researched",
+      "limits": [
+        "Zfinix takeover requires an always-on external host; does not meet standalone requirement",
+        "Sidee persistent tiles are not persistent Home routing",
+        "No automatic Appinfo.json writes or exploits have been added",
+        "VIDAA native launches not implemented in HorizonX standalone adapter"
+      ],
+      "checks": {
+        "A": {
+          "status": "experimental",
+          "evidence": null
+        },
+        "B": {
+          "status": "no compatible",
+          "evidence": null
+        },
+        "C": {
+          "status": "no compatible",
+          "evidence": null
+        },
+        "D": {
+          "status": "no compatible",
+          "evidence": null
+        },
+        "E": {
+          "status": "experimental",
+          "evidence": null
+        }
+      },
+      "physical_evidence": [],
+      "objective_complete": false,
+      "development_evidence": {
+        "browser_checks": 10,
+        "installer_unit_tests": 3,
+        "native_home": "No verified standalone method added"
+      }
+    }
+  }
+}

@@ -1,0 +1,288 @@
+{
+ "schema": 1,
+ "platform": "amazon-fireos",
+ "source": "Derivado de 12 perfiles Fire OS de CleanYourTV (MIT) y revisado a mano para HorizonX",
+ "rules": [
+  "Solo pm disable-user --user 0 (reversible con pm enable), nunca desinstalar",
+  "Se guarda copia del estado previo antes de cada cambio",
+  "Nunca se toca el inicio de Amazon, ajustes, tienda, actualizaciones ni teclado: una pantalla negra sin salida es el fallo conocido"
+ ],
+ "safe": [
+  {
+   "name": "com.amazon.dp.logger",
+   "why": "registro de diagnóstico",
+   "disabled_in_models": 12,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.tmm.tutorial",
+   "why": "tutorial de primera configuración",
+   "disabled_in_models": 12,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.storm.lightning.tutorial",
+   "why": "tutorial del mando",
+   "disabled_in_models": 11,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.wirelessmetrics.service",
+   "why": "métricas de red inalámbrica",
+   "disabled_in_models": 11,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.perfcollection",
+   "why": "recogida de métricas de rendimiento",
+   "disabled_in_models": 11,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.perfc",
+   "why": "métricas de rendimiento",
+   "disabled_in_models": 10,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.client.metrics.api",
+   "why": "API de métricas",
+   "disabled_in_models": 8,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.hybridadidservice",
+   "why": "ID de publicidad",
+   "disabled_in_models": 9,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.kso.blackbird",
+   "why": "sincronización/pujas de anuncios del inicio",
+   "disabled_in_models": 8,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.wifilocker",
+   "why": "sube contraseñas Wi-Fi a Amazon",
+   "disabled_in_models": 7,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.tv.easyupgrade",
+   "why": "promos «mejora tu Fire TV»",
+   "disabled_in_models": 7,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.tv.releasenotes",
+   "why": "notas de novedades",
+   "disabled_in_models": 7,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.uxnotification",
+   "why": "ventanas promocionales",
+   "disabled_in_models": 7,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.tv.acr",
+   "why": "reconocimiento de contenido (ACR)",
+   "disabled_in_models": 10,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.device.telemetry.emitter",
+   "why": "telemetría (Fire OS 8)",
+   "disabled_in_models": 4,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.tv.fw.metrics",
+   "why": "métricas del firmware",
+   "disabled_in_models": 6,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.ceviche",
+   "why": "canalización de recogida de datos",
+   "disabled_in_models": 6,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.tv.democontent.provider",
+   "why": "contenido demo de tienda",
+   "disabled_in_models": 7,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.shoptv.client",
+   "why": "compras en TV",
+   "disabled_in_models": 11,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.shoptv.firetv.client",
+   "why": "compras en TV",
+   "disabled_in_models": 7,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.device.sale.service",
+   "why": "campañas de ofertas",
+   "disabled_in_models": 2,
+   "kept_by_some_owner": false
+  }
+ ],
+ "optional": [
+  {
+   "name": "com.amazon.bueller.photos",
+   "why": "Amazon Photos",
+   "disabled_in_models": 12,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.bueller.music",
+   "why": "Amazon Music",
+   "disabled_in_models": 11,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.gamehub",
+   "why": "Juegos",
+   "disabled_in_models": 11,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.minitv.android.app",
+   "why": "miniTV",
+   "disabled_in_models": 9,
+   "kept_by_some_owner": true
+  },
+  {
+   "name": "com.amazon.naatyam",
+   "why": "Alexa visual",
+   "disabled_in_models": 8,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.alexamediaplayer.runtime.ftv",
+   "why": "reproductor de Alexa",
+   "disabled_in_models": 7,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.alexa.externalmediaplayer.fireos",
+   "why": "Alexa en apps externas",
+   "disabled_in_models": 7,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.tv.alexaalerts",
+   "why": "alertas de Alexa",
+   "disabled_in_models": 7,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.tv.alexanotifications",
+   "why": "notificaciones de Alexa",
+   "disabled_in_models": 7,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.hedwig",
+   "why": "Fire TV Channels (canales gratis con anuncios)",
+   "disabled_in_models": 7,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.cloud9",
+   "why": "navegador Silk",
+   "disabled_in_models": 6,
+   "kept_by_some_owner": true
+  },
+  {
+   "name": "com.amazon.ods.kindleconnect",
+   "why": "«mostrar en Fire TV» desde Echo",
+   "disabled_in_models": 6,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.tv.localgallery",
+   "why": "visor de fotos/vídeos USB",
+   "disabled_in_models": 4,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.tv.ftvambient",
+   "why": "modo ambiente",
+   "disabled_in_models": 3,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.cast.sink",
+   "why": "duplicar pantalla (Miracast)",
+   "disabled_in_models": 3,
+   "kept_by_some_owner": true
+  },
+  {
+   "name": "com.amazon.tahoe",
+   "why": "Amazon Kids",
+   "disabled_in_models": 9,
+   "kept_by_some_owner": true
+  },
+  {
+   "name": "com.amazon.media.recommendations",
+   "why": "recomendaciones",
+   "disabled_in_models": 6,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.tv.developer.dataservice",
+   "why": "datos de personalización para apps",
+   "disabled_in_models": 6,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.tv.livetv",
+   "why": "pestaña Live y guía",
+   "disabled_in_models": 4,
+   "kept_by_some_owner": true
+  },
+  {
+   "name": "com.amazon.audiohome",
+   "why": "Alexa Home Theater",
+   "disabled_in_models": 5,
+   "kept_by_some_owner": false
+  },
+  {
+   "name": "com.amazon.whad",
+   "why": "audio multisala",
+   "disabled_in_models": 3,
+   "kept_by_some_owner": false
+  }
+ ],
+ "never": [
+  "com.amazon.tv.launcher",
+  "com.amazon.firehomestarter",
+  "com.amazon.tv.settings",
+  "com.amazon.tv.settings.v2",
+  "com.amazon.venezia",
+  "com.amazon.tv.ime",
+  "com.amazon.device.software.ota",
+  "com.amazon.device.software.ota.override",
+  "com.amazon.cpl",
+  "com.amazon.imp",
+  "com.amazon.logan",
+  "com.amazon.aria",
+  "com.amazon.firebat",
+  "com.amazon.tv.oobe",
+  "com.amazon.device.sync",
+  "com.amazon.tv.inputpreference.service",
+  "com.amazon.tv.parentalcontrols",
+  "com.amazon.vizzini",
+  "com.amazon.device.messaging"
+ ],
+ "dropped_because_kept": []
+}

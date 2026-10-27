@@ -38,3 +38,7 @@ Step by step: [installation guide](docs/INSTALLATION.md). To undo: **Settings 鈫
 ## Other platforms (experimental)
 
 Samsung Tizen, Roku, Fire TV and Hisense VIDAA have installers in [otras-plataformas](otras-plataformas/README.md). They have not been tested on those TVs yet.
+
+## Other TV platforms
+
+[LG webOS 路 Fire OS 路 Samsung Tizen 路 Roku 路 VIDAA: downloads, installation and actual Home support](docs/OTRAS_PLATAFORMAS.md). Separate builds; experimental hardware support is labelled explicitly.

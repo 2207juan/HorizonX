@@ -90,7 +90,8 @@ def describe(ip, headers=()):
     maker = (info.get("manufacturer") or "").lower()
     if "lg" in maker or port_open(ip, 3000) and port_open(ip, 3001):
         return {"ip": ip, "platform": "lg-webos", "name": info.get("friendlyName"), "model": info.get("modelName"),
-                "detail": "webOS: no instala APK ni WGT", "next": "No compatible por ahora (ver docs)"}
+                "detail": "webOS: edición IPK independiente; Home/arranque experimental con root ya disponible",
+                "next": "platforms/lg-webos/README.md (instalación e inicio principal se comprueban por separado)"}
     adb = port_open(ip, 5555)
     amazon = "amazon" in maker or "fire" in (info.get("modelName") or "").lower()
     if amazon or adb or "dial" in text.lower():

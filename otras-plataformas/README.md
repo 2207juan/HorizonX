@@ -1,14 +1,17 @@
 # Otras plataformas · Other platforms
 
-Experimental: compiladas y probadas en emulador o navegador, **sin probar en televisores reales**. / Built and tested in an emulator or browser, **not yet tested on real TVs**.
+Ediciones propias; no son la APK Android instalada en otro sistema. Los paquetes están compilados, pero **no probados por HorizonX en televisores físicos de estas plataformas**.
 
-Requisitos: Python 3.10+ en un PC de la misma red. Para saber qué tienes: `python3 detect.py`.
+Separate editions, not the Android APK running on another operating system. Packages are built, but **HorizonX has not verified them on physical TVs on these platforms**.
 
-| Televisor | Carpeta | Cómo |
+| Plataforma / Platform | Descarga y asistente / Download and installer | Inicio / Home |
 |---|---|---|
-| **Samsung** (Tizen 2017+) | `samsung-tizen/` | Activa el modo desarrollador del TV y ejecuta `HorizonX-Samsung.sh` / `.cmd`. Pide iniciar sesión en tu cuenta Samsung para firmar la app. |
-| **Fire TV** (Fire OS 7/8) | `fire-tv/` | Activa *Depuración ADB* y ejecuta `HorizonX-FireTV.sh` / `.cmd`. HorizonX se abre encima del inicio de Amazon. |
-| **Roku** | `roku/` | Activa el modo desarrollador (Inicio ×3, Arriba ×2, Derecha, Izquierda, Derecha, Izquierda, Derecha) y ejecuta `HorizonX-Roku.sh` / `.cmd`. Es un canal: no reemplaza el inicio. |
-| **Hisense / Toshiba VIDAA** | `hisense-vidaa/` | `sudo python3 horizonx_vidaa.py` y sigue los pasos en pantalla (DNS temporal). Método comunitario; puede no funcionar en firmware 2025. |
+| LG webOS | [IPK y guía](lg-webos/README.md) | Integración avanzada con root existente; sin certificación física / Existing-root integration; not physically certified |
+| Fire OS Android | [APK específica y ADB](amazon-fireos/README.md) | Arranque y accesibilidad implementados; prueba física pendiente / Implemented, hardware validation pending |
+| Samsung Tizen | [WGT y firma](samsung-tizen/README.md) | Vigilante limitado / Limited watcher |
+| VIDAA | [Sitio web e instalador](hisense-vidaa/README.md) | No reemplaza Home / No Home replacement |
+| Roku | [Canal y salvapantallas](roku-os/README.md) | No reemplaza Home / No Home replacement |
 
-Cada asistente se puede deshacer desde su propio menú. / Each assistant can undo its changes from its own menu.
+[Pasos y límites / Steps and limits](../docs/OTRAS_PLATAFORMAS.md).
+
+Los asistentes son scripts Python necesarios para instalar; no contienen el proyecto de desarrollo Android. IPK/WGT/ZIP pueden contener código interpretado necesario para funcionar; una distribución de estos sistemas no puede prometer ocultar sus recursos ejecutables.

@@ -216,18 +216,19 @@ def cmd_install(args):
             say(output.strip()[-600:])
             sys.exit("El televisor no confirmó la instalación.")
         say(f"✓ HorizonX instalado (versión {installed.get('version') or version}).")
-        if not getattr(args, "no_optimize", False):
+        if getattr(args, "optimize", False) and not getattr(args, "no_optimize", False) and yes("¿Autorizar quitar los extras opcionales? Guarda antes tus datos; no es necesario para activar Home."):
             optimize(s, duid)
         if yes("¿Abrirlo ahora?"):
             s.launch(APP_ID)
-    say("\nHorizonX se abrirá al encender y volverá con Home. Puedes desactivarlo en HorizonX → Ajustes → Sistema.")
+    say("\nLa app está instalada. Arranque y Home siguen siendo experimentales: pruébalos por separado desde apps externas.")
+    say("El vigilante se configura en HorizonX → Ajustes → Sistema; no equivale a reasignar el Home nativo.")
     say("\nSamsung no deja que ninguna app cambie estos ajustes; si quieres menos publicidad, hazlo una vez en el televisor:")
     for line in TV_SETTINGS:
         say(f"  · {line}")
 
 
 def optimize(s, duid):
-    """Default clean-up: removes the clear-cut extras listed in AUTO_REMOVE_HINTS and records them."""
+    """Optional authorized clean-up: removes the listed extras and records them."""
     apps = catalog.parse_applist(s.applist())
     targets = [a for a in apps if catalog.classify(a) == "bloat"
                and any(h in (a.get("name") or "").lower() for h in AUTO_REMOVE_HINTS)]
@@ -283,7 +284,7 @@ def menu():
             return
         if choice in actions:
             try:
-                actions[choice][1](argparse.Namespace(tv=None, no_optimize=False))
+                actions[choice][1](argparse.Namespace(tv=None, no_optimize=True, optimize=False))
             except SystemExit as e:
                 if e.code not in (None, 0):
                     say(str(e.code))
@@ -295,6 +296,7 @@ def main():
     p.add_argument("command", nargs="?", choices=["status", "install", "apps", "uninstall"])
     p.add_argument("--tv", help="IP del televisor")
     p.add_argument("--no-optimize", action="store_true", help="no quitar manuales, demos ni extras al instalar")
+    p.add_argument("--optimize", action="store_true", help="ofrecer limpieza opcional con confirmación adicional; nunca necesaria para Home")
     args = p.parse_args()
     if not args.command:
         menu()

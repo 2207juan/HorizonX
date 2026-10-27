@@ -1,0 +1,823 @@
+{
+ "schema": 1,
+ "platform": "roku-os",
+ "updated": "2026-10-24",
+ "sources": {
+  "hardware": "https://developer.roku.com/dev/docs/hardware",
+  "ecp": "https://developer.roku.com/dev/docs/external-control-api",
+  "appmanager": "https://developer.roku.com/dev/docs/ifappmanager",
+  "release-notes": "https://support.roku.com/article/roku-os-release-notes",
+  "sideload": "https://sdkdocs-archive.roku.com/Loading-and-Running-Your-Application_3737091.html"
+ },
+ "facts": {
+  "home": "Roku OS no permite reemplazar la pantalla de inicio. HorizonX es un canal + salvapantallas, no un launcher.",
+  "launch_other_apps": "Desde dentro de una app: imposible (Roku retiró el envío de ECP desde apps y ShowChannelStoreSpringboard dejó de funcionar en Roku OS 14). Desde el PC/móvil por ECP: sí (POST :8060/launch/<id>), si «Control por apps móviles» lo permite.",
+  "installed_apps": "roAppManager.IsAppInstalled(id) solo comprueba IDs concretos; no hay lista completa dentro de la app. Por ECP desde fuera: GET :8060/query/apps.",
+  "developer_mode": "Inicio×3, Arriba×2, Derecha, Izquierda, Derecha, Izquierda, Derecha. Requiere dispositivo vinculado a cuenta Roku. Instalador web en el puerto 80, usuario rokudev.",
+  "sideload_limits": "Solo un canal de desarrollo a la vez; se mantiene tras reiniciar, pero instalar otro lo sustituye. Los canales privados se eliminaron en 2022.",
+  "optimization": "Una app no puede desactivar servicios. Ajustes útiles y reversibles: Privacidad → Publicidad → Limitar seguimiento de anuncios; Privacidad → Experiencia Smart TV → desactivar «Usar información de entradas de TV» (ACR, solo Roku TV); Inicio → Configuración → Pantalla de inicio → ocultar «Novedades/Sports/Live TV» según versión; quitar canales que no uses (✱ → Eliminar canal); salvapantallas propio."
+ },
+ "devices": [
+  {
+   "product": "Roku Streaming Stick",
+   "code_name": "Lakeport",
+   "model_numbers": [
+    "3840X"
+   ],
+   "year": 2025,
+   "cpu": "ARM Cortex A55",
+   "ram": "512 MB",
+   "resolution": "720p UI / 1080p",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Streaming Stick Plus",
+   "code_name": "Bayside",
+   "model_numbers": [
+    "3830X"
+   ],
+   "year": 2025,
+   "cpu": "ARM Cortex A55",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K60",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Streaming Stick 4K",
+   "code_name": "Logan",
+   "model_numbers": [
+    "3820X2"
+   ],
+   "year": 2022,
+   "cpu": "ARM Cortex A55",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K60",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Streaming Stick 4K+",
+   "code_name": "Logan",
+   "model_numbers": [
+    "3821X2"
+   ],
+   "year": 2022,
+   "cpu": "ARM Cortex A55",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K60",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Ultra",
+   "code_name": "Brewster",
+   "model_numbers": [
+    "4850X"
+   ],
+   "year": 2024,
+   "cpu": "ARM Cortex A55",
+   "ram": "2 GB",
+   "resolution": "1080p UI / 4K60",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Streambar SE",
+   "code_name": "Lockhart",
+   "model_numbers": [
+    "9104X"
+   ],
+   "year": 2024,
+   "cpu": "ARM Cortex A55",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K60",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Projector",
+   "code_name": "Avery",
+   "model_numbers": [
+    "K8PXX"
+   ],
+   "year": 2024,
+   "cpu": "ARM Cortex A35",
+   "ram": "512 MB",
+   "resolution": "720p UI / 1080p",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "4K Roku TV",
+   "code_name": "Trinidad",
+   "model_numbers": [
+    "J000X"
+   ],
+   "year": 2021,
+   "cpu": "ARM quad CA73 1 GHz",
+   "ram": "2 GB",
+   "resolution": "1080p UI / 4K144",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "4K Roku TV",
+   "code_name": "Longview",
+   "model_numbers": [
+    "7000X"
+   ],
+   "year": 2019,
+   "cpu": "ARM dual 1.2 GHz",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku TV",
+   "code_name": "Midland",
+   "model_numbers": [
+    "8000X"
+   ],
+   "year": 2019,
+   "cpu": "ARM",
+   "ram": "512 MB",
+   "resolution": "720p UI / 720p",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku TV (Brasil)",
+   "code_name": "El Paso",
+   "model_numbers": [
+    "8000X"
+   ],
+   "year": 2020,
+   "cpu": "ARM",
+   "ram": "512 MB",
+   "resolution": "720p UI / 1080p",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "2K Roku TV",
+   "code_name": "Miami",
+   "model_numbers": [
+    "H000X"
+   ],
+   "year": 2022,
+   "cpu": "ARM quad 1 GHz",
+   "ram": "512 MB",
+   "resolution": "720p UI / 1080p",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "4K Roku TV",
+   "code_name": "Reno",
+   "model_numbers": [
+    "A000X"
+   ],
+   "year": 2019,
+   "cpu": "ARM quad 1 GHz",
+   "ram": "1.5 GB",
+   "resolution": "1080p UI / 4K",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "4K Roku TV",
+   "code_name": "Malone",
+   "model_numbers": [
+    "C000X"
+   ],
+   "year": 2019,
+   "cpu": "ARM quad 1 GHz",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "4K Roku TV",
+   "code_name": "Athens",
+   "model_numbers": [
+    "G000X"
+   ],
+   "year": 2021,
+   "cpu": "ARM quad 1 GHz",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku TV",
+   "code_name": "Roxton",
+   "model_numbers": [
+    "K000X"
+   ],
+   "year": 2024,
+   "cpu": "ARM Cortex A35",
+   "ram": "512 MB",
+   "resolution": "720p UI / 1080p",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "4K Roku TV",
+   "code_name": "Sandia",
+   "model_numbers": [
+    "L000X"
+   ],
+   "year": 2024,
+   "cpu": "ARM quad 1 GHz",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "4K Roku TV",
+   "code_name": "Shiner",
+   "model_numbers": [
+    "M000X"
+   ],
+   "year": 2024,
+   "cpu": "ARM quad 1 GHz",
+   "ram": "2 GB",
+   "resolution": "1080p UI / 4K",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "4K Roku TV",
+   "code_name": "Damon",
+   "model_numbers": [
+    "P000X"
+   ],
+   "year": 2024,
+   "cpu": "ARM quad 1 GHz",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku TV",
+   "code_name": "Alpine",
+   "model_numbers": [
+    "T100000X"
+   ],
+   "year": 2025,
+   "cpu": "ARM Cortex A35",
+   "ram": "512 MB",
+   "resolution": "720p UI / 1080p",
+   "support": "recibe Roku OS actual",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Smart Soundbar",
+   "code_name": "Fruitland",
+   "model_numbers": [
+    "9100X"
+   ],
+   "year": 2019,
+   "cpu": "ARM Cortex A53",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K60",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Streambar",
+   "code_name": "Chico",
+   "model_numbers": [
+    "9102X"
+   ],
+   "year": 2020,
+   "cpu": "ARM Cortex A53",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K60",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Ultra LT",
+   "code_name": "Benjamin-W",
+   "model_numbers": [
+    "4800X"
+   ],
+   "year": 2021,
+   "cpu": "ARM Cortex A55",
+   "ram": "2 GB",
+   "resolution": "1080p UI / 4K60",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Ultra",
+   "code_name": "Benjamin",
+   "model_numbers": [
+    "4800X"
+   ],
+   "year": 2021,
+   "cpu": "ARM Cortex A55",
+   "ram": "2 GB",
+   "resolution": "1080p UI / 4K60",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Express",
+   "code_name": "Rockett",
+   "model_numbers": [
+    "3960X"
+   ],
+   "year": 2022,
+   "cpu": "ARM Cortex A55",
+   "ram": "512 MB",
+   "resolution": "720p UI / 1080p",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Express+",
+   "code_name": "Nemo",
+   "model_numbers": [
+    "3931X"
+   ],
+   "year": 2019,
+   "cpu": "ARM Cortex A53",
+   "ram": "512 MB",
+   "resolution": "720p UI / 1080p",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Express 4K+",
+   "code_name": "Bailey",
+   "model_numbers": [
+    "3940X2",
+    "3941X2",
+    "3942X2"
+   ],
+   "year": 2022,
+   "cpu": "ARM Cortex A55",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K60",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Streaming Stick",
+   "code_name": "Briscoe",
+   "model_numbers": [
+    "3600X"
+   ],
+   "year": 2016,
+   "cpu": "ARM Cortex A7 800 MHz",
+   "ram": "512 MB",
+   "resolution": "720p UI / 1080p30",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas; hardware lento: menos carteles en Explorar recomendado",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Express",
+   "code_name": "Littlefield",
+   "model_numbers": [
+    "3700X"
+   ],
+   "year": 2016,
+   "cpu": "MIPS 900 MHz",
+   "ram": "512 MB",
+   "resolution": "720p UI / 1080p",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas; hardware lento: menos carteles en Explorar recomendado",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Express+",
+   "code_name": "Littlefield",
+   "model_numbers": [
+    "3710X"
+   ],
+   "year": 2016,
+   "cpu": "MIPS 900 MHz",
+   "ram": "512 MB",
+   "resolution": "720p UI / 1080p",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas; hardware lento: menos carteles en Explorar recomendado",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Streaming Stick",
+   "code_name": "Amarillo 1080",
+   "model_numbers": [
+    "3800X"
+   ],
+   "year": 2017,
+   "cpu": "ARM Cortex A53",
+   "ram": "512 MB",
+   "resolution": "720p UI / 1080p",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Streaming Stick+",
+   "code_name": "Amarillo-2019",
+   "model_numbers": [
+    "3810X",
+    "3811X"
+   ],
+   "year": 2019,
+   "cpu": "ARM Cortex A53",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K60",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Streaming Stick 4K / 4K+",
+   "code_name": "Madison",
+   "model_numbers": [
+    "3820X",
+    "3821X"
+   ],
+   "year": 2021,
+   "cpu": "ARM Cortex A55",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K60",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Express / Express+",
+   "code_name": "Gilbert",
+   "model_numbers": [
+    "3900X",
+    "3910X"
+   ],
+   "year": 2019,
+   "cpu": "ARM Cortex A53",
+   "ram": "512 MB",
+   "resolution": "720p UI / 1080p",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Express",
+   "code_name": "Nemo",
+   "model_numbers": [
+    "3930X",
+    "3930EU"
+   ],
+   "year": 2019,
+   "cpu": "ARM Cortex A53",
+   "ram": "512 MB",
+   "resolution": "720p UI / 1080p",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Express 4K / 4K+",
+   "code_name": "Marlin",
+   "model_numbers": [
+    "3940X",
+    "3941X"
+   ],
+   "year": 2021,
+   "cpu": "ARM Cortex A55",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K60",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Premiere / Premiere+",
+   "code_name": "Cooper",
+   "model_numbers": [
+    "4620X",
+    "4630X"
+   ],
+   "year": 2016,
+   "cpu": "ARM Cortex A53 1.2 GHz",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K60",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Premiere / Premiere+",
+   "code_name": "Gilbert 4K",
+   "model_numbers": [
+    "3920X",
+    "3921X"
+   ],
+   "year": 2019,
+   "cpu": "ARM Cortex A53",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K60",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Ultra",
+   "code_name": "Cooper",
+   "model_numbers": [
+    "4640X"
+   ],
+   "year": 2016,
+   "cpu": "ARM Cortex A53 1.2 GHz",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K60",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Ultra / Ultra LT",
+   "code_name": "Bryan",
+   "model_numbers": [
+    "4660X",
+    "4662X"
+   ],
+   "year": 2017,
+   "cpu": "ARM Cortex A53",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K60",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Ultra",
+   "code_name": "Bryan 2",
+   "model_numbers": [
+    "4670X"
+   ],
+   "year": 2019,
+   "cpu": "ARM Cortex A53",
+   "ram": "2 GB",
+   "resolution": "1080p UI / 4K60",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku 3",
+   "code_name": "Austin",
+   "model_numbers": [
+    "4200X"
+   ],
+   "year": 2014,
+   "cpu": "ARM Cortex A9 dual 1 GHz",
+   "ram": "512 MB",
+   "resolution": "720p UI / 1080p30",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku 2 / Roku 3",
+   "code_name": "Mustang",
+   "model_numbers": [
+    "4210X",
+    "4230X"
+   ],
+   "year": 2013,
+   "cpu": "ARM Cortex A9 dual 1 GHz",
+   "ram": "512 MB",
+   "resolution": "720p UI / 1080p30",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku TV",
+   "code_name": "Liberty",
+   "model_numbers": [
+    "5000X"
+   ],
+   "year": 2016,
+   "cpu": "MIPS 1 GHz",
+   "ram": "512 MB",
+   "resolution": "720p UI / 1080p30",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas; hardware lento: menos carteles en Explorar recomendado",
+   "status": "documented"
+  },
+  {
+   "product": "4K Roku TV",
+   "code_name": "Ft. Worth",
+   "model_numbers": [
+    "6000X"
+   ],
+   "year": 2016,
+   "cpu": "ARM quad",
+   "ram": "1.5 GB",
+   "resolution": "1080p UI / 4K",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "4K Roku TV (EU)",
+   "code_name": "Camden",
+   "model_numbers": [
+    "C000GB"
+   ],
+   "year": 2019,
+   "cpu": "ARM quad 1 GHz",
+   "ram": "1 GB",
+   "resolution": "1080p UI / 4K",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku TV",
+   "code_name": "Roma",
+   "model_numbers": [
+    "D000X"
+   ],
+   "year": 2020,
+   "cpu": "ARM Cortex A55",
+   "ram": "512 MB",
+   "resolution": "720p UI / 1080p",
+   "support": "actualizable (Roku OS 15 según notas de Roku)",
+   "horizonx": "compatible (emulado, no probado en hardware): canal HorizonX + salvapantallas",
+   "status": "documented"
+  },
+  {
+   "product": "Roku 4",
+   "code_name": "Dallas",
+   "model_numbers": [
+    "4400X"
+   ],
+   "year": null,
+   "cpu": "ARM quad",
+   "ram": "1.5 GB",
+   "resolution": "",
+   "support": "sin actualizaciones (último Roku OS 11.5)",
+   "horizonx": "compatible (documentado); sin actualizaciones de seguridad de Roku",
+   "status": "documented"
+  },
+  {
+   "product": "8K Roku TV",
+   "code_name": "Bandera",
+   "model_numbers": [
+    "E000X"
+   ],
+   "year": null,
+   "cpu": "ARM quad 1 GHz",
+   "ram": "1.5 GB",
+   "resolution": "",
+   "support": "sin actualizaciones (último Roku OS 13.1)",
+   "horizonx": "compatible (documentado); sin actualizaciones de seguridad de Roku",
+   "status": "documented"
+  },
+  {
+   "product": "Roku LT / 1 / SE / 2",
+   "code_name": "Tyler",
+   "model_numbers": [
+    "2700X",
+    "2710X",
+    "2720X"
+   ],
+   "year": null,
+   "cpu": "MIPS 600 MHz",
+   "ram": "512 MB",
+   "resolution": "",
+   "support": "sin actualizaciones (último Roku OS 11)",
+   "horizonx": "compatible (documentado); sin actualizaciones de seguridad de Roku",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Streaming Stick",
+   "code_name": "Sugarland",
+   "model_numbers": [
+    "3500X"
+   ],
+   "year": null,
+   "cpu": "ARM11 600 MHz",
+   "ram": "512 MB",
+   "resolution": "",
+   "support": "sin actualizaciones (último Roku OS 11)",
+   "horizonx": "compatible (documentado); sin actualizaciones de seguridad de Roku",
+   "status": "documented"
+  },
+  {
+   "product": "Roku LT / 2 HD / XD / XS",
+   "code_name": "Giga",
+   "model_numbers": [
+    "2400X",
+    "3000X",
+    "3050X",
+    "3100X"
+   ],
+   "year": null,
+   "cpu": "ARM11 600 MHz",
+   "ram": "256 MB",
+   "resolution": "",
+   "support": "sin actualizaciones (último Roku OS 9.1)",
+   "horizonx": "parcial (documentado): canal y salvapantallas sí; editar el nombre necesita Roku OS 10+",
+   "status": "documented"
+  },
+  {
+   "product": "Roku LT / HD",
+   "code_name": "Paolo",
+   "model_numbers": [
+    "2450X",
+    "2500X"
+   ],
+   "year": null,
+   "cpu": "MIPS 400 MHz",
+   "ram": "256 MB",
+   "resolution": "",
+   "support": "sin actualizaciones (último Roku OS 9.1)",
+   "horizonx": "parcial (documentado): canal y salvapantallas sí; editar el nombre necesita Roku OS 10+",
+   "status": "documented"
+  },
+  {
+   "product": "Roku Streaming Stick (MHL)",
+   "code_name": "Jackson",
+   "model_numbers": [
+    "3400X",
+    "3420X"
+   ],
+   "year": null,
+   "cpu": "ARM11 600 MHz",
+   "ram": "256 MB",
+   "resolution": "",
+   "support": "sin actualizaciones (último Roku OS 9.1)",
+   "horizonx": "parcial (documentado): canal y salvapantallas sí; editar el nombre necesita Roku OS 10+",
+   "status": "documented"
+  },
+  {
+   "product": "Roku DVP / SD / HD / XD",
+   "code_name": "Griffin/Redwood/Pico",
+   "model_numbers": [
+    "N1000",
+    "N1050",
+    "N1100",
+    "N1101",
+    "2000C",
+    "2050X",
+    "2050N",
+    "2100X",
+    "2100N"
+   ],
+   "year": null,
+   "cpu": "MIPS 400 MHz",
+   "ram": "256 MB",
+   "resolution": "",
+   "support": "sin actualizaciones (último Roku OS 3.1)",
+   "horizonx": "no compatible: Roku OS demasiado antiguo para SceneGraph moderno",
+   "status": "documented"
+  }
+ ],
+ "physically_tested_by_horizonx": [],
+ "emulation": {
+  "tool": "brs-cli (brs-engine 2.6, SceneGraph beta)",
+  "result": "canal y navegación verificados en emulador el 2026-10-24"
+ }
+}

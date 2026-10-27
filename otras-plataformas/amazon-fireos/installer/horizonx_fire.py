@@ -7,7 +7,7 @@
   python3 horizonx_fire.py clean   --tv IP   (asks before changing anything; keeps a backup)
   python3 horizonx_fire.py restore --tv IP
 
-The same HorizonX APK as Android TV is used. Amazon's launcher is never disabled: HorizonX opens on
+The Fire-specific APK shares the Android UI. Amazon's launcher is never disabled: HorizonX opens on
 top of it when Home is pressed (accessibility redirect, Fire OS only). Vega OS devices are detected
 and sent to the Vega instructions, because they cannot run APKs.
 """
@@ -28,6 +28,7 @@ ROOT = HERE.parents[2]
 sys.path.insert(0, str(ROOT / "companion"))
 sys.path.insert(0, str(HERE))
 from horizonx.adb import Adb, Error  # noqa: E402
+import home_transaction
 
 PKG = "tv.lightos"
 DEVICES = json.loads((HERE.parent / "data" / "devices.json").read_text(encoding="utf-8"))
@@ -100,18 +101,20 @@ def cmd_status(args, a=None):
     elif d["sdk"] < 26:
         say("No compatible: HorizonX necesita Fire OS 7 u 8 (Android 9 o superior).")
     else:
-        say("Compatible (según documentación): HorizonX + apertura con Home sobre el inicio de Amazon.")
+        say("Candidato por sistema: APK + redirección experimental de Home. No es compatibilidad física verificada.")
         if d["sdk"] < 30:
-            say("Fire OS 7: el sistema retrasa hasta ~5 s las apps abiertas con Home. En Fire OS 8 es inmediato.")
+            say("Fire OS 7: otros proyectos documentan retrasos de hasta ~5 s al abrir apps desde Home.")
     say("HorizonX aún no se ha probado físicamente en ningún Fire TV.")
     return d
 
 
 def latest_apk():
-    found = sorted(HERE.glob("HorizonX-*.apk")) + sorted((ROOT / "dist").glob("HorizonX-[0-9]*.apk"))
+    fire = list(HERE.glob('HorizonX-FireOS-*.apk')) + list((ROOT / 'dist').glob('HorizonX-FireOS-*.apk'))
+    found = fire
     if not found:
-        sys.exit("No encuentro HorizonX-x.y.z.apk junto al asistente.")
-    return found[-1]
+        sys.exit("No encuentro HorizonX-FireOS-*.apk. Compila la edición Fire OS; la APK Android normal no incluye esta política de arranque.")
+    import re
+    return max(found, key=lambda f: tuple(map(int, re.findall(r'\d+', f.stem))))
 
 
 def cmd_install(args):
@@ -127,16 +130,9 @@ def cmd_install(args):
                  ("appops", "set", PKG, "GET_USAGE_STATS", "allow"),
                  ("cmd", "notification", "allow_listener", f"{PKG}/{PKG}.MediaWatcher")):
         a.optional(*step)
-    service = f"{PKG}/{PKG}.HorizonService"
-    current = a.optional("settings", "get", "secure", "enabled_accessibility_services").get("value", "")
-    services = [s for s in current.split(":") if s and s != "null"]
-    if service not in services:
-        services.append(service)
-    a.shell("settings", "put", "secure", "enabled_accessibility_services", ":".join(services))
-    a.shell("settings", "put", "secure", "accessibility_enabled", "1")
     a.optional("monkey", "-p", PKG, "-c", "android.intent.category.LAUNCHER", "1")
-    say("✓ HorizonX instalado. Pulsa Home: se abrirá sobre el inicio de Amazon.")
-    say("  Para ir al inicio de Amazon: HorizonX → Ajustes → Sistema → «Ir al inicio de Amazon».")
+    say("✓ APK instalada. Esto NO demuestra arranque automático ni redirección de Home.")
+    say("  Activación separada y reversible: home-plan → home-activate con el token del plan.")
 
 
 def enabled_packages(a):
@@ -149,6 +145,7 @@ def cmd_clean(args):
     d = cmd_status(args, a)
     if not d["fire"]:
         return
+    ident = home_transaction.identity(a)
     present = enabled_packages(a)
     safe = [e for e in DEBLOAT["safe"] if e["name"] in present]
     optional = [e for e in DEBLOAT["optional"] if e["name"] in present]
@@ -169,30 +166,56 @@ def cmd_clean(args):
         return
     STATE.mkdir(parents=True, exist_ok=True)
     backup = STATE / f"limpieza-{d['model']}-{datetime.now(timezone.utc):%Y%m%dT%H%M%SZ}.json"
-    record = {"model": d["model"], "version": d["version"], "disabled": []}
+    record = {"model": d["model"], "version": d["version"], "identity": ident, "disabled": [], "pending": []}
+    home_transaction.write(backup, record, exclusive=True)
     for e in chosen:
         if e["name"] in DEBLOAT["never"]:
             continue
+        record["pending"] = [e["name"]]
+        home_transaction.write(backup, record)
         out = a.optional("pm", "disable-user", "--user", "0", e["name"])
         if "disabled" in out.get("value", ""):
             record["disabled"].append(e["name"])
             say(f"  ✓ {e['name']}")
-        backup.write_text(json.dumps(record, indent=1), encoding="utf-8")
+            record["pending"] = []
+        else:
+            # A lost reply may have applied the change. Keep it recoverable and stop.
+            home_transaction.write(backup, record)
+            raise home_transaction.HomeError("Respuesta de desactivación ambigua; restaura/revisa " + str(backup))
+        home_transaction.write(backup, record)
     say(f"\nHecho. Copia para deshacer: {backup}\nReinicia el Fire TV para liberar memoria.")
 
 
 def cmd_restore(args):
     a = connect(args.tv)
+    ident = home_transaction.identity(a)
     files = sorted(STATE.glob("limpieza-*.json"))
     if not files:
         say("No hay limpiezas guardadas en este PC.")
         return
     for f in files:
-        for name in json.loads(f.read_text(encoding="utf-8")).get("disabled", []):
-            a.optional("pm", "enable", "--user", "0", name)
-            say(f"  ↺ {name}")
-        f.rename(f.with_suffix(".restored"))
-    say("Restaurado.")
+        record = json.loads(f.read_text(encoding="utf-8"))
+        if record.get("identity") != ident:
+            say(f"Omitido {f.name}: otra TV/firmware o respaldo antiguo sin identidad; requiere revisión.")
+            continue
+        restore_cleanup(a, f, ident)
+
+
+def restore_cleanup(a, path, ident):
+    record = json.loads(path.read_text(encoding="utf-8"))
+    if record.get("identity") != ident:
+        raise home_transaction.HomeError("Respaldo de limpieza de otra TV/firmware o sin identidad")
+    import re
+    names = record.get("disabled", []) + record.get("pending", [])
+    if any(not isinstance(n, str) or not re.fullmatch(r'[A-Za-z0-9_.]+', n) for n in names):
+        raise home_transaction.HomeError("Lista de restauración no válida")
+    for name in dict.fromkeys(names):
+        a.shell("pm", "enable", "--user", "0", name)
+        if name not in enabled_packages(a):
+            raise home_transaction.HomeError("No se pudo verificar la restauración de " + name)
+        say(f"  ↺ {name}")
+    path.rename(path.with_suffix(".restored"))
+    say("Restauración verificada: " + path.name)
 
 
 def menu():
@@ -209,20 +232,42 @@ def menu():
         if c in actions:
             try:
                 actions[c][1](argparse.Namespace(tv=None))
-            except (Error, SystemExit) as e:
+            except (Error, home_transaction.HomeError, OSError, ValueError, SystemExit) as e:
                 say(f"{e}")
             say("")
 
 
 def main():
     p = argparse.ArgumentParser(description="HorizonX para Amazon Fire TV")
-    p.add_argument("command", nargs="?", choices=["status", "install", "clean", "restore"])
+    p.add_argument("command", nargs="?", choices=["status", "install", "clean", "restore", "home-plan", "home-activate", "home-restore"])
     p.add_argument("--tv")
+    p.add_argument("--backup", type=Path, help="Archivo nuevo para el plan de Home")
+    p.add_argument("--approve", help="Token del plan: consentimiento explícito para activación/restauración")
     args = p.parse_args()
     if not args.command:
         menu()
         return
-    {"status": cmd_status, "install": cmd_install, "clean": cmd_clean, "restore": cmd_restore}[args.command](args)
+    if args.command.startswith('home-'):
+        if not args.backup:
+            p.error('--backup FILE requerido')
+        try:
+            a = connect(args.tv)
+            if args.command == 'home-plan':
+                token = home_transaction.plan(a, args.backup)
+                say('Plan de solo lectura guardado. Token: ' + token)
+            elif args.command == 'home-activate':
+                home_transaction.activate(a, args.backup, args.approve)
+                say('Accesibilidad configurada. Home y arranque aún requieren pruebas físicas; no se declara éxito por estos ajustes.')
+            else:
+                home_transaction.restore(a, args.backup, args.approve)
+                say('Cambio de accesibilidad restaurado. Comprueba Home con el mando físico.')
+        except (home_transaction.HomeError, Error, OSError, ValueError) as e:
+            p.exit(2, str(e) + '\n')
+    else:
+        try:
+            {"status": cmd_status, "install": cmd_install, "clean": cmd_clean, "restore": cmd_restore}[args.command](args)
+        except (home_transaction.HomeError, Error, OSError, ValueError) as e:
+            p.exit(2, str(e) + '\n')
 
 
 if __name__ == "__main__":
