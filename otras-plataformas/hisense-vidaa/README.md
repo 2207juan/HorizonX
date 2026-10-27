@@ -8,6 +8,6 @@ Web app, not an APK. Community installation depends on firmware. Without a hoste
 python3 otras-plataformas/hisense-vidaa/installer/horizonx_vidaa.py --help
 ```
 
-Paquete / Package: [`HorizonX-VIDAA-1.0.1.zip`](installer/HorizonX-VIDAA-1.0.1.zip).
+Paquete / Package: [`HorizonX-VIDAA-1.0.2.zip`](installer/HorizonX-VIDAA-1.0.2.zip).
 
 [Estado y pasos / Status and steps](../../docs/OTRAS_PLATAFORMAS.md).

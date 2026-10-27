@@ -8,6 +8,8 @@ Python, cryptography and Developer Mode. Sign the WGT with your own Samsung cert
 python3 otras-plataformas/samsung-tizen/installer/horizonx_tizen.py --help
 ```
 
-Paquete / Package: [`HorizonX-Tizen-1.1.1-unsigned.wgt`](installer/HorizonX-Tizen-1.1.1-unsigned.wgt).
+Paquete / Package: [`HorizonX-Tizen-1.1.2-unsigned.wgt`](installer/HorizonX-Tizen-1.1.2-unsigned.wgt).
 
 [Estado y pasos / Status and steps](../../docs/OTRAS_PLATAFORMAS.md).
+
+[Opción nativa root: perfiles, adaptador ARM y recuperación / Native root option and recovery](../../docs/OTRAS_PLATAFORMAS.md#opción-avanzada-home-nativo-samsung-con-root-previo). Experimental; no physical certification.

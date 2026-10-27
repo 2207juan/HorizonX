@@ -243,6 +243,7 @@ def main():
     p.add_argument("--tv")
     p.add_argument("--backup", type=Path, help="Archivo nuevo para el plan de Home")
     p.add_argument("--approve", help="Token del plan: consentimiento explícito para activación/restauración")
+    p.add_argument("--native-root-su", help="Solo home-plan: ruta absoluta de su ya autorizado; intenta HOME nativo sin deshabilitar Amazon")
     args = p.parse_args()
     if not args.command:
         menu()
@@ -253,7 +254,7 @@ def main():
         try:
             a = connect(args.tv)
             if args.command == 'home-plan':
-                token = home_transaction.plan(a, args.backup)
+                token = home_transaction.plan(a, args.backup, native_root_su=args.native_root_su)
                 say('Plan de solo lectura guardado. Token: ' + token)
             elif args.command == 'home-activate':
                 home_transaction.activate(a, args.backup, args.approve)

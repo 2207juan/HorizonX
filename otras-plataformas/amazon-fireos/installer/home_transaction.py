@@ -8,9 +8,12 @@ import os
 from pathlib import Path
 import secrets
 import re
+import shlex
 
 SERVICE = 'tv.lightos/tv.lightos.HorizonService'
 STARTUP = 'content://tv.lightos.fire.startup'
+COMPONENT = re.compile(r'[A-Za-z0-9_.]+/[A-Za-z0-9_.$]+\Z')
+TARGET = 'tv.lightos/tv.lightos.MainActivity'
 
 
 class HomeError(RuntimeError):
@@ -55,6 +58,30 @@ def setstartup(a, flags):
         raise HomeError('Fire startup policy did not read back')
 
 
+def root_call(a, su, *args):
+    if not re.fullmatch(r'/(?:sbin|system/(?:xbin|bin)|data/local/tmp/[A-Za-z0-9_./-]+)/su', su) or '..' in su.split('/'):
+        raise HomeError('Provide a reviewed existing absolute su path; no root exploit is included')
+    return a.shell(su, '-c', shlex.join(args))
+
+
+def resolved_home(a, su):
+    raw = root_call(a, su, 'cmd', 'package', 'resolve-activity', '--brief', '--user', '0',
+                    '-a', 'android.intent.action.MAIN', '-c', 'android.intent.category.HOME')
+    found = [line.strip() for line in raw.splitlines() if COMPONENT.fullmatch(line.strip())]
+    if len(found) != 1:
+        raise HomeError('HOME resolver did not return one exact component')
+    pkg, cls = found[0].split('/')
+    return pkg + '/' + (pkg + cls if cls.startswith('.') else cls)
+
+
+def root_home(a, policy, target):
+    if root_call(a, policy['su'], 'id', '-u') != '0':
+        raise HomeError('Previously authorized root is no longer available')
+    root_call(a, policy['su'], 'cmd', 'package', 'set-home-activity', '--user', '0', target)
+    if resolved_home(a, policy['su']) != target:
+        raise HomeError('Fire OS ignored native HOME assignment; do not disable Amazon packages to force it')
+
+
 def identity(a):
     if 'amazon.hardware.fire_tv' not in a.shell('pm', 'list', 'features'):
         raise HomeError('Not an Android-based Fire TV; Vega cannot use this procedure')
@@ -83,18 +110,28 @@ def setvalue(a, key, value):
         raise HomeError('Setting did not read back: ' + key)
 
 
-def plan(a, path):
+def plan(a, path, native_root_su=None):
     ident = identity(a)
     if 'package:' not in a.shell('pm', 'path', 'tv.lightos'):
         raise HomeError('Install the APK before preparing Home activation')
     policy = startup(a, optional=True)
     if policy is None:
         raise HomeError('Install the FireOS-specific APK first; the legacy Android APK cannot provide the new startup/restore policy')
+    native = None
+    if native_root_su:
+        if root_call(a, native_root_su, 'id', '-u') != '0':
+            raise HomeError('Existing authorized root required; no escalation attempted')
+        original = resolved_home(a, native_root_su)
+        if not original.startswith('com.amazon.tv.launcher/'):
+            raise HomeError('Native route requires an exact original Amazon HOME component')
+        native = {'su': native_root_su, 'home': original}
     p = {'schema': 1, 'identity': ident, 'service': SERVICE, 'nonce': secrets.token_hex(16),
          'services': setting(a, 'enabled_accessibility_services'),
          'enabled': setting(a, 'accessibility_enabled'), 'status': 'planned',
          'startup': policy,
          'physical_tests': {k: 'experimental' for k in 'BCDE'}}
+    if native:
+        p['native_root'] = native
     write(path, p, exclusive=True)
     return fingerprint(p)[:24]
 
@@ -119,6 +156,11 @@ def activate(a, path, token):
         raise HomeError('Accessibility changed after planning')
     if p.get('startup') is not None and startup(a) != p['startup']:
         raise HomeError('Fire startup preferences changed after planning')
+    if p.get('native_root'):
+        if root_call(a, p['native_root']['su'], 'id', '-u') != '0':
+            raise HomeError('Authorized root disappeared after planning; no writes performed')
+        if resolved_home(a, p['native_root']['su']) != p['native_root']['home']:
+            raise HomeError('Native HOME changed after planning')
     current = services(p['services'])
     if SERVICE not in current:
         current.append(SERVICE)
@@ -128,6 +170,8 @@ def activate(a, path, token):
         setvalue(a, 'accessibility_enabled', '1')
         if p.get('startup') is not None:
             setstartup(a, {'boot': True, 'home': True})
+        if p.get('native_root'):
+            root_home(a, p['native_root'], TARGET)
         # Readback proves only settings, not that the OEM bound/delivered accessibility events.
         write(journal, {'status': 'implemented-unverified-on-tv'})
     except Exception as exc:
@@ -155,4 +199,16 @@ def restore(a, path, token):
     setvalue(a, 'enabled_accessibility_services', desired)
     if not current:
         setvalue(a, 'accessibility_enabled', p['enabled'])
+    # Release our redirect even when a temporary su disappeared. Native recovery can still
+    # require root, but must not prevent restoring the independently reversible preferences.
+    if p.get('native_root'):
+        try:
+            current_home = resolved_home(a, p['native_root']['su'])
+            if current_home not in (TARGET, p['native_root']['home']):
+                raise HomeError('Native HOME belongs to another launcher; recovery requires review')
+            if current_home != p['native_root']['home']:
+                root_home(a, p['native_root'], p['native_root']['home'])
+        except Exception as exc:
+            write(journal, {'status': 'restore-required', 'startup_and_accessibility_restored': True, 'native_error': str(exc)})
+            raise
     write(journal, {'status': 'restored'})

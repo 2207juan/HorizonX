@@ -15,7 +15,7 @@ HorizonX has separate editions for Android TV/Google TV, Fire OS, LG webOS, Sams
 | Android TV / Google TV, Android 8+ | Android APK + USB/ADB | Home picker, ADB or redirection, firmware-dependent | Philips TA7 tested; other brands are candidates, not certified |
 | Fire TV running Android-based Fire OS 7/8 | Fire-specific APK + ADB assistant | Explicit boot and accessibility Home handling implemented; Amazon Home retained | Build and simulations; no physical Fire TV test |
 | LG webOS | IPK + LG assistant | Persistent activities and optional native Home with existing root and compatible APIs | UI tested in official LG simulator; physical boot/Home/restore pending |
-| Samsung Tizen | WGT + own Samsung signing certificates | Limited watcher, not certified native Home replacement | Browser and simulated tests |
+| Samsung Tizen | WGT + own Samsung signing certificates | Limited watcher; native root option for selected firmware, physically unverified | Browser and simulated tests |
 | Roku OS | Development channel and screensaver | Does not replace Home | Built and tested in brs-engine |
 | VIDAA Linux | Web app and community installer | Does not replace Home | Browser/installer tests; installation may be blocked by firmware |
 | Amazon Vega | No published installable package | No verified integration | Does not run the Fire OS APK |

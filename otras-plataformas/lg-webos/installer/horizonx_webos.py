@@ -137,7 +137,9 @@ class TV:
         return digest(compositor)
 
     def set_home(self, target):
-        self.luna('luna://com.webos.applicationManager/setDefaultApp', {'category': 'home', 'appId': target})
+        # Canonical SAM URI used by the reviewed rooted webOS integrations. The older
+        # applicationManager alias is not assumed to expose the same setter on every firmware.
+        self.luna('luna://com.webos.service.applicationmanager/setDefaultApp', {'category': 'home', 'appId': target})
         if self.default_home() != target:
             raise Error('Native HOME assignment did not read back')
 

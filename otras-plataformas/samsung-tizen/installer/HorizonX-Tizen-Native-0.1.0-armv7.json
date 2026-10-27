@@ -1,0 +1,10 @@
+{
+  "version": "0.1.0",
+  "architecture": "armv7l",
+  "abi": "armel (soft-float)",
+  "interpreter": "/lib/ld-linux.so.3",
+  "glibc_minimum": "2.17",
+  "sha256": "927cd2a79f4150a2d4c1058135e8534cf1d148117089e57871b921e51d2976de",
+  "source_sha256": "e44b129860efc7d81b8b97227afc7c141c84a6bc3ec0898cd63288f07bc9548e",
+  "hardware_verified": false
+}

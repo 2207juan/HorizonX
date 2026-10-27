@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-10-25",
+  "updated": "2026-10-26",
   "tests": {
     "A": "Installation on target OS",
     "B": "Cold boot AND standby wake",
@@ -46,15 +46,17 @@
         "browser_mock_checks": 17,
         "installation_and_home": "Not verified: simulator runs a source directory, not target-TV IPK installation",
         "cross_app_launch": "Simulator returned returnValue=true but created no target app page; not verified",
-        "report": "docs/VALIDACION-MULTIPLATAFORMA-2026-10-25.md"
+        "report": "docs/VALIDACION-MULTIPLATAFORMA-2026-10-25.md",
+        "native_setter": "Canonical SAM setDefaultApp endpoint corrected; 22 installer tests, no physical certification"
       }
     },
     "samsung-tizen": {
-      "method": "Opt-in foreground watcher with persistent app-private configuration, positive known-Home detection, bounded requests and cancellation; native Home route not automated",
+      "method": "Existing limited watcher plus optional native Home/startup API adapter for selected Tizen ARMv7 firmware with pre-existing root SSH",
       "limits": [
         "Watcher cannot reliably infer Home for apps hiding visibility",
         "CleanFrame native technique is firmware-specific and uses an undocumented execution workaround",
-        "No native writes/exploit execution or new model compatibility has been enabled"
+        "No native writes/exploit execution or new model compatibility has been enabled",
+        "Native root adapter cross-compiled/tested with host fakes only; exact firmware, ABI, existing root and complete restoration snapshot required; no root acquisition or automatic health guardian included"
       ],
       "checks": {
         "A": {
@@ -84,11 +86,15 @@
         "service_checks": 14,
         "private_storage_checks": 9,
         "data_checks": 6,
-        "physical_home": "Not verified; watcher is limited and does not change native Home routing"
+        "physical_home": "Not verified; watcher is limited and does not change native Home routing",
+        "native_root_transaction_tests": 18,
+        "native_c_host_checks": 14,
+        "native_binary": "HorizonX-Tizen-Native-0.1.0-armv7; ARM soft-float, not physically executed",
+        "report": "docs/INTEGRACIONES-ROOT-2026-10-26.md"
       }
     },
     "amazon-fireos": {
-      "method": "Separate Fire OS APK; explicit opted-in boot receiver and accessibility Home redirect; identity-bound activation and restoration",
+      "method": "Separate Fire OS APK; explicit opted-in boot receiver and accessibility Home redirect; identity-bound activation and restoration; optional existing-su native HOME attempt with resolver readback and rollback, Amazon retained",
       "limits": [
         "Android-based Fire OS only, min SDK 26",
         "Fire-specific boot receiver implemented and compiled; Android/Fire OS background-start policy and service binding require hardware validation",
@@ -121,7 +127,7 @@
       "objective_complete": false,
       "development_evidence": {
         "apk": "HorizonX-FireOS-3.8.0-fire.1.apk: release compiled, signature and shared assets verified",
-        "simulations": "13 host-JVM startup rules; 15 Python activation/restore/cleanup tests",
+        "simulations": "13 host-JVM startup rules; 24 Python activation/restore/cleanup/root tests",
         "android_tv": "58 original source/resource files retain their initial SHA256; Android release builds successfully"
       }
     },
@@ -227,7 +233,7 @@
       "physical_evidence": [],
       "objective_complete": false,
       "development_evidence": {
-        "browser_checks": 10,
+        "browser_checks": 12,
         "installer_unit_tests": 3,
         "native_home": "No verified standalone method added"
       }
