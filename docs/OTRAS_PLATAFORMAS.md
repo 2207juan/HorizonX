@@ -76,6 +76,7 @@ Copia el binario a almacenamiento persistente de la TV mediante tu conexión roo
 
 ```sh
 scp -p otras-plataformas/samsung-tizen/installer/HorizonX-Tizen-Native-0.1.0-armv7 root@IP:/opt/usr/horizonx-native-home
+ssh root@IP chmod 700 /opt/usr/horizonx-native-home
 ```
 
 Debe ser un archivo normal propiedad de root, modo 700 o 755, con el mismo SHA256 publicado. Sustituye `SHA256` y `IP`; el ejemplo usa el perfil The Frame. Para S90D el perfil es `s90d-tizen9-2130`; para U8000F, `u8000f-1300.9`.
