@@ -126,6 +126,11 @@ def home_packages(a: Adb) -> list[str]:
 
 def make_home(a: Adb) -> None:
     """Select HorizonX; only if the TV keeps its own launcher in front, set launchers aside one by one."""
+    sdk = int(a.shell("getprop", "ro.build.version.sdk").strip())
+    if sdk < 26:
+        print("Android antiguo: elige HorizonX en Ajustes → Inicio / Aplicación de inicio. No se deshabilitará el inicio original automáticamente.")
+        a.optional("am", "start", "-a", "android.settings.HOME_SETTINGS")
+        return
     before = current_home(a)
     print(a.shell("cmd", "package", "set-home-activity", "--user", "0", "tv.lightos/.MainActivity"))
     aside: list[str] = []

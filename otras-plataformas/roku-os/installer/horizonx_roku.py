@@ -117,7 +117,7 @@ def cmd_status(args):
         say(f"Base de datos: {row['product']} · {row['year'] or 's/f'} · {row['ram']} · estado Roku: {row['support']}")
         say("HorizonX: " + row["horizonx"])
     else:
-        say("Modelo no listado en la base de datos de Roku; si recibe actualizaciones de Roku OS, el canal debería funcionar.")
+        say("Modelo no listado: comprueba firmware 9.1+; no se certifica este equipo.")
     say("HorizonX aún no se ha probado físicamente en ningún Roku (solo en emulador).")
     return ip, info
 
@@ -160,8 +160,15 @@ def developer_help():
     say("El Roku tiene que estar vinculado a una cuenta Roku.")
 
 
+def supported_firmware(info):
+    match = re.match(r"^(\d+)\.(\d+)", info.get("software-version", ""))
+    return bool(match and tuple(map(int, match.groups())) >= (9, 1))
+
+
 def cmd_install(args):
     ip, info = cmd_status(args)
+    if not supported_firmware(info):
+        sys.exit("HorizonX requiere Roku OS 9.1+; no se ha modificado este Roku.")
     if info.get("developer-enabled") != "true":
         developer_help()
         return

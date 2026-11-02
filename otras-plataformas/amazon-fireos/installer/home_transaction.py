@@ -86,7 +86,7 @@ def identity(a):
     if 'amazon.hardware.fire_tv' not in a.shell('pm', 'list', 'features'):
         raise HomeError('Not an Android-based Fire TV; Vega cannot use this procedure')
     values = {k: a.shell('getprop', k) for k in ('ro.product.model', 'ro.build.fingerprint', 'ro.serialno', 'ro.build.version.sdk')}
-    if not all(values.values()) or int(values['ro.build.version.sdk']) < 26:
+    if not all(values.values()) or int(values['ro.build.version.sdk']) < 23:
         raise HomeError('Unknown device identity or unsupported Fire OS')
     # Retain a stable hash, never publish the hardware serial.
     values['ro.serialno'] = fingerprint(values['ro.serialno'])

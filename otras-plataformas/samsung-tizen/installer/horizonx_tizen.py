@@ -95,9 +95,9 @@ def compatibility(device):
              f"Modo desarrollador: {'activado' if str(device.get('developerMode')) == '1' else 'desactivado'}"
              + (f" (PC autorizado: {device.get('developerIP')})" if str(device.get('developerMode')) == '1' else "")]
     if not year:
-        lines.append("No reconozco el año: HorizonX debería funcionar en cualquier Samsung Tizen de 2017 en adelante.")
+        lines.append("No reconozco el año: Verifica la versión instalada: el paquete contempla Tizen 2.3+, sin certificación física de este modelo.")
     elif year < 2017:
-        lines.append("2015–2016: HorizonX se puede instalar, pero no abrirse sola al encender (sin servicio de arranque garantizado).")
+        lines.append("2015–2016: adaptación web antigua; instalación, firma y servicio de arranque requieren comprobación física.")
     else:
         lines.append("Compatible (según documentación): app + vuelta automática con Home.")
     if row and row.get("third_party"):
@@ -191,6 +191,9 @@ def cmd_install(args):
     if str(device.get("developerMode")) != "1":
         developer_mode_help(ip)
         return
+    year = model_year(device)
+    if year is not None and year < 2015:
+        sys.exit("Samsung anterior a Tizen: este WGT no es compatible con Orsay.")
     package = build_package()
     with zipfile.ZipFile(package) as z:
         version = re.search(rb'version="([^"]+)"', z.read("config.xml")).group(1).decode()

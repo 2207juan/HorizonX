@@ -98,11 +98,11 @@ def cmd_status(args, a=None):
     say(f"\nModelo: {d['row']['name'] if d['row'] else d['model']} ({d['model']})  ·  {d['version']}  ·  Android API {d['sdk']}")
     if not d["fire"]:
         say("No es un Fire TV. Para Android TV / Google TV usa el asistente principal de HorizonX.")
-    elif d["sdk"] < 26:
-        say("No compatible: HorizonX necesita Fire OS 7 u 8 (Android 9 o superior).")
+    elif d["sdk"] < 23:
+        say("No compatible: HorizonX necesita API 23 o superior: Fire OS 6+ es candidato; Fire OS 5/API 22 queda fuera.")
     else:
         say("Candidato por sistema: APK + redirección experimental de Home. No es compatibilidad física verificada.")
-        if d["sdk"] < 30:
+        if d["sdk"] == 28:
             say("Fire OS 7: otros proyectos documentan retrasos de hasta ~5 s al abrir apps desde Home.")
     say("HorizonX aún no se ha probado físicamente en ningún Fire TV.")
     return d
@@ -120,7 +120,7 @@ def latest_apk():
 def cmd_install(args):
     a = connect(args.tv)
     d = cmd_status(args, a)
-    if not d["fire"] or d["sdk"] < 26:
+    if not d["fire"] or d["sdk"] < 23:
         return
     apk = latest_apk()
     say(f"\nInstalando {apk.name}…")
