@@ -16,11 +16,11 @@ HorizonX no instala otro firmware. Mantiene Android y los servicios originales: 
 
 ### Compatibilidad y versiones antiguas
 
-Revisión del código: **1 de noviembre de 2026**. No se conectó ningún televisor para esta revisión.
+Revisión del código: **1 de noviembre de 2026**. Compatibilidad antigua revisada con herramientas; actualización ADB a 3.9.1, retorno con Home y volumen comprobados en Philips TA7 con Android 14. USB y primera instalación desde cero siguen pendientes.
 
 | Sistema | Versiones contempladas por el código | Instalación | Encender / Home | Comprobación disponible |
 |---|---|---|---|---|
-| Android TV / Google TV | Android **6, 7, 7.1, 8, 8.1, 9, 10, 11, 12, 12L, 13, 14, 15 y 16**; API 23–36 | APK Android | Selector de inicio; ADB cuando el firmware lo permite. Android 6/7 usa selección manual | Compilación y revisión de APIs con mínimo 23; Philips TA7 con Android 14 probado anteriormente |
+| Android TV / Google TV | Android **6, 7, 7.1, 8, 8.1, 9, 10, 11, 12, 12L, 13, 14, 15 y 16**; API 23–36 | APK Android | Selector de inicio; ADB cuando el firmware lo permite. Android 6/7 usa selección manual | Compilación y revisión de APIs con mínimo 23; actualización ADB 3.9.1 y Home probados en Philips TA7 / Android 14 |
 | Amazon Fire OS | **6, 7, 8**; nuevas familias 14/16 según API Android instalada | APK Fire específica | Arranque y redirección de Home con accesibilidad; dependen del firmware. Activación separada y reversible | Compilación y simulaciones; sin TV Fire física |
 | LG webOS | **3.x, 4.x, 5.x, 6.x, 22, 23, 24, 25, 26** | IPK LG | Integración avanzada experimental solo con root ya disponible y APIs comprobadas; instalar por Developer Mode no sustituye Home | Paquete y pruebas de navegador; prueba previa de interfaz en simulador oficial LG; Home físico pendiente |
 | Samsung Tizen | **2.3, 2.4, 3.0, 4.0, 5.0, 5.5, 6.0, 6.5, 7.0, 8.0, 9.0, 10.0** | WGT firmado con certificados del propietario | Vigilante limitado; la alternativa nativa exige root existente y comprobaciones. No equivale a sustitución universal de Home | Paquete, sintaxis ES5, navegador y simulaciones; sin TV Samsung física |
@@ -137,7 +137,7 @@ The existing Android design is preserved. HorizonX changes the home interface; i
 
 | Platform | Code compatibility target | Actual Home support |
 |---|---|---|
-| Android TV / Google TV | Android **6–16**, API 23–36, including 11/12/13/14 | Home selector or firmware-dependent ADB activation. Android 6/7 uses manual Home selection. Earlier physical testing on Philips TA7 / Android 14; older versions have API/build checks, not hardware certification |
+| Android TV / Google TV | Android **6–16**, API 23–36, including 11/12/13/14 | Home selector or firmware-dependent ADB activation. Android 6/7 uses manual Home selection. ADB update to 3.9.1, Home and volume tested on Philips TA7 / Android 14; older versions have API/build checks, not hardware certification |
 | Fire OS | Fire OS **6/7/8**; newer 14/16 families according to installed Android API | Separate Fire APK; boot/accessibility integration is firmware-dependent and not physically certified |
 | LG webOS | **3.x through 26**: 3/4/5/6/22/23/24/25/26 | IPK; experimental advanced Home integration requires existing root and supported APIs. Developer Mode installation alone is not Home replacement |
 | Samsung Tizen | **2.3–10.0**, documented 2015–2026 generations | Signed WGT; limited watcher. Native path requires existing root and strict probes. Universal Home replacement is not claimed |
@@ -176,6 +176,6 @@ LG requires LG Developer Mode, a paired device and the official LG CLI. Samsung 
 
 Analysis, individual approval, backup and restoration remain available. Imported removal lists have been removed: there are **no generic automatic package-removal recommendations** in this release. Unknown dependencies stay enabled. Review each proposed change on the actual device; matching a model is not evidence that its services are expendable.
 
-Offline build, API checks, browser tests and emulation are distinct from hardware tests. No TV was contacted for the November 1 review. Boot, Home, protected settings, Google accounts, DRM and advanced volume behavior on other models still require their hardware. The advanced volume/profile bridge requires Android 8+ APIs; older Android uses its available fallback routes. Old TVs can also have obsolete TLS/DRM or unavailable online services.
+Offline build, API checks, browser tests and emulation are distinct from hardware tests. The ADB update to 3.9.1, Home return and volume overlay were physically checked on Philips TA7 / Android 14 on November 1. Fresh installation and USB installation are still untested; no USB storage was detected. Boot, Home, protected settings, Google accounts, DRM and advanced volume behavior on other models still require their hardware. The advanced volume/profile bridge requires Android 8+ APIs; older Android uses its available fallback routes. Old TVs can also have obsolete TLS/DRM or unavailable online services.
 
 The repository's directories and Markdown files do not consume TV RAM; only the selected installation package does. The public documentation is consolidated here; app source/build projects and signing keys are not distributed. Required resource licenses remain under `licenses/`: [Outfit OFL](licenses/Outfit-OFL.txt), [Kenney CC0](licenses/Kenney-CC0.txt) and Android library notices. Runtime TVmaze and Open-Meteo data retain their respective attribution/use terms. Service artwork and trademarks belong to their owners.

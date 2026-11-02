@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "revision": "2026-10-20.1",
+  "description": "Exact profiles only. Recognition and community evidence never authorize changes.",
+  "recognized_families": ["Philips", "Sony", "TCL", "Xiaomi", "Hisense", "Sharp", "Toshiba", "Realme", "Thomson", "Google", "NVIDIA", "Other Android TV"],
+  "unsupported_platforms": ["LG webOS", "Samsung Tizen"],
+  "profiles": [
+    {
+      "id": "philips-50pud7908-43-reference",
+      "manufacturer": "Philips",
+      "commercial_models": ["50PUD7908/43"],
+      "models": ["Philips Google TV TA7"],
+      "sdk": [34],
+      "firmware_fingerprints": [],
+      "validation": {"status": "analysis-only", "evidence": ["User-provided reference; no optimization executed or verified"]},
+      "protected_packages": ["org.droidtv.ambisvc"],
+      "packages": [],
+      "notes": "Ambilight and all unknown OEM dependencies protected. No eligible disabling actions."
+    }
+  ]
+}

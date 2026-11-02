@@ -5,6 +5,8 @@ Opened by double-clicking HorizonX.sh / HorizonX.cmd with no arguments. Every ch
 from __future__ import annotations
 
 import json
+import hashlib
+import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -68,16 +70,45 @@ def describe(dev: dict) -> None:
     db = optimize.database()
     model, how = optimize.match_model(db, dev)
     print(f"Perfil exacto en la base de datos: {model['id']} ({how})" if model else
-          "Sin perfil exacto: se usarán solo componentes comprobados en muchos modelos.")
+          "Sin perfil exacto: no se aplican recomendaciones automáticas de otros modelos.")
+
+
+def select_apk():
+    """Only the Android TV artifact; semantic versions, optional release hash verification."""
+    candidates = []
+    for folder in (HERE, HERE.parent / "dist"):
+        for path in folder.glob("HorizonX-*.apk"):
+            match = re.fullmatch(r"HorizonX-(\d+)\.(\d+)\.(\d+)\.apk", path.name)
+            if match:
+                candidates.append((tuple(map(int, match.groups())), path))
+    if not candidates:
+        raise Error("No encuentro una APK Android HorizonX-x.y.z.apk; la edición Fire OS no sirve para este asistente.")
+    metadata = HERE / "release.json"
+    release = json.loads(metadata.read_text()) if metadata.exists() else None
+    if release:
+        expected = f"HorizonX-{release['version']}.apk"
+        paths = [path for _, path in candidates if path.name == expected]
+        if not paths:
+            raise Error("Falta la APK de esta distribución: " + expected)
+        apk = paths[0]
+        if hashlib.sha256(apk.read_bytes()).hexdigest() != release['apk_sha256']:
+            raise Error("La APK no coincide con la suma de esta distribución; vuelve a descargar el paquete PC.")
+    else:
+        apk = max(candidates, key=lambda item: item[0])[1]
+    return apk, release
 
 
 def install(a: Adb) -> None:
-    apk = sorted(HERE.glob("HorizonX-*.apk")) or sorted((HERE.parent / "dist").glob("HorizonX-*.apk"))
-    if not apk:
-        print("No encuentro el archivo HorizonX-x.y.z.apk junto a este asistente.")
-        return
-    print(f"Instalando {apk[-1].name}...")
-    print(a.command("install", "-r", str(apk[-1]), timeout=180))
+    apk, release = select_apk()
+    sdk = int(a.shell("getprop", "ro.build.version.sdk").strip())
+    minimum = int((release or {}).get("min_sdk", 23))
+    if sdk < minimum:
+        raise Error(f"Esta APK requiere Android API {minimum}+; la TV tiene API {sdk}. No se modificó la TV.")
+    print(f"Instalando {apk.name}...")
+    print(a.command("install", "-r", str(apk), timeout=180))
+    actual = a.shell("dumpsys", "package", "tv.lightos")
+    if release and not re.search(r"\bversionCode=" + str(release['version_code']) + r"\b", actual):
+        raise Error("La versión instalada no coincide con la distribución")
     me = "tv.lightos"
     steps = [
         ("appops", "set", me, "ACCESS_RESTRICTED_SETTINGS", "allow"),
@@ -87,20 +118,23 @@ def install(a: Adb) -> None:
         ("pm", "grant", me, "android.permission.WRITE_SECURE_SETTINGS"),
         ("appops", "set", me, "WRITE_SETTINGS", "allow"),
     ]
-    for s in steps:
+    skipped = []
+    for step in steps:
         try:
-            a.shell(*s)
+            a.shell(*step)
         except Error:
-            pass
+            skipped.append(" ".join(step[:2]))
     current = a.optional("settings", "get", "secure", "enabled_accessibility_services").get("value", "")
     services = [x for x in current.split(":") if x and x != "null"]
     if f"{me}/{me}.HorizonService" not in services:
         services.append(f"{me}/{me}.HorizonService")
     a.shell("settings", "put", "secure", "enabled_accessibility_services", ":".join(services))
     a.shell("settings", "put", "secure", "accessibility_enabled", "1")
-    print("HorizonX instalado con sus permisos (volumen, Continuar viendo y autoreparación).")
-    if yes("¿Usar HorizonX como pantalla de inicio del televisor?"):
-        make_home(a)
+    print("Instalación verificada. Se conservaron los datos existentes.")
+    if skipped:
+        print("Permisos opcionales no disponibles: " + ", ".join(skipped))
+    make_home(a)
+    a.shell("am", "start", "-n", "tv.lightos/.MainActivity")
 
 
 NOT_LAUNCHERS = {"com.android.tv.settings", "com.android.settings", "com.android.provision",
@@ -125,44 +159,47 @@ def home_packages(a: Adb) -> list[str]:
 
 
 def make_home(a: Adb) -> None:
-    """Select HorizonX; only if the TV keeps its own launcher in front, set launchers aside one by one."""
-    sdk = int(a.shell("getprop", "ro.build.version.sdk").strip())
-    if sdk < 26:
-        print("Android antiguo: elige HorizonX en Ajustes → Inicio / Aplicación de inicio. No se deshabilitará el inicio original automáticamente.")
-        a.optional("am", "start", "-a", "android.settings.HOME_SETTINGS")
+    """Use the audited Home transaction; never overwrite an already-active Home backup."""
+    from . import home
+    from .store import Store
+    from .transactions import token
+    if current_home(a).startswith("tv.lightos/"):
+        print("HorizonX ya es el inicio. Se conserva el respaldo anterior.")
         return
-    before = current_home(a)
-    print(a.shell("cmd", "package", "set-home-activity", "--user", "0", "tv.lightos/.MainActivity"))
-    aside: list[str] = []
-    if not current_home(a).startswith("tv.lightos/"):
-        for pkg in home_packages(a):
-            a.shell("pm", "disable-user", "--user", "0", pkg)
-            aside.append(pkg)
-            print(f"  Inicio original apartado (reversible): {pkg}")
-            if current_home(a).startswith("tv.lightos/"):
-                break
-    STATE.mkdir(parents=True, exist_ok=True)
-    HOME_RECORD.write_text(json.dumps({"before": before, "aside": aside}), encoding="utf-8")
-    print("HorizonX es la pantalla de inicio." if current_home(a).startswith("tv.lightos/")
-          else "El televisor no aceptó otro inicio. HorizonX se abrirá encima del inicio del televisor.")
+    sdk = int(a.shell("getprop", "ro.build.version.sdk").strip())
+    if sdk < 29:
+        print("Elige HorizonX en Ajustes → Aplicaciones predeterminadas → Inicio. No se apartó ningún paquete.")
+        return
+    store = Store(STATE / "home")
+    try:
+        plan = home.prepare(a, store)
+    except Error as error:
+        print("Instalación correcta; activación automática no disponible: " + str(error))
+        return
+    print("Inicio anterior: " + plan['before_home'])
+    print("Respaldo del plan: " + str(store.path(plan['id'])))
+    if yes("¿Activar HorizonX como inicio con este respaldo y comprobación de Home?"):
+        result = home.activate(a, store, plan['id'], token('ACTIVAR-INICIO', plan))
+        print("Resultado Home: " + result['status'])
 
 
 def restore_home(a: Adb) -> None:
-    """Put back exactly what make_home set aside (older installs: Google TV)."""
-    try:
-        record = json.loads(HOME_RECORD.read_text(encoding="utf-8"))
-    except (OSError, ValueError):
-        record = {"before": "com.google.android.apps.tv.launcherx",
-                  "aside": ["com.google.android.apps.tv.launcherx", "com.google.android.tungsten.setupwraith"]}
-    for pkg in record.get("aside", []):
-        a.optional("pm", "enable", "--user", "0", pkg)
-    target = record.get("before", "")
-    if not target or target.startswith("tv.lightos/"):
-        target = next(iter(home_packages(a)), "")
-    if target:
-        a.optional("cmd", "package", "set-home-activity", "--user", "0", target)
-    HOME_RECORD.unlink(missing_ok=True)
-    print("Inicio original reactivado.")
+    from . import home
+    from .device import identity, binding
+    from .store import Store
+    from .transactions import token
+    store = Store(STATE / "home")
+    device = identity(a)
+    records = [store.load(name) for name in store.records('home-transaction-')]
+    matching = [r for r in records if binding(r.get('device', {})) == binding(device) and r.get('status') not in ('restored', 'rolled-back')]
+    if not matching:
+        print("No hay un respaldo Home autenticado para esta TV en este PC. Usa HorizonX → Ajustes → Sistema → Volver al inicio original. No se habilitó ningún paquete por suposición.")
+        return
+    record = max(matching, key=lambda r: r.get('created', ''))
+    print("Inicio a restaurar: " + record['before_home'])
+    if yes("¿Restaurar este inicio y sus estados anteriores?"):
+        result = home.restore(a, store, record['id'], token('RESTAURAR-INICIO', record))
+        print("Resultado de restauración: " + result['status'])
 
 
 def optimise(a: Adb) -> None:
@@ -170,7 +207,7 @@ def optimise(a: Adb) -> None:
     describe(dev)
     plan = optimize.plan(dev, "recomendado")
     if not plan["actions"]:
-        print("Este televisor ya está optimizado.")
+        print("No hay cambios de optimización verificados para proponer. Esto no demuestra que la TV esté optimizada.")
         return
     print(f"\nSe deshabilitarán {len(plan['actions'])} componentes (no se borra nada, se puede deshacer):")
     for x in plan["actions"]:
@@ -212,7 +249,7 @@ def main() -> int:
         return 1
     tv: Adb | None = None
     while True:
-        print("\n1. Conectar televisor\n2. Instalar HorizonX\n3. Optimizar (quitar publicidad y procesos)\n"
+        print("\n1. Conectar televisor\n2. Instalar HorizonX\n3. Revisar optimización opcional\n"
               "4. Deshacer optimización\n5. Volver al inicio original\n6. ¿Es compatible mi televisor?\n0. Salir")
         choice = ask("Opción: ")
         try:
