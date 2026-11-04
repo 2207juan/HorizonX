@@ -32,7 +32,9 @@
 !/otras-plataformas/samsung-tizen/installer/third_party/aerotizen/__pycache__/
 !/otras-plataformas/samsung-tizen/installer/third_party/aerotizen/ca/
 !/LICENSE
+!/README.en.md
 !/README.md
+!/README.pt.md
 !/SHA256SUMS
 !/companion/HorizonX.cmd
 !/companion/HorizonX.sh
@@ -57,6 +59,12 @@
 !/dist/HorizonX-3.11.0-SHA256SUMS
 !/dist/HorizonX-3.11.0.apk
 !/dist/HorizonX-PC-3.11.0.zip
+!/docs/media/apps-en.gif
+!/docs/media/apps-en.png
+!/docs/media/apps-es.gif
+!/docs/media/apps-es.png
+!/docs/media/apps-pt.gif
+!/docs/media/apps-pt.png
 !/docs/media/audio-en.png
 !/docs/media/audio-es.png
 !/docs/media/audio-pt.png
