@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="54" viewBox="0 0 220 54" role="img" aria-label="Descargar APK">
+  <rect x=".5" y=".5" width="219" height="53" rx="12" fill="#117c73" stroke="#35aa9c"/>
+  <g fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M24 13v15m-6-6 6 6 6-6M16 34h16"/></g>
+  <g font-family="system-ui, -apple-system, Segoe UI, sans-serif" fill="#ffffff">
+    <text x="48" y="24" font-size="14" font-weight="650">Descargar APK</text>
+    <text x="48" y="41" font-size="10" letter-spacing=".7" opacity=".76">ANDROID TV · 3.11.0</text>
+  </g>
+</svg>

@@ -1,23 +1,61 @@
-# [HorizonX](https://webdesing-40d1a.web.app/)
+![HorizonX](docs/media/horizonx-after-es.png)
+
+<div align="center">
+
+# HorizonX
 
 Mejoras de rendimiento e interfaz para televisores.
 
-[Español](README.md) · [English](README.en.md) · [Português](README.pt.md) · [Sitio web](https://webdesing-40d1a.web.app/)
+[Español](README.md) &nbsp; / &nbsp; [English](README.en.md) &nbsp; / &nbsp; [Português](README.pt.md)
 
-Versión actual para Android TV / Google TV: **3.11.0** · compilación 56.
+[Sitio web](https://webdesing-40d1a.web.app/) &nbsp; · &nbsp; [Descargas](#downloads) &nbsp; · &nbsp; [Compatibilidad](#compatibilidad-y-versiones-antiguas)
 
-| Instalación | Descarga directa |
-|---|---|
-| TV / USB / Downloader | [Descargar APK · 3.11.0](https://github.com/2207juan/HorizonX/raw/refs/heads/main/dist/HorizonX-3.11.0.apk) |
-| PC / ADB · incluye la APK | [Descargar instalador PC · 3.11.0](https://github.com/2207juan/HorizonX/raw/refs/heads/main/dist/HorizonX-PC-3.11.0.zip) |
+</div>
 
-[Comprobar integridad (SHA-256)](https://github.com/2207juan/HorizonX/raw/refs/heads/main/dist/HorizonX-3.11.0-SHA256SUMS)
+## Todas tus apps, a un gesto
 
-## Aplicaciones que se despliegan con el mando
+![Todas tus apps, a un gesto](docs/media/apps-es.gif)
 
-![Aplicaciones que se despliegan con el mando](docs/media/apps-es.gif)
+Desde la fila de aplicaciones, pulsa ↑ o ↓ para desplegarlas. Recorre la cuadrícula con las flechas y pulsa Atrás para volver.
 
-Desde la fila de aplicaciones, pulsa ↑ o ↓ para desplegarlas. Usa las flechas para recorrerlas y Atrás para volver.
+### Clima y audio
+
+<p align="center">
+  <img src="docs/media/weather-es.png" width="400" alt="Clima con iconos animados">
+  <img src="docs/media/audio-es.png" width="400" alt="Volumen independiente por aplicación">
+</p>
+
+### Ajustes y volumen
+
+<p align="center">
+  <img src="docs/media/settings-es.png" width="400" alt="Ajustes de HorizonX">
+  <img src="docs/media/volume-es.png" width="400" alt="Indicador de volumen animado">
+</p>
+
+### Aplicaciones y fondos
+
+<p align="center">
+  <img src="docs/media/apps-es.png" width="400" alt="Cuadrícula completa de aplicaciones">
+  <img src="docs/media/wallpaper-es.png" width="400" alt="Fondo animado">
+</p>
+
+---
+
+<a id="downloads"></a>
+
+## Instala HorizonX
+
+Versión actual: **3.11.0** · compilación 56.
+
+Elige cómo instalarlo. Ambas descargas corresponden a HorizonX **3.11.0** para Android TV / Google TV.
+
+[![Descargar APK](docs/media/download-apk-es.svg)](https://github.com/2207juan/HorizonX/raw/refs/heads/main/dist/HorizonX-3.11.0.apk) [![Instalador PC](docs/media/download-pc-es.svg)](https://github.com/2207juan/HorizonX/raw/refs/heads/main/dist/HorizonX-PC-3.11.0.zip)
+
+**TV / USB / Downloader:** instala la APK en el televisor.
+
+**PC / ADB:** el ZIP incluye la APK y el asistente de instalación.
+
+---
 
 ## Qué incluye
 
@@ -140,7 +178,6 @@ Los ayudantes avanzados no incluyen exploits ni conceden root. Si faltan APIs, f
 - `otras-plataformas/`: instaladores y paquetes propios de cada sistema. No son instalaciones duplicadas.
 - `docs/media/`: capturas y vídeos.
 - `licenses/`: textos de licencia de recursos independientes que siguen incluidos.
-- `SHA256SUMS`: comprobaciones de integridad de los paquetes publicados.
 
 Las carpetas del repositorio y los Markdown **no consumen RAM del televisor**: solo se instala su paquete correspondiente. Simplificar la documentación no acelera Android. No se publica el proyecto Android ni archivos de firma.
 
@@ -149,33 +186,3 @@ Las carpetas del repositorio y los Markdown **no consumen RAM del televisor**: s
 Catálogo elaborado a partir de documentación oficial: [Android](https://developer.android.com/tools/releases/platforms), [LG: motores por año](https://webostv.developer.lge.com/develop/specifications/web-api-and-web-engine), [Samsung: grupos de modelos](https://developer.samsung.com/smarttv/develop/specifications/tv-model-groups.html), [Samsung: motores web](https://developer.samsung.com/smarttv/develop/specifications/web-engine-specifications.html), [Amazon: versiones Fire](https://developer.amazon.com/docs/fire-tv/fire-os-overview.html), [Roku: equipos antiguos](https://developer.roku.com/dev/docs/hardware), [VIDAA: guía técnica](https://www.vidaa.com/wp-content/uploads/2020/12/WebApp_Development_Guide_for_VIDAA.pdf).
 
 Outfit conserva su [OFL](licenses/Outfit-OFL.txt); los recursos de audio Kenney conservan [CC0](licenses/Kenney-CC0.txt). Kotlin y las bibliotecas de compatibilidad Android conservan sus avisos en `licenses/`. Los datos de clima Open-Meteo y de catálogo TVmaze tienen sus condiciones de atribución y uso; se consultan en ejecución. Las marcas e imágenes de servicios pertenecen a sus titulares.
-
-## Capturas
-
-### Inicio y música
-
-![Inicio y música](docs/media/horizonx-after-es.png)
-
-### Todas las aplicaciones
-
-![Todas las aplicaciones](docs/media/apps-es.png)
-
-### Clima
-
-![Clima](docs/media/weather-es.png)
-
-### Audio por aplicación
-
-![Audio por aplicación](docs/media/audio-es.png)
-
-### Ajustes
-
-![Ajustes](docs/media/settings-es.png)
-
-### Indicador de volumen
-
-![Indicador de volumen](docs/media/volume-es.png)
-
-### Fondo animado
-
-![Fondo animado](docs/media/wallpaper-es.png)

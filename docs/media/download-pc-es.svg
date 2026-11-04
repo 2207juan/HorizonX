@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="54" viewBox="0 0 220 54" role="img" aria-label="Instalador PC">
+  <rect x=".5" y=".5" width="219" height="53" rx="12" fill="#172333" stroke="#40516b"/>
+  <g fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="13" width="22" height="16" rx="2"/><path d="M25 29v6m-6 0h12"/></g>
+  <g font-family="system-ui, -apple-system, Segoe UI, sans-serif" fill="#ffffff">
+    <text x="48" y="24" font-size="14" font-weight="650">Instalador PC</text>
+    <text x="48" y="41" font-size="10" letter-spacing=".7" opacity=".76">ADB + APK · 3.11.0</text>
+  </g>
+</svg>

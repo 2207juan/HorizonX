@@ -1,23 +1,61 @@
-# [HorizonX](https://webdesing-40d1a.web.app/)
+![HorizonX](docs/media/horizonx-after-pt.png)
+
+<div align="center">
+
+# HorizonX
 
 Melhorias de desempenho e interface para televisores.
 
-[Español](README.md) · [English](README.en.md) · [Português](README.pt.md) · [Site](https://webdesing-40d1a.web.app/)
+[Español](README.md) &nbsp; / &nbsp; [English](README.en.md) &nbsp; / &nbsp; [Português](README.pt.md)
 
-Versão atual para Android TV / Google TV: **3.11.0** · compilação 56.
+[Site](https://webdesing-40d1a.web.app/) &nbsp; · &nbsp; [Downloads](#downloads) &nbsp; · &nbsp; [Plataformas e limites](#plataformas-e-limites)
 
-| Instalação | Download direto |
-|---|---|
-| TV / USB / Downloader | [Baixar APK · 3.11.0](https://github.com/2207juan/HorizonX/raw/refs/heads/main/dist/HorizonX-3.11.0.apk) |
-| PC / ADB · inclui o APK | [Baixar instalador PC · 3.11.0](https://github.com/2207juan/HorizonX/raw/refs/heads/main/dist/HorizonX-PC-3.11.0.zip) |
+</div>
 
-[Verificar integridade (SHA-256)](https://github.com/2207juan/HorizonX/raw/refs/heads/main/dist/HorizonX-3.11.0-SHA256SUMS)
+## Todos os aplicativos em um gesto
 
-## Expanda os aplicativos com o controle
+![Todos os aplicativos em um gesto](docs/media/apps-pt.gif)
 
-![Expanda os aplicativos com o controle](docs/media/apps-pt.gif)
+Na fileira de aplicativos, pressione ↑ ou ↓ para expandir a grade. Navegue com as setas e pressione Voltar para retornar.
 
-Na fileira de aplicativos, pressione ↑ ou ↓ para expandir a grade. Use as setas para navegar e Voltar para retornar.
+### Clima e áudio
+
+<p align="center">
+  <img src="docs/media/weather-pt.png" width="400" alt="Clima com ícones animados">
+  <img src="docs/media/audio-pt.png" width="400" alt="Volume independente por aplicativo">
+</p>
+
+### Configurações e volume
+
+<p align="center">
+  <img src="docs/media/settings-pt.png" width="400" alt="Configurações do HorizonX">
+  <img src="docs/media/volume-pt.png" width="400" alt="Indicador de volume animado">
+</p>
+
+### Aplicativos e fundos
+
+<p align="center">
+  <img src="docs/media/apps-pt.png" width="400" alt="Grade completa de aplicativos">
+  <img src="docs/media/wallpaper-pt.png" width="400" alt="Fundo animado">
+</p>
+
+---
+
+<a id="downloads"></a>
+
+## Instale o HorizonX
+
+Versão atual: **3.11.0** · compilação 56.
+
+Escolha como instalar. Os dois downloads incluem HorizonX **3.11.0** para Android TV / Google TV.
+
+[![Baixar APK](docs/media/download-apk-pt.svg)](https://github.com/2207juan/HorizonX/raw/refs/heads/main/dist/HorizonX-3.11.0.apk) [![Instalador PC](docs/media/download-pc-pt.svg)](https://github.com/2207juan/HorizonX/raw/refs/heads/main/dist/HorizonX-PC-3.11.0.zip)
+
+**TV / USB / Downloader:** instale o APK na TV.
+
+**PC / ADB:** o ZIP inclui o APK e o assistente de instalação.
+
+---
 
 ## Recursos
 
@@ -45,8 +83,8 @@ Instalar o APK por USB não exige depuração. A ativação avançada de Home, v
 1. Baixe e extraia o [instalador PC](https://github.com/2207juan/HorizonX/raw/refs/heads/main/dist/HorizonX-PC-3.11.0.zip), que inclui o APK.
 2. Instale Python 3.10+ e [Android Platform Tools](https://developer.android.com/tools/releases/platform-tools). Verifique se `adb` funciona no terminal.
 3. Na TV, abra Configurações → Sistema → Sobre. Se necessário, pressione Compilação sete vezes e ative a depuração disponível nas Opções do desenvolvedor.
-4. TV e computador devem estar na mesma rede. Na depuração sem fio, o **porta de pareamento** é diferente do **porta de conexão**. Use `adb pair IP:PORTA_DE_PAREAMENTO` somente quando necessário e digite o código da TV. Não publique esse código.
-5. Execute `HorizonX.cmd` no Windows ou `sh HorizonX.sh` no Linux/macOS. Escolha conectar, informe a IP e a porta de conexão atuais e aceite a autorização na TV. Depois escolha instalar/configurar. Alterações em Home e pacotes exigem autorização separada.
+4. TV e computador devem estar na mesma rede. Na depuração sem fio, a **porta de pareamento** é diferente da **porta de conexão**. Use `adb pair IP:PORTA_DE_PAREAMENTO` somente quando necessário e digite o código da TV. Não publique esse código.
+5. Execute `HorizonX.cmd` no Windows ou `sh HorizonX.sh` no Linux/macOS. Escolha conectar, informe o IP e a porta de conexão atuais e aceite a autorização na TV. Depois escolha instalar/configurar. Alterações em Home e pacotes exigem autorização separada.
 6. Verifique se Home abre HorizonX. Uma instalação ou atualização concluída não substitui esse teste.
 
 Downloader também pode usar este [link direto do APK](https://raw.githubusercontent.com/2207juan/HorizonX/main/dist/HorizonX-3.11.0.apk).
@@ -97,33 +135,3 @@ Versão Android 3.11.0: atualização ADB, retorno com Home, interface e indicad
 O [catálogo de modelos e fontes oficiais](companion/profiles/device-support.json) distingue modelos documentados, candidatos e testes físicos. Confira o sistema e a versão instalados, não apenas a marca ou o ano.
 
 Os guias estão separados em espanhol (`README.md`), inglês (`README.en.md`) e português (`README.pt.md`). Os documentos não ocupam RAM na TV; apenas o pacote correspondente é instalado. Código Android e chaves de assinatura não são publicados. As licenças dos recursos permanecem em `licenses/`: [Outfit OFL](licenses/Outfit-OFL.txt), [Kenney CC0](licenses/Kenney-CC0.txt) e avisos das bibliotecas Android. Os serviços TVmaze e Open-Meteo mantêm suas condições de atribuição e uso. As marcas e imagens de serviços pertencem a seus titulares.
-
-## Capturas de tela
-
-### Início e música
-
-![Início e música](docs/media/horizonx-after-pt.png)
-
-### Todos os aplicativos
-
-![Todos os aplicativos](docs/media/apps-pt.png)
-
-### Clima
-
-![Clima](docs/media/weather-pt.png)
-
-### Volume por aplicativo
-
-![Volume por aplicativo](docs/media/audio-pt.png)
-
-### Configurações
-
-![Configurações](docs/media/settings-pt.png)
-
-### Indicador de volume
-
-![Indicador de volume](docs/media/volume-pt.png)
-
-### Fundo animado
-
-![Fundo animado](docs/media/wallpaper-pt.png)

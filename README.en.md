@@ -1,23 +1,61 @@
-# [HorizonX](https://webdesing-40d1a.web.app/)
+![HorizonX](docs/media/horizonx-after-en.png)
+
+<div align="center">
+
+# HorizonX
 
 Performance and interface improvements for televisions.
 
-[Español](README.md) · [English](README.en.md) · [Português](README.pt.md) · [Website](https://webdesing-40d1a.web.app/)
+[Español](README.md) &nbsp; / &nbsp; [English](README.en.md) &nbsp; / &nbsp; [Português](README.pt.md)
 
-Current Android TV / Google TV version: **3.11.0** · build 56.
+[Website](https://webdesing-40d1a.web.app/) &nbsp; · &nbsp; [Downloads](#downloads) &nbsp; · &nbsp; [Compatibility and older TVs](#compatibility-and-older-tvs)
 
-| Installation | Direct download |
-|---|---|
-| TV / USB / Downloader | [Download APK · 3.11.0](https://github.com/2207juan/HorizonX/raw/refs/heads/main/dist/HorizonX-3.11.0.apk) |
-| PC / ADB · includes the APK | [Download PC installer · 3.11.0](https://github.com/2207juan/HorizonX/raw/refs/heads/main/dist/HorizonX-PC-3.11.0.zip) |
+</div>
 
-[Verify integrity (SHA-256)](https://github.com/2207juan/HorizonX/raw/refs/heads/main/dist/HorizonX-3.11.0-SHA256SUMS)
+## All your apps, one gesture away
 
-## Expand your apps with the remote
+![All your apps, one gesture away](docs/media/apps-en.gif)
 
-![Expand your apps with the remote](docs/media/apps-en.gif)
+From the app row, press ↑ or ↓ to expand the grid. Browse with the arrows and press Back to return.
 
-From the app row, press ↑ or ↓ to expand the grid. Use the arrows to browse and Back to return.
+### Weather and audio
+
+<p align="center">
+  <img src="docs/media/weather-en.png" width="400" alt="Weather with animated icons">
+  <img src="docs/media/audio-en.png" width="400" alt="Independent app volume">
+</p>
+
+### Settings and volume
+
+<p align="center">
+  <img src="docs/media/settings-en.png" width="400" alt="HorizonX settings">
+  <img src="docs/media/volume-en.png" width="400" alt="Animated volume indicator">
+</p>
+
+### Apps and wallpapers
+
+<p align="center">
+  <img src="docs/media/apps-en.png" width="400" alt="Expanded app grid">
+  <img src="docs/media/wallpaper-en.png" width="400" alt="Animated wallpaper">
+</p>
+
+---
+
+<a id="downloads"></a>
+
+## Get HorizonX
+
+Current version: **3.11.0** · build 56.
+
+Choose how to install it. Both downloads contain HorizonX **3.11.0** for Android TV / Google TV.
+
+[![Download APK](docs/media/download-apk-en.svg)](https://github.com/2207juan/HorizonX/raw/refs/heads/main/dist/HorizonX-3.11.0.apk) [![PC installer](docs/media/download-pc-en.svg)](https://github.com/2207juan/HorizonX/raw/refs/heads/main/dist/HorizonX-PC-3.11.0.zip)
+
+**TV / USB / Downloader:** install the APK on your TV.
+
+**PC / ADB:** the ZIP includes the APK and installation assistant.
+
+---
 
 ## Features
 
@@ -90,33 +128,3 @@ Analysis, individual approval, backup and restoration remain available. Imported
 Offline build, API checks, browser tests and emulation are distinct from hardware tests. The ADB update to 3.11.0, Home return and volume overlay were physically checked on Philips TA7 / Android 14 on November 3. Fresh installation and USB installation are still untested; no USB storage was detected. Boot, Home, protected settings, Google accounts, DRM and advanced volume behavior on other models still require their hardware. The advanced volume/profile bridge requires Android 8+ APIs; older Android uses its available fallback routes. Old TVs can also have obsolete TLS/DRM or unavailable online services.
 
 The repository's directories and Markdown files do not consume TV RAM; only the selected installation package does. The public guides are split into Spanish (`README.md`), English (`README.en.md`) and Portuguese (`README.pt.md`); app source/build projects and signing keys are not distributed. Required resource licenses remain under `licenses/`: [Outfit OFL](licenses/Outfit-OFL.txt), [Kenney CC0](licenses/Kenney-CC0.txt) and Android library notices. Runtime TVmaze and Open-Meteo data retain their respective attribution/use terms. Service artwork and trademarks belong to their owners.
-
-## Screenshots
-
-### Home and music
-
-![Home and music](docs/media/horizonx-after-en.png)
-
-### All applications
-
-![All applications](docs/media/apps-en.png)
-
-### Weather
-
-![Weather](docs/media/weather-en.png)
-
-### App volume
-
-![App volume](docs/media/audio-en.png)
-
-### Settings
-
-![Settings](docs/media/settings-en.png)
-
-### Volume indicator
-
-![Volume indicator](docs/media/volume-en.png)
-
-### Animated wallpaper
-
-![Animated wallpaper](docs/media/wallpaper-en.png)
