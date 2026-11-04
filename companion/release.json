@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "product": "HorizonX",
-  "version": "3.9.1",
-  "version_code": 53,
+  "version": "3.11.0",
+  "version_code": 56,
   "package": "tv.lightos",
-  "apk_sha256": "91454e1e184f1783ae3a61719e2ce86b747ec93bcdccb7845280c7bd1935fbb5",
+  "apk_sha256": "114dd40a361865fb7e1e5a3f2dd508a87885b27ce40a0735f317342559973c5c",
   "certificate_sha256": "0529916ac8cd374dd79647a8cd9c3f157aa40b6d03b00fc3a1e7a52c3a55b471",
   "volume_bridge_sha256": "8f0fa1b0803339f583ee4f5685bbb4fee8984349dd3d9b2a3f41517ab63d79fb",
   "min_sdk": 23
